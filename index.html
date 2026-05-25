@@ -3,101 +3,197 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A股职业交易复盘系统</title>
-    <link rel="stylesheet" href="assets/css/style.css">
+    <title>A股职业交易复盘系统 - 专业市场分析</title>
+    <meta name="description" content="A股职业交易复盘系统 - 每日/每周市场分析、K线走势、情绪周期、板块轮动">
+    <link rel="stylesheet" href="assets/css/modern.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header class="header">
-        <div class="logo">
-            <h1>A股职业交易复盘系统</h1>
-            <span>资深交易视角</span>
-        </div>
-        <div style="text-align:right;">
-            <div style="font-size:1.1rem;font-weight:500;">2026年5月</div>
-            <div style="font-size:0.9rem;opacity:0.8;">实时数据 · 专业分析 · 作战计划</div>
+    <!-- 顶部导航 -->
+    <header class="modern-header">
+        <div class="header-container">
+            <div class="logo-section">
+                <div class="logo-icon">A</div>
+                <div class="logo-text">
+                    <h1>A股职业交易复盘系统</h1>
+                    <div class="tagline">Professional Trading Review · 数据驱动交易决策</div>
+                </div>
+            </div>
+            <div class="header-stats">
+                <div>
+                    <div class="date-display">2026年5月</div>
+                    <div class="meta-info">
+                        <span>实时数据</span>
+                        <span>·</span>
+                        <span>专业分析</span>
+                        <span>·</span>
+                        <span>作战计划</span>
+                    </div>
+                </div>
+            </div>
         </div>
     </header>
 
-    <div class="container">
-        <div class="dashboard">
-            <div class="card">
-                <h2>日复盘报告</h2>
-                <div style="font-size:2.5rem;font-weight:700;color:#1a73e8;margin:1rem 0;">1</div>
-                <p style="color:#5f6368;">周日无交易，共 1 份交易日复盘</p>
+    <!-- 主内容区 -->
+    <div class="modern-container">
+        
+        <!-- 统计卡片组 -->
+        <div class="stats-grid">
+            <div class="stat-card daily">
+                <h3>日复盘报告</h3>
+                <div class="stat-value">1</div>
+                <p class="stat-meta">周日无交易 · 共 1 份交易日复盘</p>
             </div>
-            <div class="card">
-                <h2>周复盘报告</h2>
-                <div style="font-size:2.5rem;font-weight:700;color:#34a853;margin:1rem 0;">1</div>
-                <p style="color:#5f6368;">第21周（5/19 - 5/23）</p>
+            
+            <div class="stat-card weekly">
+                <h3>周复盘报告</h3>
+                <div class="stat-value">1</div>
+                <p class="stat-meta">第21周 · 5月19日 - 5月23日</p>
             </div>
-            <div class="card">
-                <h2>综合评分</h2>
-                <div class="score-card">
-                    <div class="score-value" style="color:#fbbc05;">67</div>
-                    <div class="score-label">
-                        <h3>本周震荡偏弱</h3>
-                        <p style="color:#5f6368;">防守反击，关注PCB/MLCC主线</p>
+            
+            <div class="stat-card score">
+                <h3>综合评分</h3>
+                <div class="score-display">
+                    <div class="score-circle">
+                        <div class="score-number">67</div>
+                    </div>
+                    <div class="score-info">
+                        <h4>本周震荡偏弱</h4>
+                        <p>防守反击策略 · 关注PCB/MLCC主线</p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="card">
-            <h2>日复盘报告</h2>
-            <div class="report-list">
-                <a href="daily/2026-05-22.html" class="report-item daily" style="text-decoration:none;">
-                    <div>
-                        <div class="report-date">5月22日 周五</div>
-                        <div style="color:#5f6368;font-size:0.9rem;">涨停138 · 成交额29033亿 · PCB/MLCC爆发</div>
+        <!-- 日复盘报告列表 -->
+        <div class="reports-section">
+            <div class="section-header">
+                <h2>日复盘报告</h2>
+                <span class="report-badge daily">Daily Review</span>
+            </div>
+            <div class="reports-grid">
+                <a href="daily/2026-05-22.html" class="report-card" style="text-decoration: none;">
+                    <div class="report-header">
+                        <span class="report-date">5月22日 周五</span>
+                        <span class="report-badge daily">日报</span>
                     </div>
-                    <span class="report-type">日报</span>
+                    <div class="report-details">
+                        涨停138只 · 成交额29033亿 · PCB/MLCC爆发
+                    </div>
+                    <div class="report-metrics">
+                        <span class="metric-tag positive">↑ 涨停138</span>
+                        <span class="metric-tag neutral">≈ 成交29033亿</span>
+                        <span class="metric-tag positive">🔥 PCB/MLCC</span>
+                    </div>
                 </a>
             </div>
         </div>
 
-        <div class="card">
-            <h2>周复盘报告</h2>
-            <div class="report-list">
-                <a href="weekly/2026-week21.html" class="report-item weekly" style="text-decoration:none;">
-                    <div>
-                        <div class="report-date">第21周（5月19日 - 5月23日）</div>
-                        <div style="color:#5f6368;font-size:0.9rem;">综合评分67 · 电力→PCB切换 · 缩量震荡</div>
+        <!-- 周复盘报告列表 -->
+        <div class="reports-section">
+            <div class="section-header">
+                <h2>周复盘报告</h2>
+                <span class="report-badge weekly">Weekly Review</span>
+            </div>
+            <div class="reports-grid">
+                <a href="weekly/2026-week21.html" class="report-card" style="text-decoration: none;">
+                    <div class="report-header">
+                        <span class="report-date">第21周</span>
+                        <span class="report-badge weekly">周报</span>
                     </div>
-                    <span class="report-type">周报</span>
+                    <div class="report-details">
+                        综合评分67 · 电力→PCB切换 · 缩量震荡格局
+                    </div>
+                    <div class="report-metrics">
+                        <span class="metric-tag neutral">综合评分 67</span>
+                        <span class="metric-tag negative">↔ 电力→PCB切换</span>
+                        <span class="metric-tag neutral">缩量震荡</span>
+                    </div>
                 </a>
             </div>
         </div>
 
-        <div class="card" style="border:2px solid #059669;">
-            <h2>汇总面板（推荐）</h2>
-            <p style="color:#5f6368;margin-bottom:1rem;">日复盘+周复盘整合 · 浅色主题 · 图表嵌入 · 一键导航 —— 支持所有复盘数据集中浏览</p>
-            <div style="display:flex;gap:1rem;flex-wrap:wrap;">
-                <a href="dashboard.html" class="btn" style="background:linear-gradient(135deg,#059669,#2563eb);font-size:1.05rem;padding:0.8rem 1.5rem;">打开汇总面板</a>
+        <!-- 特色面板 -->
+        <div class="featured-panels">
+            <div class="featured-card dashboard">
+                <h3>Dashboard 汇总面板</h3>
+                <p>日复盘 + 周复盘全景整合。图表嵌入、一键导航，所有复盘数据集中浏览。</p>
+                <ul class="feature-list">
+                    <li>K线走势 · 资金流向 · 情绪雷达</li>
+                    <li>板块热度图 · 连板天梯 · 评分趋势</li>
+                    <li>浅色主题 · 全量数据 · 响应式布局</li>
+                </ul>
+                <a href="dashboard.html" class="modern-btn secondary">
+                    <span>打开汇总面板</span>
+                </a>
+            </div>
+            
+            <div class="featured-card professional">
+                <h3>Professional 专业复盘</h3>
+                <p>专业财经复盘界面，深度分析市场结构与交易机会。</p>
+                <ul class="feature-list">
+                    <li>K线走势 · 情绪周期 · 连板梯队</li>
+                    <li>板块轮动 · 资金流向 · 事件时间轴</li>
+                    <li>专业图表 · 指标看板 · 深度洞察</li>
+                </ul>
+                <a href="professional_review.html" class="modern-btn tertiary">
+                    <span>前往专业复盘面板</span>
+                </a>
             </div>
         </div>
 
-        <div class="card" style="border:2px solid #1a73e8;">
-            <h2>专业复盘</h2>
-            <p style="color:#5f6368;margin-bottom:1rem;">K线走势 · 情绪周期 · 连板梯队 · 板块轮动 · 资金流向 —— 专业财经复盘界面</p>
-            <div style="display:flex;gap:1rem;flex-wrap:wrap;">
-                <a href="professional_review.html" class="btn" style="background:linear-gradient(135deg,#3b82f6,#8b5cf6);font-size:1.05rem;padding:0.8rem 1.5rem;">前往专业复盘面板</a>
-            </div>
-        </div>
-
-        <div class="card">
+        <!-- 快捷操作 -->
+        <div class="quick-actions">
             <h2>快捷操作</h2>
-            <div style="display:flex;gap:1rem;flex-wrap:wrap;">
-                <a href="dashboard.html" class="btn" style="background:#059669;">汇总面板</a>
-                <a href="daily/2026-05-22.html" class="btn">最新日复盘</a>
-                <a href="weekly/2026-week21.html" class="btn btn-secondary">本周周复盘</a>
-                <a href="professional_review.html" class="btn" style="background:#8b5cf6;">专业面板</a>
+            <div class="actions-grid">
+                <a href="dashboard.html" class="action-btn">
+                    <div class="action-icon">⊕</div>
+                    <span class="action-label">汇总面板</span>
+                </a>
+                <a href="daily/2026-05-22.html" class="action-btn">
+                    <div class="action-icon">⊙</div>
+                    <span class="action-label">最新日复盘</span>
+                </a>
+                <a href="weekly/2026-week21.html" class="action-btn">
+                    <div class="action-icon">◎</div>
+                    <span class="action-label">本周周复盘</span>
+                </a>
+                <a href="professional_review.html" class="action-btn">
+                    <div class="action-icon">◈</div>
+                    <span class="action-label">专业面板</span>
+                </a>
             </div>
         </div>
+
     </div>
 
-    <footer class="footer">
-        <p>A股职业交易复盘系统 | 数据来源：东方财富、同花顺、证券时报、财联社</p>
-        <p style="font-size:0.8rem;margin-top:0.5rem;">风险提示：本系统仅作分析参考，不构成投资建议。市场有风险，投资需谨慎。</p>
+    <!-- 页脚 -->
+    <footer class="modern-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>A股职业交易复盘系统</h4>
+                <p>Professional Trading Review System · 数据驱动交易决策</p>
+                <p style="margin-top: 0.5rem;">数据来源：东方财富、同花顺、证券时报、财联社</p>
+            </div>
+            <div class="footer-section">
+                <h4>快速导航</h4>
+                <ul class="footer-links">
+                    <li><a href="dashboard.html">汇总面板</a></li>
+                    <li><a href="professional_review.html">专业复盘</a></li>
+                    <li><a href="daily/2026-05-22.html">最新日复盘</a></li>
+                    <li><a href="weekly/2026-week21.html">本周周复盘</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>风险提示</h4>
+                <p>本系统仅作分析参考，不构成投资建议。市场有风险，投资需谨慎。所有数据均来源于公开渠道，仅供参考学习使用。</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 A股职业交易复盘系统 · All Rights Reserved · MIT License</p>
+        </div>
     </footer>
 </body>
 </html>

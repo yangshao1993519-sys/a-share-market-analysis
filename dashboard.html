@@ -4,363 +4,307 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>A股复盘导航面板</title>
+    <link rel="stylesheet" href="assets/css/modern.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --bg: #f5f6f8;
-            --card-bg: #ffffff;
-            --panel-bg: #f0f2f5;
-            --primary: #2563eb;
-            --primary-light: #eff6ff;
-            --red: #dc2626;
-            --red-light: #fef2f2;
-            --green: #059669;
-            --green-light: #ecfdf5;
-            --yellow: #d97706;
-            --yellow-light: #fffbeb;
-            --purple: #7c3aed;
-            --purple-light: #f5f3ff;
-            --text: #1e293b;
-            --text-secondary: #64748b;
-            --text-muted: #94a3b8;
-            --border: #e2e8f0;
-            --border-light: #f1f5f9;
-            --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
-            --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
-            --radius: 10px;
-            --radius-sm: 6px;
-        }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Segoe UI', 'Microsoft YaHei', 'PingFang SC', system-ui, sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            line-height: 1.6;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        /* Header */
-        .header {
-            background: linear-gradient(135deg, #1e3a5f 0%, #2563eb 100%);
-            color: white;
-            padding: 1.2rem 2rem;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.1);
-        }
-        .header-inner {
-            max-width: 1400px;
-            margin: 0 auto;
+        /* Dashboard 专属样式 */
+        .dashboard-sticky-nav {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .header h1 { font-size: 1.5rem; font-weight: 700; letter-spacing: 0.5px; }
-        .header .badge {
-            background: rgba(255,255,255,0.2);
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.85rem;
-        }
-        .header .score-display { text-align: right; }
-        .header .score-display .big { font-size: 1.3rem; font-weight: 700; }
-        .header .score-display .small { font-size: 0.85rem; opacity: 0.8; }
-
-        /* Container */
-        .container { max-width: 1400px; margin: 0 auto; padding: 1.5rem; }
-
-        /* Top Nav */
-        .top-nav {
-            display: flex;
-            gap: 0.5rem;
-            margin-bottom: 1.5rem;
-            padding: 0.8rem 1rem;
-            background: var(--card-bg);
-            border-radius: var(--radius);
-            box-shadow: var(--shadow);
-            flex-wrap: wrap;
+            gap: 0;
+            margin-bottom: 2rem;
+            background: white;
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-md);
+            overflow: hidden;
             position: sticky;
-            top: 72px;
+            top: 88px;
             z-index: 99;
         }
-        .top-nav a {
-            padding: 0.5rem 1rem;
-            border-radius: var(--radius-sm);
-            text-decoration: none;
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            font-weight: 500;
-            transition: all 0.15s;
-            white-space: nowrap;
-        }
-        .top-nav a:hover, .top-nav a.active {
-            background: var(--primary-light);
-            color: var(--primary);
-        }
-
-        /* Section */
-        .section { margin-bottom: 2.5rem; scroll-margin-top: 140px; }
-        .section-title {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: var(--text);
-            margin-bottom: 1rem;
-            padding-bottom: 0.6rem;
-            border-bottom: 2px solid var(--primary);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        .section-title .icon { font-size: 1.2rem; }
-
-        /* Card */
-        .card {
-            background: var(--card-bg);
-            border-radius: var(--radius);
-            padding: 1.5rem;
-            box-shadow: var(--shadow);
-            border: 1px solid var(--border-light);
-            margin-bottom: 1.2rem;
-        }
-        .card h3 {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--text);
-            margin-bottom: 1rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 1px solid var(--border);
-        }
-
-        /* Report List */
-        .report-list {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-        .report-item {
-            display: flex;
-            align-items: center;
-            padding: 1rem;
-            background: var(--panel-bg);
-            border-radius: var(--radius-sm);
-            border-left: 4px solid var(--primary);
-            text-decoration: none;
-            color: var(--text);
-            transition: all 0.15s;
-        }
-        .report-item:hover {
-            background: var(--primary-light);
-            transform: translateX(4px);
-        }
-        .report-date {
-            font-weight: 600;
-            font-size: 1.05rem;
-            margin-bottom: 0.3rem;
-        }
-        .report-metrics {
-            display: flex;
-            gap: 1.5rem;
-            flex-wrap: wrap;
-            margin-top: 0.5rem;
-        }
-        .metric {
-            display: flex;
-            align-items: center;
-            gap: 0.3rem;
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-        }
-        .metric .value {
-            font-weight: 600;
-        }
-        .metric-red { color: var(--red); }
-        .metric-green { color: var(--green); }
-        .metric-yellow { color: var(--yellow); }
-        .metric-blue { color: var(--primary); }
-        .metric-purple { color: var(--purple); }
-
-        .report-score {
-            margin-left: auto;
-            min-width: 60px;
+        .dashboard-sticky-nav a {
+            flex: 1;
+            padding: 0.75rem 1rem;
             text-align: center;
+            text-decoration: none;
+            color: var(--gray-600);
+            font-size: 0.875rem;
+            font-weight: 500;
+            border-bottom: 3px solid transparent;
+            transition: all 0.2s ease;
         }
-        .score-circle {
-            width: 50px;
-            height: 50px;
+        .dashboard-sticky-nav a:hover,
+        .dashboard-sticky-nav a.active {
+            color: var(--primary-600);
+            background: var(--primary-50);
+            border-bottom-color: var(--primary-500);
+        }
+
+        .section-anchor {
+            scroll-margin-top: 160px;
+        }
+
+        .score-circle-md {
+            width: 56px;
+            height: 56px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.2rem;
-            font-weight: 700;
+            font-size: 1.25rem;
+            font-weight: 800;
             color: white;
-            margin: 0 auto;
+            flex-shrink: 0;
         }
-        .score-60-70 { background: linear-gradient(135deg, #f59e0b, #d97706); }
-        .score-70-80 { background: linear-gradient(135deg, #10b981, #059669); }
-        .score-80-90 { background: linear-gradient(135deg, #3b82f6, #1d4ed8); }
         .score-90-100 { background: linear-gradient(135deg, #8b5cf6, #7c3aed); }
-        .score-0-60 { background: linear-gradient(135deg, #dc2626, #b91c1c); }
+        .score-80-90  { background: linear-gradient(135deg, #3b82f6, #1d4ed8); }
+        .score-70-80  { background: linear-gradient(135deg, #10b981, #059669); }
+        .score-60-70  { background: linear-gradient(135deg, #f59e0b, #d97706); }
+        .score-0-60   { background: linear-gradient(135deg, #dc2626, #b91c1c); }
 
-        .report-actions {
-            margin-left: 1rem;
+        .report-item-dashboard {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            padding: 1.25rem;
+            background: var(--gray-50);
+            border-radius: var(--radius-lg);
+            border-left: 4px solid var(--primary-400);
+            text-decoration: none;
+            color: var(--gray-900);
+            transition: all 0.2s ease;
         }
-        .btn {
-            padding: 0.4rem 0.8rem;
-            background: var(--primary);
-            color: white;
-            border: none;
-            border-radius: var(--radius-sm);
+        .report-item-dashboard:hover {
+            background: var(--primary-50);
+            border-left-color: var(--primary-600);
+            transform: translateX(4px);
+        }
+        .report-item-dashboard.weekly {
+            border-left-color: var(--success-400);
+        }
+        .report-item-dashboard.weekly:hover {
+            background: var(--success-50);
+            border-left-color: var(--success-600);
+        }
+
+        .report-body { flex: 1; }
+        .report-title {
+            font-size: 1.0625rem;
+            font-weight: 600;
+            margin-bottom: 0.375rem;
+        }
+        .report-summary {
+            color: var(--gray-500);
+            font-size: 0.875rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .metrics-row {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        .metric-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
             font-size: 0.8rem;
             font-weight: 500;
-            cursor: pointer;
+            padding: 2px 8px;
+            border-radius: var(--radius-sm);
+        }
+        .metric-chip.up { background: var(--danger-50); color: var(--danger-700); }
+        .metric-chip.down { background: var(--success-50); color: var(--success-700); }
+        .metric-chip.neutral { background: var(--gray-100); color: var(--gray-600); }
+        .metric-chip.primary { background: var(--primary-50); color: var(--primary-700); }
+
+        .view-btn {
+            padding: 0.5rem 1rem;
+            background: var(--primary-600);
+            color: white;
+            border-radius: var(--radius-md);
             text-decoration: none;
-            display: inline-block;
-            transition: all 0.15s;
+            font-size: 0.8125rem;
+            font-weight: 600;
+            white-space: nowrap;
+            transition: all 0.2s ease;
         }
-        .btn:hover {
-            background: #1d4ed8;
-            transform: translateY(-1px);
-        }
-        .btn-outline {
-            background: transparent;
-            border: 1px solid var(--primary);
-            color: var(--primary);
-        }
-        .btn-outline:hover {
-            background: var(--primary-light);
+        .view-btn:hover {
+            background: var(--primary-700);
+            box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3);
         }
 
-        /* Empty State */
+        .task-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 0.75rem;
+        }
+        .task-item {
+            background: var(--gray-50);
+            border-radius: var(--radius-lg);
+            padding: 1rem;
+            text-align: center;
+            border: 1px solid var(--gray-200);
+            transition: all 0.2s ease;
+        }
+        .task-item:hover {
+            border-color: var(--primary-300);
+            box-shadow: var(--shadow-sm);
+        }
+        .task-name {
+            font-weight: 600;
+            font-size: 0.9375rem;
+            color: var(--gray-900);
+        }
+        .task-time {
+            font-size: 0.8125rem;
+            color: var(--gray-500);
+            margin-top: 0.25rem;
+        }
+        .task-status {
+            display: inline-block;
+            margin-top: 0.5rem;
+            padding: 2px 10px;
+            background: var(--success-100);
+            color: var(--success-700);
+            border-radius: var(--radius-full);
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
         .empty-state {
             text-align: center;
             padding: 3rem 1rem;
-            color: var(--text-muted);
+            color: var(--gray-400);
         }
-        .empty-state .icon {
-            font-size: 3rem;
+        .empty-state svg {
+            width: 64px;
+            height: 64px;
             margin-bottom: 1rem;
-            opacity: 0.5;
+            opacity: 0.4;
         }
 
-        /* Footer */
-        .footer {
+        .stats-mini-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 1rem;
+        }
+        .stat-mini {
+            background: var(--gray-50);
+            border-radius: var(--radius-lg);
+            padding: 1rem;
             text-align: center;
-            padding: 2rem;
-            margin-top: 3rem;
-            background: var(--card-bg);
-            border-top: 1px solid var(--border);
-            color: var(--text-muted);
-            font-size: 0.85rem;
+        }
+        .stat-mini .label {
+            font-size: 0.8125rem;
+            color: var(--gray-500);
+            margin-bottom: 0.25rem;
+        }
+        .stat-mini .value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--gray-900);
         }
 
-        /* Responsive */
         @media (max-width: 768px) {
-            .report-item {
+            .report-item-dashboard {
                 flex-direction: column;
                 align-items: flex-start;
             }
-            .report-score {
-                margin-left: 0;
-                margin-top: 1rem;
-                align-self: flex-start;
+            .dashboard-sticky-nav a {
+                font-size: 0.8125rem;
+                padding: 0.625rem 0.5rem;
             }
-            .report-actions {
-                margin-left: 0;
-                margin-top: 1rem;
-                align-self: flex-end;
-            }
-            .header-inner { flex-direction: column; gap: 0.5rem; text-align: center; }
-            .header .score-display { text-align: center; }
-            .container { padding: 1rem; }
         }
     </style>
 </head>
 <body>
-    <header class="header">
-        <div class="header-inner">
-            <div>
-                <h1>A股复盘导航面板</h1>
-                <span class="badge">动态聚合 · 一键直达</span>
+    <header class="modern-header">
+        <div class="header-container">
+            <div class="logo-section">
+                <div class="logo-icon">D</div>
+                <div class="logo-text">
+                    <h1>A股复盘导航面板</h1>
+                    <div class="tagline">Dashboard · 动态聚合 · 一键直达</div>
+                </div>
             </div>
-            <div class="score-display">
-                <div class="big">最新评分 <span id="latestScore">--</span> / 100</div>
-                <div class="small" id="latestDate">加载中...</div>
+            <div class="header-stats">
+                <div>
+                    <div class="date-display">最新评分 <span id="latestScore" style="font-weight:800;">--</span> / 100</div>
+                    <div class="meta-info" id="latestDate">加载中...</div>
+                </div>
             </div>
         </div>
     </header>
 
-    <div class="container">
-        <!-- Top Navigation -->
-        <nav class="top-nav" id="topNav">
-            <a href="#daily-reports">日复盘</a>
-            <a href="#weekly-reports">周复盘</a>
-            <a href="#quick-stats">快速统计</a>
-            <a href="#system-status">系统状态</a>
-        </nav>
+    <!-- 二级导航 -->
+    <nav class="dashboard-sticky-nav" id="topNav" style="max-width: 1200px; margin-left: auto; margin-right: auto; width: calc(100% - 3rem);">
+        <a href="#daily-reports" class="active">日复盘</a>
+        <a href="#weekly-reports">周复盘</a>
+        <a href="#quick-stats">快速统计</a>
+        <a href="#system-status">系统状态</a>
+    </nav>
 
-        <!-- Daily Reports -->
-        <section id="daily-reports" class="section">
-            <h2 class="section-title"><span class="icon">&#128197;</span> 日复盘报告</h2>
-            <div class="card">
-                <h3>交易日复盘列表</h3>
-                <div class="report-list" id="dailyList">
-                    <!-- 动态生成 -->
-                    <div class="empty-state">
-                        <div class="icon">&#128202;</div>
-                        <p>暂无日复盘报告</p>
-                        <p style="font-size:0.9rem;margin-top:0.5rem;">定时任务将在每个交易日16:00自动生成</p>
-                    </div>
-                </div>
+    <div class="modern-container">
+        
+        <!-- 日复盘报告 -->
+        <section id="daily-reports" class="section-anchor" style="margin-bottom: 2.5rem;">
+            <div class="section-header">
+                <h2>日复盘报告</h2>
+                <span class="report-badge daily">Daily Review</span>
             </div>
+            <div id="dailyList"></div>
         </section>
 
-        <!-- Weekly Reports -->
-        <section id="weekly-reports" class="section">
-            <h2 class="section-title"><span class="icon">&#128202;</span> 周复盘报告</h2>
-            <div class="card">
-                <h3>周度复盘列表</h3>
-                <div class="report-list" id="weeklyList">
-                    <!-- 动态生成 -->
-                    <div class="empty-state">
-                        <div class="icon">&#128200;</div>
-                        <p>暂无周复盘报告</p>
-                        <p style="font-size:0.9rem;margin-top:0.5rem;">定时任务将在每周日16:00自动生成</p>
-                    </div>
-                </div>
+        <!-- 周复盘报告 -->
+        <section id="weekly-reports" class="section-anchor" style="margin-bottom: 2.5rem;">
+            <div class="section-header">
+                <h2>周复盘报告</h2>
+                <span class="report-badge weekly">Weekly Review</span>
             </div>
+            <div id="weeklyList"></div>
         </section>
 
-        <!-- Quick Stats -->
-        <section id="quick-stats" class="section">
-            <h2 class="section-title"><span class="icon">&#128202;</span> 快速统计</h2>
-            <div class="card">
-                <h3>本周概览</h3>
-                <div id="weeklyStats">
-                    <p style="color:var(--text-muted);">加载周度统计数据...</p>
-                </div>
+        <!-- 快速统计 -->
+        <section id="quick-stats" class="section-anchor" style="margin-bottom: 2.5rem;">
+            <div class="section-header">
+                <h2>快速统计</h2>
             </div>
+            <div id="weeklyStats" class="stats-mini-grid"></div>
         </section>
 
-        <!-- System Status -->
-        <section id="system-status" class="section">
-            <h2 class="section-title"><span class="icon">&#128736;</span> 系统状态</h2>
-            <div class="card">
-                <h3>定时任务状态</h3>
-                <div id="taskStatus">
-                    <p style="color:var(--text-muted);">加载定时任务状态...</p>
-                </div>
+        <!-- 系统状态 -->
+        <section id="system-status" class="section-anchor" style="margin-bottom: 2.5rem;">
+            <div class="section-header">
+                <h2>系统状态</h2>
             </div>
+            <div id="taskStatus"></div>
         </section>
+
     </div>
 
-    <footer class="footer">
-        <p>A股复盘导航面板 | 数据来源：东方财富、同花顺、证券时报、财联社 | 更新时间：<span id="updateTime">--</span></p>
-        <p style="margin-top:0.3rem;">风险提示：本系统仅作分析参考，不构成投资建议。市场有风险，投资需谨慎。</p>
+    <footer class="modern-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>A股职业交易复盘系统</h4>
+                <p>Dashboard 汇总面板</p>
+                <p style="margin-top: 0.5rem;">更新时间：<span id="updateTime">--</span></p>
+            </div>
+            <div class="footer-section">
+                <h4>数据源</h4>
+                <p>东方财富、同花顺、证券时报、财联社</p>
+            </div>
+            <div class="footer-section">
+                <h4>风险提示</h4>
+                <p>本系统仅作分析参考，不构成投资建议。市场有风险，投资需谨慎。</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 A股职业交易复盘系统 · All Rights Reserved</p>
+        </div>
     </footer>
 
     <script>
-        // 模拟数据 - 实际使用时需要从服务器获取
         const mockDailyReports = [
             {
                 date: "2026-05-22",
@@ -368,11 +312,11 @@
                 path: "daily/2026-05-22.html",
                 score: 75,
                 metrics: [
-                    { label: "上证", value: "+0.87%", color: "red" },
-                    { label: "涨停", value: "138", color: "red" },
-                    { label: "跌停", value: "20", color: "text" },
-                    { label: "成交额", value: "29033亿", color: "yellow" },
-                    { label: "连板高度", value: "7→3板", color: "red" }
+                    { label: "上证", value: "+0.87%", type: "up" },
+                    { label: "涨停", value: "138", type: "up" },
+                    { label: "跌停", value: "20", type: "neutral" },
+                    { label: "成交额", value: "29033亿", type: "neutral" },
+                    { label: "连板高度", value: "7→3板", type: "up" }
                 ],
                 summary: "缩量反弹，PCB/MLCC爆发，高标崩塌"
             }
@@ -385,68 +329,16 @@
                 path: "weekly/2026-week21.html",
                 score: 67,
                 metrics: [
-                    { label: "周涨跌", value: "-0.54%", color: "red" },
-                    { label: "涨停", value: "435", color: "red" },
-                    { label: "跌停", value: "125", color: "text" },
-                    { label: "日均成交", value: "30238亿", color: "blue" },
-                    { label: "主线切换", value: "电力→PCB", color: "green" }
+                    { label: "周涨跌", value: "-0.54%", type: "down" },
+                    { label: "涨停", value: "435", type: "up" },
+                    { label: "跌停", value: "125", type: "neutral" },
+                    { label: "日均成交", value: "30238亿", type: "primary" },
+                    { label: "主线切换", value: "电力→PCB", type: "neutral" }
                 ],
                 summary: "震荡偏弱，电力退潮，PCB/MLCC崛起"
             }
         ];
 
-        // 渲染报告列表
-        function renderReportList(containerId, reports) {
-            const container = document.getElementById(containerId);
-            if (!container) return;
-
-            if (reports.length === 0) {
-                container.innerHTML = `
-                    <div class="empty-state">
-                        <div class="icon">&#128202;</div>
-                        <p>暂无报告</p>
-                    </div>
-                `;
-                return;
-            }
-
-            container.innerHTML = '';
-            
-            reports.forEach(report => {
-                const scoreClass = getScoreClass(report.score);
-                const metricsHtml = report.metrics.map(metric => `
-                    <div class="metric metric-${metric.color}">
-                        <span class="label">${metric.label}:</span>
-                        <span class="value">${metric.value}</span>
-                    </div>
-                `).join('');
-
-                const item = document.createElement('a');
-                item.className = 'report-item';
-                item.href = report.path;
-                item.innerHTML = `
-                    <div style="flex:1;">
-                        <div class="report-date">${report.date} · ${report.title}</div>
-                        <div style="color:var(--text-secondary);font-size:0.9rem;margin-bottom:0.5rem;">
-                            ${report.summary}
-                        </div>
-                        <div class="report-metrics">
-                            ${metricsHtml}
-                        </div>
-                    </div>
-                    <div class="report-score">
-                        <div class="score-circle ${scoreClass}">${report.score}</div>
-                        <div style="font-size:0.75rem;color:var(--text-muted);margin-top:0.2rem;">评分</div>
-                    </div>
-                    <div class="report-actions">
-                        <div class="btn">查看详情</div>
-                    </div>
-                `;
-                container.appendChild(item);
-            });
-        }
-
-        // 根据评分获取CSS类
         function getScoreClass(score) {
             if (score >= 90) return 'score-90-100';
             if (score >= 80) return 'score-80-90';
@@ -455,55 +347,98 @@
             return 'score-0-60';
         }
 
-        // 更新系统状态
+        function renderReportList(containerId, reports, type) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+
+            if (reports.length === 0) {
+                container.innerHTML = `<div class="empty-state"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg><p>暂无报告</p></div>`;
+                return;
+            }
+
+            container.innerHTML = reports.map(report => {
+                const scoreClass = getScoreClass(report.score);
+                const metricsHtml = report.metrics.map(m => 
+                    `<span class="metric-chip ${m.type}">${m.label}: ${m.value}</span>`
+                ).join('');
+
+                return `
+                    <div style="margin-bottom: 1rem;">
+                        <a href="${report.path}" class="report-item-dashboard ${type}">
+                            <div class="score-circle-md ${scoreClass}">${report.score}</div>
+                            <div class="report-body">
+                                <div class="report-title">${report.date} · ${report.title}</div>
+                                <div class="report-summary">${report.summary}</div>
+                                <div class="metrics-row">${metricsHtml}</div>
+                            </div>
+                            <span class="view-btn">查看详情</span>
+                        </a>
+                    </div>
+                `;
+            }).join('');
+        }
+
         function updateSystemStatus() {
             const now = new Date();
             document.getElementById('updateTime').textContent = now.toLocaleString('zh-CN');
-            
-            // 更新最新评分
+
             if (mockDailyReports.length > 0) {
                 const latest = mockDailyReports[0];
                 document.getElementById('latestScore').textContent = latest.score;
                 document.getElementById('latestDate').textContent = latest.date;
             }
 
-            // 更新任务状态
-            const taskStatus = document.getElementById('taskStatus');
             const tasks = [
-                { name: "周一复盘", time: "16:00", status: "等待执行" },
-                { name: "周二复盘", time: "16:00", status: "等待执行" },
-                { name: "周三复盘", time: "16:00", status: "等待执行" },
-                { name: "周四复盘", time: "16:00", status: "等待执行" },
-                { name: "周五复盘", time: "16:00", status: "等待执行" },
-                { name: "周复盘", time: "周日16:00", status: "等待执行" }
+                { name: "周一复盘", time: "16:00" },
+                { name: "周二复盘", time: "16:00" },
+                { name: "周三复盘", time: "16:00" },
+                { name: "周四复盘", time: "16:00" },
+                { name: "周五复盘", time: "16:00" },
+                { name: "周复盘", time: "周日 16:00" }
             ];
 
-            taskStatus.innerHTML = `
-                <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.8rem;font-size:0.9rem;">
-                    ${tasks.map(task => `
-                        <div style="background:var(--panel-bg);padding:0.8rem;border-radius:6px;">
-                            <div style="font-weight:600;">${task.name}</div>
-                            <div style="color:var(--text-secondary);font-size:0.85rem;">${task.time}</div>
-                            <div style="color:var(--green);font-size:0.8rem;margin-top:0.3rem;">${task.status}</div>
-                        </div>
-                    `).join('')}
+            document.getElementById('taskStatus').innerHTML = `
+                <div style="background: white; border-radius: var(--radius-xl); padding: 1.5rem; box-shadow: var(--shadow-md);">
+                    <h3 style="margin-bottom: 1rem; font-size: 1.1rem; font-weight: 600;">定时任务状态</h3>
+                    <div class="task-grid">
+                        ${tasks.map(t => `
+                            <div class="task-item">
+                                <div class="task-name">${t.name}</div>
+                                <div class="task-time">${t.time}</div>
+                                <span class="task-status">等待执行</span>
+                            </div>
+                        `).join('')}
+                    </div>
                 </div>
             `;
+
+            document.getElementById('weeklyStats').innerHTML = [
+                { label: "本周涨停数", value: "435" },
+                { label: "本周跌停数", value: "125" },
+                { label: "日均成交额", value: "30238亿" },
+                { label: "综合评分", value: "67" },
+                { label: "主线板块", value: "PCB/MLCC" }
+            ].map(s => `
+                <div class="stat-mini">
+                    <div class="label">${s.label}</div>
+                    <div class="value">${s.value}</div>
+                </div>
+            `).join('');
         }
 
-        // 初始化
         document.addEventListener('DOMContentLoaded', () => {
-            renderReportList('dailyList', mockDailyReports);
-            renderReportList('weeklyList', mockWeeklyReports);
+            renderReportList('dailyList', mockDailyReports, 'daily');
+            renderReportList('weeklyList', mockWeeklyReports, 'weekly');
             updateSystemStatus();
 
-            // Smooth scroll
-            document.querySelectorAll('.top-nav a').forEach(link => {
+            document.querySelectorAll('#topNav a').forEach(link => {
                 link.addEventListener('click', function(e) {
                     e.preventDefault();
+                    document.querySelectorAll('#topNav a').forEach(a => a.classList.remove('active'));
+                    this.classList.add('active');
                     const target = document.querySelector(this.getAttribute('href'));
                     if (target) {
-                        window.scrollTo({ top: target.offsetTop - 130, behavior: 'smooth' });
+                        window.scrollTo({ top: target.offsetTop - 140, behavior: 'smooth' });
                     }
                 });
             });
