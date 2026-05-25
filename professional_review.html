@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>专业A股复盘系统 | 2026年5月19日-23日</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        /* Professional dark theme */
+        :root {
+            --bg-dark: #0a0e17;
+            --bg-card: #111827;
+            --bg-panel: #1a2236;
+            --primary-blue: #3b82f6;
+            --primary-red: #ef4444;
+            --primary-green: #10b981;
+            --primary-yellow: #f59e0b;
+            --primary-purple: #8b5cf6;
+            --text-primary: #f9fafb;
+            --text-secondary: #9ca3af;
+            --border-color: #374151;
+        }
+        body {
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            font-family: 'Segoe UI', 'Microsoft YaHei', system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+        }
+        .header {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1.5rem 2rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+        .header h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+        .header .subtitle {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 35px rgba(0,0,0,0.3);
+        }
+        .card h2 {
+            color: var(--text-primary);
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1.2rem;
+            padding-bottom: 0.7rem;
+            border-bottom: 2px solid var(--primary-blue);
+        }
+        .card h3 {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            margin-bottom: 0.8rem;
+        }
+        .chart-container {
+            background: var(--bg-panel);
+            border-radius: 10px;
+            padding: 1.2rem;
+            margin: 1rem 0;
+            border: 1px solid var(--border-color);
+        }
+        .chart-container img {
+            width: 100%;
+            height: auto;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            background: var(--bg-panel);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .data-table th {
+            background: var(--primary-blue);
+            color: white;
+            padding: 0.9rem 1rem;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        .data-table td {
+            padding: 0.8rem 1rem;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 0.9rem;
+        }
+        .data-table tr:nth-child(even) {
+            background: rgba(255,255,255,0.03);
+        }
+        .data-table tr:hover {
+            background: rgba(59, 130, 246, 0.1);
+        }
+        .indicator-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        .indicator-box {
+            background: var(--bg-panel);
+            border-radius: 8px;
+            padding: 1rem;
+            text-align: center;
+            border: 1px solid var(--border-color);
+        }
+        .indicator-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.3rem;
+        }
+        .indicator-label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+        .tag {
+            display: inline-block;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        .tag-red { background: #fee2e2; color: #dc2626; }
+        .tag-green { background: #d1fae5; color: #059669; }
+        .tag-yellow { background: #fef3c7; color: #d97706; }
+        .tag-blue { background: #dbeafe; color: #2563eb; }
+        .tag-purple { background: #ede9fe; color: #7c3aed; }
+        .score-gauge {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        .score-circle {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.2rem;
+            font-weight: 700;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+        .score-67 { 
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: white;
+        }
+        .score-75 { 
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+        }
+        .score-78 { 
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            color: white;
+        }
+        .nav-tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background: var(--bg-card);
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            flex-wrap: wrap;
+        }
+        .nav-tab {
+            padding: 0.6rem 1.2rem;
+            background: var(--bg-panel);
+            color: var(--text-secondary);
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.2s;
+            border: 1px solid transparent;
+        }
+        .nav-tab:hover {
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--primary-blue);
+            border-color: var(--primary-blue);
+        }
+        .nav-tab.active {
+            background: var(--primary-blue);
+            color: white;
+        }
+        .section {
+            margin-bottom: 3rem;
+            scroll-margin-top: 2rem;
+        }
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.7rem;
+            border-bottom: 2px solid var(--primary-blue);
+        }
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+        @media (max-width: 1024px) {
+            .two-column { grid-template-columns: 1fr; }
+        }
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            margin-top: 4rem;
+            background: var(--bg-card);
+            border-top: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(59,130,246,0.1), rgba(139,92,246,0.1));
+            border-left: 4px solid var(--primary-blue);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+        }
+        .stock-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 0.8rem;
+            margin: 1rem 0;
+        }
+        .stock-item {
+            background: var(--bg-panel);
+            padding: 0.8rem;
+            border-radius: 6px;
+            border-left: 3px solid var(--primary-blue);
+            font-size: 0.9rem;
+        }
+        .stock-name {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        .stock-tag {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+        .color-bar {
+            height: 4px;
+            border-radius: 2px;
+            margin-top: 0.3rem;
+        }
+        .bar-red { background: var(--primary-red); }
+        .bar-green { background: var(--primary-green); }
+        .bar-yellow { background: var(--primary-yellow); }
+        .bar-blue { background: var(--primary-blue); }
+        .bar-purple { background: var(--primary-purple); }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div>
+                <h1>专业A股复盘系统</h1>
+                <div class="subtitle">2026年5月19日 - 5月23日 | 第21周 | 数据来源：证券时报、东方财富、同花顺、财联社</div>
+            </div>
+            <div style="text-align: right;">
+                <div style="font-size: 1.1rem; font-weight: 600;">综合评分: <span style="color: #f59e0b;">67/100</span></div>
+                <div style="font-size: 0.9rem; color: #9ca3af;">震荡偏弱 · 防守反击</div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="nav-tabs">
+            <a href="#section-kline" class="nav-tab active">K线走势</a>
+            <a href="#section-dashboard" class="nav-tab">市场仪表盘</a>
+            <a href="#section-sentiment" class="nav-tab">情绪周期</a>
+            <a href="#section-ladder" class="nav-tab">连板梯队</a>
+            <a href="#section-sector" class="nav-tab">板块轮动</a>
+            <a href="#section-funds" class="nav-tab">资金流向</a>
+            <a href="#section-events" class="nav-tab">事件时间线</a>
+            <a href="#section-analysis" class="nav-tab">深度分析</a>
+            <a href="#section-plan" class="nav-tab">作战计划</a>
+        </div>
+
+        <!-- 一、K线走势 -->
+        <section id="section-kline" class="section">
+            <h2 class="section-title">一、上证指数K线走势</h2>
+            <div class="chart-container">
+                <img src="assets/images/chart_kline_weekly.png" alt="上证指数日K线图">
+            </div>
+            <div class="two-column">
+                <div class="card">
+                    <h3>本周指数表现</h3>
+                    <table class="data-table">
+                        <tr><th>指数</th><th>周涨跌幅</th><th>收盘点位</th><th>周成交额(亿)</th></tr>
+                        <tr><td>上证指数</td><td class="tag-red">-0.54%</td><td>4122.50</td><td>152230</td></tr>
+                        <tr><td>深证成指</td><td class="tag-green">+0.23%</td><td>15597.30</td><td>161747</td></tr>
+                        <tr><td>创业板指</td><td class="tag-green">+0.24%</td><td>3938.50</td><td>79199</td></tr>
+                        <tr><td>科创50</td><td class="tag-green">+5.57%</td><td>1790.77</td><td>16200</td></tr>
+                    </table>
+                </div>
+                <div class="card">
+                    <h3>关键K线信号</h3>
+                    <ul style="color: var(--text-secondary); line-height: 1.8; padding-left: 1.2rem;">
+                        <li><strong>5月21日</strong>: 放量长阴线，成交35073亿，跌幅-2.04%</li>
+                        <li><strong>5月22日</strong>: 缩量反弹，成交29033亿(-16.6%)</li>
+                        <li><strong>量价背离</strong>: 周四最大阳线对应最小量能</li>
+                        <li><strong>支撑位</strong>: 4074点(5/21低点)</li>
+                        <li><strong>压力位</strong>: 4199点(5/21高点)</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 二、市场仪表盘 -->
+        <section id="section-dashboard" class="section">
+            <h2 class="section-title">二、市场全景仪表盘</h2>
+            <div class="chart-container">
+                <img src="assets/images/chart_market_dashboard.png" alt="市场全景仪表盘">
+            </div>
+            <div class="indicator-grid">
+                <div class="indicator-box">
+                    <div class="indicator-value" style="color: #ef4444;">435</div>
+                    <div class="indicator-label">全周涨停家数</div>
+                    <div class="color-bar bar-red"></div>
+                </div>
+                <div class="indicator-box">
+                    <div class="indicator-value" style="color: #10b981;">125</div>
+                    <div class="indicator-label">全周跌停家数</div>
+                    <div class="color-bar bar-green"></div>
+                </div>
+                <div class="indicator-box">
+                    <div class="indicator-value" style="color: #f59e0b;">3.48x</div>
+                    <div class="indicator-label">涨跌停比</div>
+                    <div class="color-bar bar-yellow"></div>
+                </div>
+                <div class="indicator-box">
+                    <div class="indicator-value" style="color: #3b82f6;">30238</div>
+                    <div class="indicator-label">日均成交额(亿)</div>
+                    <div class="color-bar bar-blue"></div>
+                </div>
+                <div class="indicator-box">
+                    <div class="indicator-value" style="color: #8b5cf6;">55%</div>
+                    <div class="indicator-label">周均红盘率</div>
+                    <div class="color-bar bar-purple"></div>
+                </div>
+                <div class="indicator-box">
+                    <div class="indicator-value" style="color: #ef4444;">8板→3板</div>
+                    <div class="indicator-label">连板高度腰斩</div>
+                    <div class="color-bar bar-red"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 三、情绪周期 -->
+        <section id="section-sentiment" class="section">
+            <h2 class="section-title">三、情绪周期演变</h2>
+            <div class="two-column">
+                <div class="card">
+                    <h3>情绪周期五维雷达图</h3>
+                    <div class="chart-container">
+                        <img src="assets/images/chart_sentiment_cycle.png" alt="情绪周期雷达图">
+                    </div>
+                </div>
+                <div class="card">
+                    <h3>情绪周期阶段</h3>
+                    <table class="data-table">
+                        <tr><th>日期</th><th>情绪状态</th><th>连板高度</th><th>关键事件</th></tr>
+                        <tr><td>5/19 周一</td><td><span class="tag tag-red">高潮</span></td><td>7板</td><td>电力延续强势，威龙5连板</td></tr>
+                        <tr><td>5/20 周二</td><td><span class="tag tag-green">退潮</span></td><td>8板</td><td>英伟达VR200发布，电力退潮</td></tr>
+                        <tr><td>5/21 周三</td><td><span class="tag tag-green">冰点</span></td><td>7板</td><td>大盘暴跌-2%，威龙跌停</td></tr>
+                        <tr><td>5/22 周四</td><td><span class="tag tag-red">修复</span></td><td>3板</td><td>暴力修复+0.87%，PCB爆发</td></tr>
+                        <tr><td>5/23 周五</td><td><span class="tag tag-yellow">分化</span></td><td>3板</td><td>高位震荡，PCB内部分化</td></tr>
+                    </table>
+                    <div class="highlight-box">
+                        <strong>核心判断:</strong> 本周情绪完成完整周期——高潮→退潮→冰点→修复→分化。连板高度从8板腰斩至3板，高标崩塌但新主线确立，属于典型的"旧主线退潮、新主线崛起"切换期。
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 四、连板梯队 -->
+        <section id="section-ladder" class="section">
+            <h2 class="section-title">四、连板梯队全景图</h2>
+            <div class="chart-container">
+                <img src="assets/images/chart_ladder_board.png" alt="连板梯队全景图">
+            </div>
+            <div class="two-column">
+                <div class="card">
+                    <h3>连板高度变化</h3>
+                    <table class="data-table">
+                        <tr><th>日期</th><th>最高标</th><th>连板数</th><th>状态</th><th>次日表现</th></tr>
+                        <tr><td>5/19</td><td>利仁科技</td><td>7板</td><td><span class="tag tag-red">强势</span></td><td>晋级8板</td></tr>
+                        <tr><td>5/20</td><td>利仁科技</td><td>8板</td><td><span class="tag tag-red">高潮</span></td><td>断板</td></tr>
+                        <tr><td>5/21</td><td>威龙股份</td><td>7板</td><td><span class="tag tag-green">崩塌</span></td><td>一字跌停</td></tr>
+                        <tr><td>5/22</td><td>金利华电</td><td>3板</td><td><span class="tag tag-yellow">修复</span></td><td>晋级3板</td></tr>
+                        <tr><td>5/23</td><td>金利华电</td><td>3板</td><td><span class="tag tag-yellow">分化</span></td><td>—</td></tr>
+                    </table>
+                </div>
+                <div class="card">
+                    <h3>炸板率分析</h3>
+                    <table class="data-table">
+                        <tr><th>日期</th><th>涨停数</th><th>炸板数</th><th>炸板率</th><th>评估</th></tr>
+                        <tr><td>5/19</td><td>123</td><td>13</td><td>10.6%</td><td><span class="tag tag-green">优秀</span></td></tr>
+                        <tr><td>5/20</td><td>69</td><td>19</td><td>27.5%</td><td><span class="tag tag-red">危险</span></td></tr>
+                        <tr><td>5/21</td><td>36</td><td>35</td><td>97.2%</td><td><span class="tag tag-red">冰点</span></td></tr>
+                        <tr><td>5/22</td><td>138</td><td>16</td><td>11.6%</td><td><span class="tag tag-green">优秀</span></td></tr>
+                        <tr><td>5/23</td><td>72</td><td>28</td><td>38.9%</td><td><span class="tag tag-yellow">偏高</span></td></tr>
+                    </table>
+                    <p style="color: var(--text-secondary); margin-top: 1rem; font-size: 0.9rem;">
+                        <strong>注:</strong> 炸板率超过20%为危险信号，超过30%为冰点特征。5月21日炸板率97.2%为极端冰点，次日迎来暴力修复。
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 五、板块轮动 -->
+        <section id="section-sector" class="section">
+            <h2 class="section-title">五、板块轮动热力图</h2>
+            <div class="chart-container">
+                <img src="assets/images/chart_sector_heatmap.png" alt="板块轮动热力图">
+            </div>
+            <div class="card">
+                <h3>主线切换分析</h3>
+                <div class="two-column">
+                    <div>
+                        <h4>旧主线: 电力 (退潮)</h4>
+                        <ul style="color: var(--text-secondary); line-height: 1.8;">
+                            <li>周一28涨停 → 周五3涨停，退潮明显</li>
+                            <li>威龙股份从7板一字跌停</li>
+                            <li>资金净流出520亿</li>
+                            <li>状态: <span class="tag tag-red">退潮期</span></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4>新主线: PCB/MLCC/消费电子 (崛起)</h4>
+                        <ul style="color: var(--text-secondary); line-height: 1.8;">
+                            <li>周四18家PCB涨停，梯队完整</li>
+                            <li>机构+北向共振建仓</li>
+                            <li>资金净流入1297亿(电子行业)</li>
+                            <li>状态: <span class="tag tag-green">爆发期→分化期</span></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="highlight-box">
+                    <strong>主线切换判断:</strong> 电力板块在威龙股份崩塌下全面退潮，英伟达VR200催化下的PCB/MLCC/消费电子接过主线接力棒。这是典型的"旧主线退潮、新主线崛起"切换格局，持续性会更强。
+                </div>
+            </div>
+        </section>
+
+        <!-- 六、资金流向 -->
+        <section id="section-funds" class="section">
+            <h2 class="section-title">六、主力资金流向</h2>
+            <div class="chart-container">
+                <img src="assets/images/chart_fund_flow.png" alt="主力资金流向图">
+            </div>
+            <div class="card">
+                <h3>资金性质分析</h3>
+                <table class="data-table">
+                    <tr><th>资金类型</th><th>全周流向</th><th>主要方向</th><th>特征</th></tr>
+                    <tr><td>北向资金</td><td>净流入180亿</td><td>深市中小盘</td><td>连续3日净流入</td></tr>
+                    <tr><td>主力资金</td><td>电子+1297亿</td><td>PCB/MLCC/消费电子</td><td>集中布局AI产业链</td></tr>
+                    <tr><td>游资</td><td>电力→电子切换</td><td>高标切换</td><td>威龙踩踏出逃</td></tr>
+                    <tr><td>融资资金</td><td>净买入191亿</td><td>—</td><td>连续7周净买入</td></tr>
+                </table>
+                <div class="highlight-box">
+                    <strong>资金性质质变:</strong> 机构从电力等防御板块撤出，转向电子科技方向大举建仓。整体呈现"机构主导切换、游资被动跟随"的格局，这种机构主导的行情持续性会更强。
+                </div>
+            </div>
+        </section>
+
+        <!-- 七、事件时间线 -->
+        <section id="section-events" class="section">
+            <h2 class="section-title">七、事件时间线</h2>
+            <div class="chart-container">
+                <img src="assets/images/chart_event_timeline.png" alt="事件时间线图">
+            </div>
+            <div class="card">
+                <h3>周末大事件与下周影响</h3>
+                <div class="two-column">
+                    <div>
+                        <h4>国内政策与产业催化</h4>
+                        <ul style="color: var(--text-secondary); line-height: 1.8;">
+                            <li><strong>英伟达VR200供应链订单确认</strong> → 正面，影响程度高</li>
+                            <li><strong>电力市场化改革实施方案预期</strong> → 中性偏正，影响程度中</li>
+                            <li><strong>5月LPR维持不变</strong> → 中性，影响程度低</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4>海外市场与宏观</h4>
+                        <ul style="color: var(--text-secondary); line-height: 1.8;">
+                            <li><strong>纳斯达克</strong>: 高位震荡，英伟达创新高 → 正面</li>
+                            <li><strong>美元指数</strong>: 105.2，强势 → 偏负面</li>
+                            <li><strong>美债10Y</strong>: 4.45%，高位 → 偏负面</li>
+                            <li><strong>人民币汇率</strong>: 7.26，弱势 → 偏负面</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="score-gauge">
+                    <div class="score-circle score-78">78</div>
+                    <div>
+                        <h3>周末大事件综合评分</h3>
+                        <p style="color: var(--text-secondary);">偏正面。海外科技映射正面，产业催化集中在电子方向，但汇率和美元构成压力。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 八、深度分析 -->
+        <section id="section-analysis" class="section">
+            <h2 class="section-title">八、深度分析</h2>
+            <div class="two-column">
+                <div class="card">
+                    <h3>量价结构分析</h3>
+                    <div class="chart-container">
+                        <img src="assets/images/chart_weekly_score.png" alt="周度综合评分雷达图">
+                    </div>
+                    <p style="color: var(--text-secondary); margin-top: 1rem;">
+                        <strong>最令人担忧的信号:</strong> 成交额从周一35456亿逐日下降至周五29500亿(-16.8%)，周四在全年最低量能下录得最大涨幅——典型弱势信号。如果下周不能放量至34000亿+，反弹结构将面临重大挑战。
+                    </p>
+                </div>
+                <div class="card">
+                    <h3>风险监控</h3>
+                    <table class="data-table">
+                        <tr><th>风险项</th><th>状态</th><th>级别</th><th>应对</th></tr>
+                        <tr><td>缩量反弹</td><td><span class="tag tag-yellow">持续</span></td><td>高</td><td>关注下周初量能</td></tr>
+                        <tr><td>高标崩塌</td><td><span class="tag tag-red">已发生</span></td><td>高</td><td>回避电力板块</td></tr>
+                        <tr><td>美联储鹰派</td><td><span class="tag tag-yellow">潜在</span></td><td>中</td><td>关注周末海外市场</td></tr>
+                        <tr><td>英伟达股价波动</td><td><span class="tag tag-yellow">潜在</span></td><td>中</td><td>影响PCB持续性</td></tr>
+                        <tr><td>月末流动性</td><td><span class="tag tag-yellow">即将到来</span></td><td>中</td><td>5月末资金面收紧</td></tr>
+                    </table>
+                    <div class="highlight-box">
+                        <strong>核心矛盾:</strong> 新方向逻辑硬、资金认可度高；但全周缩量反弹，量价背离严重。量能决定反弹高度，龙头决定方向持续性。
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 九、作战计划 -->
+        <section id="section-plan" class="section">
+            <h2 class="section-title">九、下周作战计划</h2>
+            <div class="score-gauge">
+                <div class="score-circle score-67">67</div>
+                <div>
+                    <h3>综合评分: 67/100</h3>
+                    <p style="color: var(--text-secondary);">震荡偏弱，防守反击。缩量反弹含金量不足，但新主线方向明确。</p>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h3>仓位与情景应对</h3>
+                <table class="data-table">
+                    <tr><th>情景</th><th>触发条件</th><th>仓位</th><th>操作</th></tr>
+                    <tr><td><span class="tag tag-green">放量主升</span></td><td>成交额 > 34000亿，PCB核心领涨</td><td>7成</td><td>加仓PCB/MLCC龙头</td></tr>
+                    <tr><td><span class="tag tag-yellow">分化整理</span></td><td>成交额25000-34000亿</td><td>5成</td><td>PCB底仓不动，汰弱留强</td></tr>
+                    <tr><td><span class="tag tag-red">缩量阴跌</span></td><td>成交额 < 25000亿</td><td>3成</td><td>减仓PCB，保留龙头底仓</td></tr>
+                    <tr><td><span class="tag tag-red">系统性风险</span></td><td>海外暴跌、北向大幅流出</td><td>1成</td><td>空仓观望</td></tr>
+                </table>
+            </div>
+
+            <div class="card">
+                <h3>观察池 (重点标的)</h3>
+                <div class="stock-list">
+                    <div class="stock-item">
+                        <div class="stock-name">胜宏科技</div>
+                        <div class="stock-tag">PCB龙头 · VR200核心供应商</div>
+                        <div class="color-bar bar-red"></div>
+                    </div>
+                    <div class="stock-item">
+                        <div class="stock-name">沪电股份</div>
+                        <div class="stock-tag">PCB中军 · 机构+北向共振</div>
+                        <div class="color-bar bar-red"></div>
+                    </div>
+                    <div class="stock-item">
+                        <div class="stock-name">风华高科</div>
+                        <div class="stock-tag">MLCC龙头 · AI服务器用量翻倍</div>
+                        <div class="color-bar bar-red"></div>
+                    </div>
+                    <div class="stock-item">
+                        <div class="stock-name">三环集团</div>
+                        <div class="stock-tag">MLCC中军 · 机构重仓</div>
+                        <div class="color-bar bar-red"></div>
+                    </div>
+                    <div class="stock-item">
+                        <div class="stock-name">立讯精密</div>
+                        <div class="stock-tag">消费电子龙头 · VR/MR终端放量</div>
+                        <div class="color-bar bar-blue"></div>
+                    </div>
+                    <div class="stock-item">
+                        <div class="stock-name">歌尔股份</div>
+                        <div class="stock-tag">消费电子 · MR声学组件</div>
+                        <div class="color-bar bar-blue"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" style="border: 2px solid #3b82f6; background: linear-gradient(135deg, rgba(59,130,246,0.05), rgba(139,92,246,0.05));">
+                <h3 style="color: #3b82f6;">核心结论</h3>
+                <div style="padding: 1.5rem; color: var(--text-primary); line-height: 1.8;">
+                    <p><strong>本周A股呈现典型的"旧主线崩塌、新主线崛起"的切换格局。</strong>电力板块在威龙股份8板→跌停的崩塌下全面退潮，英伟达VR200催化下的PCB/MLCC/消费电子接过主线接力棒，梯队完整、机构游资共振。</p>
+                    <p><strong>喜忧参半:</strong> 新方向逻辑硬、资金认可度高；但全周缩量反弹，成交额从35456亿逐日降至29500亿，周四最大阳线对应最小量能——量价背离严重。</p>
+                    <p><strong>下周核心变量只有两个:</strong> ①量能能否回到34000亿以上？②PCB方向分化后龙头能否确认？量能决定反弹高度，龙头决定方向持续性。4-5成仓位防守反击，<strong>量能不回归不加仓，龙头不确认不重仓。</strong></p>
+                </div>
+            </div>
+        </section>
+
+        <div style="text-align: center; margin: 3rem 0;">
+            <a href="index.html" class="nav-tab" style="background: #3b82f6; color: white;">返回首页</a>
+            <a href="daily/2026-05-22.html" class="nav-tab" style="background: #10b981; color: white;">查看日复盘</a>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>专业A股复盘系统 | 数据来源：东方财富、同花顺、证券时报、财联社 | 更新时间: 2026年5月24日</p>
+        <p style="font-size: 0.8rem; margin-top: 0.5rem; color: #6b7280;">
+            风险提示：本系统仅作分析参考，不构成投资建议。市场有风险，投资需谨慎。复盘数据基于公开信息整理，可能存在滞后或误差。
+        </p>
+    </footer>
+
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('.nav-tab').forEach(tab => {
+            tab.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Update active tab on scroll
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('.section');
+            const scrollPos = window.scrollY + 100;
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                const sectionId = section.getAttribute('id');
+                
+                if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
+                    document.querySelectorAll('.nav-tab').forEach(tab => {
+                        tab.classList.remove('active');
+                        if (tab.getAttribute('href') === `#${sectionId}`) {
+                            tab.classList.add('active');
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

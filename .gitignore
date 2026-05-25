@@ -1,0 +1,32 @@
+﻿# 中间产物目录
+temp/
+*.tmp
+*.temp
+
+# 日志文件
+*.log
+
+# 系统文件
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE 配置
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+
+# Node
+node_modules/
+
+# 环境变量文件
+.env
+.env.local

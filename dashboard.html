@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A股复盘导航面板</title>
+    <style>
+        :root {
+            --bg: #f5f6f8;
+            --card-bg: #ffffff;
+            --panel-bg: #f0f2f5;
+            --primary: #2563eb;
+            --primary-light: #eff6ff;
+            --red: #dc2626;
+            --red-light: #fef2f2;
+            --green: #059669;
+            --green-light: #ecfdf5;
+            --yellow: #d97706;
+            --yellow-light: #fffbeb;
+            --purple: #7c3aed;
+            --purple-light: #f5f3ff;
+            --text: #1e293b;
+            --text-secondary: #64748b;
+            --text-muted: #94a3b8;
+            --border: #e2e8f0;
+            --border-light: #f1f5f9;
+            --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+            --radius: 10px;
+            --radius-sm: 6px;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', 'Microsoft YaHei', 'PingFang SC', system-ui, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #1e3a5f 0%, #2563eb 100%);
+            color: white;
+            padding: 1.2rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+        }
+        .header-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header h1 { font-size: 1.5rem; font-weight: 700; letter-spacing: 0.5px; }
+        .header .badge {
+            background: rgba(255,255,255,0.2);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+        }
+        .header .score-display { text-align: right; }
+        .header .score-display .big { font-size: 1.3rem; font-weight: 700; }
+        .header .score-display .small { font-size: 0.85rem; opacity: 0.8; }
+
+        /* Container */
+        .container { max-width: 1400px; margin: 0 auto; padding: 1.5rem; }
+
+        /* Top Nav */
+        .top-nav {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            padding: 0.8rem 1rem;
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            flex-wrap: wrap;
+            position: sticky;
+            top: 72px;
+            z-index: 99;
+        }
+        .top-nav a {
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-sm);
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.15s;
+            white-space: nowrap;
+        }
+        .top-nav a:hover, .top-nav a.active {
+            background: var(--primary-light);
+            color: var(--primary);
+        }
+
+        /* Section */
+        .section { margin-bottom: 2.5rem; scroll-margin-top: 140px; }
+        .section-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 1rem;
+            padding-bottom: 0.6rem;
+            border-bottom: 2px solid var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .section-title .icon { font-size: 1.2rem; }
+
+        /* Card */
+        .card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-light);
+            margin-bottom: 1.2rem;
+        }
+        .card h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        /* Report List */
+        .report-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .report-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            background: var(--panel-bg);
+            border-radius: var(--radius-sm);
+            border-left: 4px solid var(--primary);
+            text-decoration: none;
+            color: var(--text);
+            transition: all 0.15s;
+        }
+        .report-item:hover {
+            background: var(--primary-light);
+            transform: translateX(4px);
+        }
+        .report-date {
+            font-weight: 600;
+            font-size: 1.05rem;
+            margin-bottom: 0.3rem;
+        }
+        .report-metrics {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            margin-top: 0.5rem;
+        }
+        .metric {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+        .metric .value {
+            font-weight: 600;
+        }
+        .metric-red { color: var(--red); }
+        .metric-green { color: var(--green); }
+        .metric-yellow { color: var(--yellow); }
+        .metric-blue { color: var(--primary); }
+        .metric-purple { color: var(--purple); }
+
+        .report-score {
+            margin-left: auto;
+            min-width: 60px;
+            text-align: center;
+        }
+        .score-circle {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: white;
+            margin: 0 auto;
+        }
+        .score-60-70 { background: linear-gradient(135deg, #f59e0b, #d97706); }
+        .score-70-80 { background: linear-gradient(135deg, #10b981, #059669); }
+        .score-80-90 { background: linear-gradient(135deg, #3b82f6, #1d4ed8); }
+        .score-90-100 { background: linear-gradient(135deg, #8b5cf6, #7c3aed); }
+        .score-0-60 { background: linear-gradient(135deg, #dc2626, #b91c1c); }
+
+        .report-actions {
+            margin-left: 1rem;
+        }
+        .btn {
+            padding: 0.4rem 0.8rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-size: 0.8rem;
+            font-weight: 500;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.15s;
+        }
+        .btn:hover {
+            background: #1d4ed8;
+            transform: translateY(-1px);
+        }
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+        }
+        .btn-outline:hover {
+            background: var(--primary-light);
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 3rem 1rem;
+            color: var(--text-muted);
+        }
+        .empty-state .icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+            background: var(--card-bg);
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .report-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .report-score {
+                margin-left: 0;
+                margin-top: 1rem;
+                align-self: flex-start;
+            }
+            .report-actions {
+                margin-left: 0;
+                margin-top: 1rem;
+                align-self: flex-end;
+            }
+            .header-inner { flex-direction: column; gap: 0.5rem; text-align: center; }
+            .header .score-display { text-align: center; }
+            .container { padding: 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-inner">
+            <div>
+                <h1>A股复盘导航面板</h1>
+                <span class="badge">动态聚合 · 一键直达</span>
+            </div>
+            <div class="score-display">
+                <div class="big">最新评分 <span id="latestScore">--</span> / 100</div>
+                <div class="small" id="latestDate">加载中...</div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Top Navigation -->
+        <nav class="top-nav" id="topNav">
+            <a href="#daily-reports">日复盘</a>
+            <a href="#weekly-reports">周复盘</a>
+            <a href="#quick-stats">快速统计</a>
+            <a href="#system-status">系统状态</a>
+        </nav>
+
+        <!-- Daily Reports -->
+        <section id="daily-reports" class="section">
+            <h2 class="section-title"><span class="icon">&#128197;</span> 日复盘报告</h2>
+            <div class="card">
+                <h3>交易日复盘列表</h3>
+                <div class="report-list" id="dailyList">
+                    <!-- 动态生成 -->
+                    <div class="empty-state">
+                        <div class="icon">&#128202;</div>
+                        <p>暂无日复盘报告</p>
+                        <p style="font-size:0.9rem;margin-top:0.5rem;">定时任务将在每个交易日16:00自动生成</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Weekly Reports -->
+        <section id="weekly-reports" class="section">
+            <h2 class="section-title"><span class="icon">&#128202;</span> 周复盘报告</h2>
+            <div class="card">
+                <h3>周度复盘列表</h3>
+                <div class="report-list" id="weeklyList">
+                    <!-- 动态生成 -->
+                    <div class="empty-state">
+                        <div class="icon">&#128200;</div>
+                        <p>暂无周复盘报告</p>
+                        <p style="font-size:0.9rem;margin-top:0.5rem;">定时任务将在每周日16:00自动生成</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick Stats -->
+        <section id="quick-stats" class="section">
+            <h2 class="section-title"><span class="icon">&#128202;</span> 快速统计</h2>
+            <div class="card">
+                <h3>本周概览</h3>
+                <div id="weeklyStats">
+                    <p style="color:var(--text-muted);">加载周度统计数据...</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- System Status -->
+        <section id="system-status" class="section">
+            <h2 class="section-title"><span class="icon">&#128736;</span> 系统状态</h2>
+            <div class="card">
+                <h3>定时任务状态</h3>
+                <div id="taskStatus">
+                    <p style="color:var(--text-muted);">加载定时任务状态...</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer class="footer">
+        <p>A股复盘导航面板 | 数据来源：东方财富、同花顺、证券时报、财联社 | 更新时间：<span id="updateTime">--</span></p>
+        <p style="margin-top:0.3rem;">风险提示：本系统仅作分析参考，不构成投资建议。市场有风险，投资需谨慎。</p>
+    </footer>
+
+    <script>
+        // 模拟数据 - 实际使用时需要从服务器获取
+        const mockDailyReports = [
+            {
+                date: "2026-05-22",
+                title: "周五复盘",
+                path: "daily/2026-05-22.html",
+                score: 75,
+                metrics: [
+                    { label: "上证", value: "+0.87%", color: "red" },
+                    { label: "涨停", value: "138", color: "red" },
+                    { label: "跌停", value: "20", color: "text" },
+                    { label: "成交额", value: "29033亿", color: "yellow" },
+                    { label: "连板高度", value: "7→3板", color: "red" }
+                ],
+                summary: "缩量反弹，PCB/MLCC爆发，高标崩塌"
+            }
+        ];
+
+        const mockWeeklyReports = [
+            {
+                date: "第21周",
+                title: "5月19日-5月23日",
+                path: "weekly/2026-week21.html",
+                score: 67,
+                metrics: [
+                    { label: "周涨跌", value: "-0.54%", color: "red" },
+                    { label: "涨停", value: "435", color: "red" },
+                    { label: "跌停", value: "125", color: "text" },
+                    { label: "日均成交", value: "30238亿", color: "blue" },
+                    { label: "主线切换", value: "电力→PCB", color: "green" }
+                ],
+                summary: "震荡偏弱，电力退潮，PCB/MLCC崛起"
+            }
+        ];
+
+        // 渲染报告列表
+        function renderReportList(containerId, reports) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+
+            if (reports.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="icon">&#128202;</div>
+                        <p>暂无报告</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = '';
+            
+            reports.forEach(report => {
+                const scoreClass = getScoreClass(report.score);
+                const metricsHtml = report.metrics.map(metric => `
+                    <div class="metric metric-${metric.color}">
+                        <span class="label">${metric.label}:</span>
+                        <span class="value">${metric.value}</span>
+                    </div>
+                `).join('');
+
+                const item = document.createElement('a');
+                item.className = 'report-item';
+                item.href = report.path;
+                item.innerHTML = `
+                    <div style="flex:1;">
+                        <div class="report-date">${report.date} · ${report.title}</div>
+                        <div style="color:var(--text-secondary);font-size:0.9rem;margin-bottom:0.5rem;">
+                            ${report.summary}
+                        </div>
+                        <div class="report-metrics">
+                            ${metricsHtml}
+                        </div>
+                    </div>
+                    <div class="report-score">
+                        <div class="score-circle ${scoreClass}">${report.score}</div>
+                        <div style="font-size:0.75rem;color:var(--text-muted);margin-top:0.2rem;">评分</div>
+                    </div>
+                    <div class="report-actions">
+                        <div class="btn">查看详情</div>
+                    </div>
+                `;
+                container.appendChild(item);
+            });
+        }
+
+        // 根据评分获取CSS类
+        function getScoreClass(score) {
+            if (score >= 90) return 'score-90-100';
+            if (score >= 80) return 'score-80-90';
+            if (score >= 70) return 'score-70-80';
+            if (score >= 60) return 'score-60-70';
+            return 'score-0-60';
+        }
+
+        // 更新系统状态
+        function updateSystemStatus() {
+            const now = new Date();
+            document.getElementById('updateTime').textContent = now.toLocaleString('zh-CN');
+            
+            // 更新最新评分
+            if (mockDailyReports.length > 0) {
+                const latest = mockDailyReports[0];
+                document.getElementById('latestScore').textContent = latest.score;
+                document.getElementById('latestDate').textContent = latest.date;
+            }
+
+            // 更新任务状态
+            const taskStatus = document.getElementById('taskStatus');
+            const tasks = [
+                { name: "周一复盘", time: "16:00", status: "等待执行" },
+                { name: "周二复盘", time: "16:00", status: "等待执行" },
+                { name: "周三复盘", time: "16:00", status: "等待执行" },
+                { name: "周四复盘", time: "16:00", status: "等待执行" },
+                { name: "周五复盘", time: "16:00", status: "等待执行" },
+                { name: "周复盘", time: "周日16:00", status: "等待执行" }
+            ];
+
+            taskStatus.innerHTML = `
+                <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0.8rem;font-size:0.9rem;">
+                    ${tasks.map(task => `
+                        <div style="background:var(--panel-bg);padding:0.8rem;border-radius:6px;">
+                            <div style="font-weight:600;">${task.name}</div>
+                            <div style="color:var(--text-secondary);font-size:0.85rem;">${task.time}</div>
+                            <div style="color:var(--green);font-size:0.8rem;margin-top:0.3rem;">${task.status}</div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+
+        // 初始化
+        document.addEventListener('DOMContentLoaded', () => {
+            renderReportList('dailyList', mockDailyReports);
+            renderReportList('weeklyList', mockWeeklyReports);
+            updateSystemStatus();
+
+            // Smooth scroll
+            document.querySelectorAll('.top-nav a').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        window.scrollTo({ top: target.offsetTop - 130, behavior: 'smooth' });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
