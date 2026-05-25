@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026年5月25日A股复盘 | 芯片主升确立，科创50暴涨5.88%</title>
+    <link rel="stylesheet" href="assets/css/modern.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* 复盘专属样式 */
+        :root {
+            --bg-pro: #0a0e17;
+            --card-pro: #111827;
+            --panel-pro: #1a2236;
+            --border-pro: #374151;
+            --text-pro: #f9fafb;
+            --text-secondary-pro: #9ca3af;
+            --primary-blue-pro: #3b82f6;
+            --primary-red-pro: #ef4444;
+            --primary-green-pro: #10b981;
+            --primary-yellow-pro: #f59e0b;
+            --primary-purple-pro: #8b5cf6;
+        }
+
+        body {
+            background: var(--bg-pro);
+            color: var(--text-pro);
+            font-family: var(--font-sans);
+            line-height: 1.6;
+        }
+
+        .review-header {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            border-bottom: 1px solid var(--border-pro);
+            padding: 1.5rem 2rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+
+        .header-container-review {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .review-logo h1 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        .review-logo .subtitle {
+            color: var(--text-secondary-pro);
+            font-size: 0.95rem;
+        }
+
+        .review-score .score-value {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary-yellow-pro);
+        }
+
+        .review-score .score-label {
+            color: var(--text-secondary-pro);
+            font-size: 0.9rem;
+        }
+
+        .review-container {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+
+        /* 复盘卡片 */
+        .review-card {
+            background: var(--card-pro);
+            border: 1px solid var(--border-pro);
+            border-radius: var(--radius-xl);
+            padding: 1.5rem;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+            margin-bottom: 2rem;
+        }
+
+        .review-card h2 {
+            color: var(--text-pro);
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1.2rem;
+            padding-bottom: 0.7rem;
+            border-bottom: 2px solid var(--primary-blue-pro);
+        }
+
+        .review-card h3 {
+            color: var(--text-secondary-pro);
+            font-size: 1.05rem;
+            margin-bottom: 0.8rem;
+        }
+
+        /* 复盘表格 */
+        .review-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            background: var(--panel-pro);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+        }
+
+        .review-table th {
+            background: var(--primary-blue-pro);
+            color: white;
+            padding: 0.9rem 1rem;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .review-table td {
+            padding: 0.8rem 1rem;
+            border-bottom: 1px solid var(--border-pro);
+            font-size: 0.9rem;
+        }
+
+        .review-table tr:nth-child(even) {
+            background: rgba(255,255,255,0.03);
+        }
+
+        .review-table tr:hover {
+            background: rgba(59, 130, 246, 0.1);
+        }
+
+        /* 复盘标签 */
+        .review-tag {
+            display: inline-block;
+            padding: 0.2rem 0.6rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .review-tag.red { background: #fee2e2; color: #dc2626; }
+        .review-tag.green { background: #d1fae5; color: #059669; }
+        .review-tag.yellow { background: #fef3c7; color: #d97706; }
+        .review-tag.blue { background: #dbeafe; color: #2563eb; }
+        .review-tag.purple { background: #ede9fe; color: #7c3aed; }
+
+        /* 复盘指标 */
+        .review-indicators {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .review-indicator {
+            background: var(--panel-pro);
+            border-radius: var(--radius-lg);
+            padding: 1rem;
+            text-align: center;
+            border: 1px solid var(--border-pro);
+        }
+
+        .review-indicator .value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.3rem;
+        }
+
+        .review-indicator .label {
+            font-size: 0.85rem;
+            color: var(--text-secondary-pro);
+        }
+
+        /* 复盘高亮 */
+        .review-highlight {
+            background: linear-gradient(135deg, rgba(59,130,246,0.1), rgba(139,92,246,0.1));
+            border-left: 4px solid var(--primary-blue-pro);
+            padding: 1.5rem;
+            border-radius: var(--radius-lg);
+            margin: 1.5rem 0;
+        }
+
+        /* 复盘两栏 */
+        .review-two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        @media (max-width: 1024px) {
+            .review-two-col { grid-template-columns: 1fr; }
+        }
+
+        /* 复盘页脚 */
+        .review-footer {
+            text-align: center;
+            padding: 2rem;
+            margin-top: 4rem;
+            background: var(--card-pro);
+            border-top: 1px solid var(--border-pro);
+            color: var(--text-secondary-pro);
+            font-size: 0.9rem;
+        }
+
+        /* 复盘按钮 */
+        .review-btn {
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            background: var(--primary-blue-pro);
+            color: white;
+            text-decoration: none;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .review-btn:hover {
+            background: #2563eb;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        }
+
+        /* 复盘颜色条 */
+        .review-bar {
+            height: 4px;
+            border-radius: 2px;
+            margin-top: 0.3rem;
+        }
+
+        .review-bar.red { background: var(--primary-red-pro); }
+        .review-bar.green { background: var(--primary-green-pro); }
+        .review-bar.yellow { background: var(--primary-yellow-pro); }
+        .review-bar.blue { background: var(--primary-blue-pro); }
+        .review-bar.purple { background: var(--primary-purple-pro); }
+
+        /* 复盘评分 */
+        .review-score-display {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .review-score-circle {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.2rem;
+            font-weight: 700;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            flex-shrink: 0;
+        }
+
+        .review-score-82 { background: linear-gradient(135deg, #3b82f6, #1d4ed8); }
+        .review-score-78 { background: linear-gradient(135deg, #10b981, #059669); }
+        .review-score-67 { background: linear-gradient(135deg, #f59e0b, #d97706); }
+
+        @media (max-width: 768px) {
+            .header-container-review {
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
+            }
+            
+            .review-container {
+                padding: 0 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 复盘头部 -->
+    <header class="review-header">
+        <div class="header-container-review">
+            <div class="review-logo">
+                <h1>2026年5月25日A股复盘</h1>
+                <div class="subtitle">芯片主升确立，科创50暴涨5.88%，结构性牛市极致演绎</div>
+            </div>
+            <div class="review-score">
+                <div class="score-value">综合评分: 82/100</div>
+                <div class="score-label">芯片主升 · 极致分化</div>
+            </div>
+        </div>
+    </header>
+
+    <div class="review-container">
+        <!-- 一、核心数据 -->
+        <div class="review-card">
+            <h2>一、核心数据速览</h2>
+            <div class="review-indicators">
+                <div class="review-indicator">
+                    <div class="value" style="color: #3b82f6;">4152.57</div>
+                    <div class="label">上证指数</div>
+                    <div class="review-bar blue"></div>
+                </div>
+                <div class="review-indicator">
+                    <div class="value" style="color: #10b981;">+0.96%</div>
+                    <div class="label">沪指涨幅</div>
+                    <div class="review-bar green"></div>
+                </div>
+                <div class="review-indicator">
+                    <div class="value" style="color: #8b5cf6;">3.21万亿</div>
+                    <div class="label">成交额</div>
+                    <div class="review-bar purple"></div>
+                </div>
+                <div class="review-indicator">
+                    <div class="value" style="color: #ef4444;">128</div>
+                    <div class="label">涨停家数</div>
+                    <div class="review-bar red"></div>
+                </div>
+                <div class="review-indicator">
+                    <div class="value" style="color: #10b981;">24</div>
+                    <div class="label">跌停家数</div>
+                    <div class="review-bar green"></div>
+                </div>
+                <div class="review-indicator">
+                    <div class="value" style="color: #f59e0b;">5.88%</div>
+                    <div class="label">科创50涨幅</div>
+                    <div class="review-bar yellow"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 二、指数表现 -->
+        <div class="review-card">
+            <h2>二、指数表现</h2>
+            <table class="review-table">
+                <tr><th>指数</th><th>收盘点位</th><th>涨跌幅</th><th>成交额(亿)</th><th>状态</th></tr>
+                <tr><td>上证指数</td><td>4152.57</td><td class="review-tag green">+0.96%</td><td>14457</td><td><span class="review-tag blue">放量上涨</span></td></tr>
+                <tr><td>深证成指</td><td>15856.61</td><td class="review-tag green">+1.66%</td><td>17601</td><td><span class="review-tag blue">放量上涨</span></td></tr>
+                <tr><td>创业板指</td><td>4021.16</td><td class="review-tag green">+2.10%</td><td>8840</td><td><span class="review-tag blue">历史次高</span></td></tr>
+                <tr><td>科创50</td><td>1896.04</td><td class="review-tag green">+5.88%</td><td>2220</td><td><span class="review-tag purple">历史新高</span></td></tr>
+                <tr><td>沪深300</td><td>4921.60</td><td class="review-tag green">+1.58%</td><td>—</td><td><span class="review-tag blue">权重领涨</span></td></tr>
+            </table>
+            <div class="review-highlight">
+                <strong>核心观察:</strong> 科创50单日暴涨5.88%创历史新高，年内累计涨幅已达41%。创业板指重回4000点之上，创收盘历史次高。市场呈现"权重硬科技拉指数、中小盘题材普跌"的极致结构性特征。
+            </div>
+        </div>
+
+        <!-- 三、板块表现 -->
+        <div class="review-card">
+            <h2>三、板块表现</h2>
+            <div class="review-two-col">
+                <div>
+                    <h3>领涨板块</h3>
+                    <table class="review-table">
+                        <tr><th>板块</th><th>涨幅</th><th>主力净流入(亿)</th><th>状态</th></tr>
+                        <tr><td>电子/半导体</td><td class="review-tag green">+4.79%</td><td>+243.66</td><td><span class="review-tag purple">绝对主线</span></td></tr>
+                        <tr><td>通信</td><td class="review-tag green">+3.77%</td><td>+38.64</td><td><span class="review-tag blue">强势</span></td></tr>
+                        <tr><td>煤炭</td><td class="review-tag green">+2.16%</td><td>+33.96</td><td><span class="review-tag yellow">护盘</span></td></tr>
+                        <tr><td>电力</td><td class="review-tag green">+1.85%</td><td>—</td><td><span class="review-tag yellow">稳健</span></td></tr>
+                        <tr><td>PCB概念</td><td class="review-tag green">+2.34%</td><td>—</td><td><span class="review-tag blue">延续强势</span></td></tr>
+                    </table>
+                </div>
+                <div>
+                    <h3>领跌板块</h3>
+                    <table class="review-table">
+                        <tr><th>板块</th><th>跌幅</th><th>主力净流出(亿)</th><th>状态</th></tr>
+                        <tr><td>石油石化</td><td class="review-tag red">-2.01%</td><td>-130.53</td><td><span class="review-tag red">重挫</span></td></tr>
+                        <tr><td>综合</td><td class="review-tag red">-1.27%</td><td>-50.39</td><td><span class="review-tag red">弱势</span></td></tr>
+                        <tr><td>基础化工</td><td class="review-tag red">-1.20%</td><td>—</td><td><span class="review-tag red">调整</span></td></tr>
+                        <tr><td>电力设备</td><td class="review-tag red">-0.70%</td><td>—</td><td><span class="review-tag yellow">分化</span></td></tr>
+                        <tr><td>医药生物</td><td class="review-tag red">-0.65%</td><td>—</td><td><span class="review-tag yellow">弱势</span></td></tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- 四、情绪周期 -->
+        <div class="review-card">
+            <h2>四、情绪周期定位</h2>
+            <div class="review-score-display">
+                <div class="review-score-circle review-score-82">82</div>
+                <div>
+                    <h3>情绪评分: 82/100</h3>
+                    <p style="color: var(--text-secondary-pro);">芯片主升确立期，资金深度共识，结构性牛市极致演绎</p>
+                </div>
+            </div>
+            
+            <table class="review-table">
+                <tr><th>情绪指标</th><th>5月22日(修复期)</th><th>5月25日(芯片主升期)</th><th>变化</th></tr>
+                <tr><td>最高标高度</td><td>5天4板(合百集团)</td><td>6天5板(四环生物)</td><td><span class="review-tag green">小幅提升</span></td></tr>
+                <tr><td>涨停家数</td><td>115</td><td>128</td><td><span class="review-tag green">增加13家</span></td></tr>
+                <tr><td>跌停家数</td><td>4</td><td>24</td><td><span class="review-tag red">增加20家</span></td></tr>
+                <tr><td>成交额</td><td>2.92万亿</td><td>3.21万亿</td><td><span class="review-tag green">放量10.4%</span></td></tr>
+                <tr><td>市场定性</td><td>科技全面修复</td><td>芯片确立绝对主线</td><td><span class="review-tag purple">质变</span></td></tr>
+            </table>
+            
+            <div class="review-highlight">
+                <strong>情绪判断:</strong> 情绪周期已从"修复期"进入"芯片主升确立期"。科创50指数单日涨近6%为近期最强单日涨幅，中芯国际、华虹公司批量创历史新高，芯片产业链近40股涨停——此为资金深度共识的信号，而非情绪脉冲。
+            </div>
+        </div>
+
+        <!-- 五、资金动向 -->
+        <div class="review-card">
+            <h2>五、资金动向分析</h2>
+            <div class="review-two-col">
+                <div>
+                    <h3>主力资金净流入TOP5</h3>
+                    <table class="review-table">
+                        <tr><th>板块</th><th>净流入(亿)</th><th>代表个股</th></tr>
+                        <tr><td>半导体</td><td>+197.25</td><td>中芯国际、华虹公司</td></tr>
+                        <tr><td>通信设备</td><td>+45.89</td><td>新易盛、中际旭创</td></tr>
+                        <tr><td>电力</td><td>+33.96</td><td>京能电力、华电能源</td></tr>
+                        <tr><td>煤炭</td><td>+22.18</td><td>盘江股份、平煤股份</td></tr>
+                        <tr><td>PCB/元器件</td><td>+18.75</td><td>风华高科、鹏鼎控股</td></tr>
+                    </table>
+                </div>
+                <div>
+                    <h3>主力资金净流出TOP5</h3>
+                    <table class="review-table">
+                        <tr><th>板块</th><th>净流出(亿)</th><th>代表个股</th></tr>
+                        <tr><td>电池</td><td>-114.77</td><td>宁德时代、亿纬锂能</td></tr>
+                        <tr><td>化学制药</td><td>-27.65</td><td>恒瑞医药、药明康德</td></tr>
+                        <tr><td>IT服务</td><td>-24.03</td><td>金山办公、用友网络</td></tr>
+                        <tr><td>汽车</td><td>-21.88</td><td>比亚迪、长城汽车</td></tr>
+                        <tr><td>石油石化</td><td>-19.45</td><td>中国石油、中国石化</td></tr>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="review-highlight">
+                <strong>资金性质:</strong> 机构从电力等防御板块撤出，转向电子科技方向大举建仓。整体呈现"机构主导切换、北向资金跟随"的格局，这种机构主导的行情持续性会更强。北向资金今日成交额维持较高水平，芯片板块获北向大幅净买入。
+            </div>
+        </div>
+
+        <!-- 六、连板梯队 -->
+        <div class="review-card">
+            <h2>六、连板梯队分析</h2>
+            <table class="review-table">
+                <tr><th>连板数</th><th>个股</th><th>板块</th><th>状态</th><th>封单金额(亿)</th></tr>
+                <tr><td>6天5板</td><td>四环生物</td><td>医药/摘帽</td><td><span class="review-tag purple">最高标</span></td><td>1.32</td></tr>
+                <tr><td>9天6板</td><td>京能电力</td><td>电力</td><td><span class="review-tag blue">趋势龙头</span></td><td>2.07</td></tr>
+                <tr><td>7天6板</td><td>达实智能</td><td>AI应用</td><td><span class="review-tag yellow">高位震荡</span></td><td>-1.60(流出)</td></tr>
+                <tr><td>6天4板</td><td>宝鼎科技</td><td>PCB</td><td><span class="review-tag green">机构加仓</span></td><td>0.45</td></tr>
+                <tr><td>2连板</td><td>风华高科</td><td>MLCC</td><td><span class="review-tag purple">机构核心</span></td><td>7.96</td></tr>
+                <tr><td>2连板</td><td>鹏鼎控股</td><td>PCB</td><td><span class="review-tag blue">趋势加速</span></td><td>1.79</td></tr>
+                <tr><td>2连板</td><td>双星新材</td><td>元器件</td><td><span class="review-tag blue">机构合力</span></td><td>2.09</td></tr>
+            </table>
+            
+            <div class="review-highlight">
+                <strong>梯队特征:</strong> 纯投机接力方向退潮:龙星科技昨3连板今日尾盘炸板收跌-3.21%，金利华电、大众交通均未晋级。四环生物虽6天5板成为最高标，但属医药独立逻辑，对芯片主线的带动作用有限。机构主导的PCB/元器件方向梯队完整，封单金额巨大。
+            </div>
+        </div>
+
+        <!-- 七、核心个股 -->
+        <div class="review-card">
+            <h2>七、核心个股表现</h2>
+            <div class="review-two-col">
+                <div>
+                    <h3>领涨龙头</h3>
+                    <table class="review-table">
+                        <tr><th>个股</th><th>涨幅</th><th>成交额(亿)</th><th>状态</th></tr>
+                        <tr><td>中芯国际</td><td class="review-tag green">+18.78%</td><td>372.5</td><td><span class="review-tag purple">历史新高</span></td></tr>
+                        <tr><td>华虹公司</td><td class="review-tag green">+20.00%</td><td>25.64</td><td><span class="review-tag purple">历史新高</span></td></tr>
+                        <tr><td>兆易创新</td><td class="review-tag green">+10.00%</td><td>—</td><td><span class="review-tag purple">历史新高</span></td></tr>
+                        <tr><td>东芯股份</td><td class="review-tag green">+20.00%</td><td>12.58</td><td><span class="review-tag blue">20cm涨停</span></td></tr>
+                        <tr><td>甬矽电子</td><td class="review-tag green">+20.00%</td><td>—</td><td><span class="review-tag blue">20cm涨停</span></td></tr>
+                    </table>
+                </div>
+                <div>
+                    <h3>领跌个股</h3>
+                    <table class="review-table">
+                        <tr><th>个股</th><th>跌幅</th><th>原因</th><th>状态</th></tr>
+                        <tr><td>科远智慧</td><td class="review-tag red">-10.01%</td><td>业绩不及预期</td><td><span class="review-tag red">跌停</span></td></tr>
+                        <tr><td>惠威科技</td><td class="review-tag red">-10.01%</td><td>消费电子疲软</td><td><span class="review-tag red">跌停</span></td></tr>
+                        <tr><td>双枪科技</td><td class="review-tag red">-10.01%</td><td>小盘股抛压</td><td><span class="review-tag red">跌停</span></td></tr>
+                        <tr><td>昂利康</td><td class="review-tag red">-10.00%</td><td>医药板块调整</td><td><span class="review-tag red">跌停</span></td></tr>
+                        <tr><td>多氟多</td><td class="review-tag red">-10.00%</td><td>锂电池退潮</td><td><span class="review-tag red">跌停</span></td></tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- 八、明日策略 -->
+        <div class="review-card">
+            <h2>八、明日策略与风险提示</h2>
+            <div class="review-score-display">
+                <div class="review-score-circle review-score-78">78</div>
+                <div>
+                    <h3>明日预期评分: 78/100</h3>
+                    <p style="color: var(--text-secondary-pro);">芯片主升延续，但需警惕极致分化后的获利回吐</p>
+                </div>
+            </div>
+            
+            <div class="review-two-col">
+                <div>
+                    <h3>机会方向</h3>
+                    <ul style="color: var(--text-secondary-pro); line-height: 1.8; padding-left: 1.2rem;">
+                        <li><strong>半导体设备/材料:</strong> 华为"韬定律"催化，国产替代逻辑强化</li>
+                        <li><strong>PCB/元器件:</strong> 机构持续加仓，风华高科7.96亿封单彰显决心</li>
+                        <li><strong>存储芯片:</strong> 东芯股份、甬矽电子20cm涨停，板块热度高涨</li>
+                        <li><strong>科创50成分股:</strong> 指数创历史新高，成分股有望轮动补涨</li>
+                        <li><strong>煤炭/电力:</strong> 高股息防御属性，市场震荡时的避风港</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>风险提示</h3>
+                    <ul style="color: var(--text-secondary-pro); line-height: 1.8; padding-left: 1.2rem;">
+                        <li><strong>极致分化风险:</strong> 上涨2181家 vs 下跌3225家，个股与指数严重背离</li>
+                        <li><strong>获利回吐压力:</strong> 科创50单日暴涨5.88%，短期获利盘丰厚</li>
+                        <li><strong>量能持续性:</strong> 3.21万亿成交能否维持是关键</li>
+                        <li><strong>外围市场波动:</strong> 美债收益率高位，美元强势压制风险偏好</li>
+                        <li><strong>板块轮动过快:</strong> 资金虹吸效应显著，非主线板块持续失血</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="review-highlight">
+                <strong>核心结论:</strong> 今日市场确立了芯片产业链的绝对主线地位，科创50创历史新高标志着硬科技牛市进入新阶段。但极致分化格局下，操作难度极大——"选对板块是牛市，选错板块是熊市"。建议聚焦半导体设备/材料、PCB/元器件等机构深度介入方向，回避锂电池、光伏等资金流出板块。仓位控制在5-7成，跟随机构步伐，不追高纯情绪标的。
+            </div>
+        </div>
+
+        <!-- 九、操作建议 -->
+        <div class="review-card" style="border: 2px solid #3b82f6; background: linear-gradient(135deg, rgba(59,130,246,0.05), rgba(139,92,246,0.05));">
+            <h2 style="color: #3b82f6;">九、具体操作建议</h2>
+            <div style="padding: 1.5rem; color: var(--text-pro); line-height: 1.8;">
+                <h3>仓位管理: 5-7成</h3>
+                <p><strong>进攻仓位(3-4成):</strong> 半导体设备/材料、PCB/元器件、存储芯片</p>
+                <p><strong>防御仓位(2-3成):</strong> 煤炭、电力等高股息板块</p>
+                
+                <h3 style="margin-top: 1.5rem;">观察池(重点关注)</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin: 1rem 0;">
+                    <div style="background: var(--panel-pro); padding: 1rem; border-radius: var(--radius-md); border-left: 3px solid #3b82f6;">
+                        <div style="font-weight: 600;">风华高科</div>
+                        <div style="font-size: 0.85rem; color: var(--text-secondary-pro);">MLCC龙头 · 7.96亿封单</div>
+                    </div>
+                    <div style="background: var(--panel-pro); padding: 1rem; border-radius: var(--radius-md); border-left: 3px solid #3b82f6;">
+                        <div style="font-weight: 600;">鹏鼎控股</div>
+                        <div style="font-size: 0.85rem; color: var(--text-secondary-pro);">PCB中军 · 2连板加速</div>
+                    </div>
+                    <div style="background: var(--panel-pro); padding: 1rem; border-radius: var(--radius-md); border-left: 3px solid #3b82f6;">
+                        <div style="font-weight: 600;">中芯国际</div>
+                        <div style="font-size: 0.85rem; color: var(--text-secondary-pro);">半导体龙头 · 历史新高</div>
+                    </div>
+                    <div style="background: var(--panel-pro); padding: 1rem; border-radius: var(--radius-md); border-left: 3px solid #3b82f6;">
+                        <div style="font-weight: 600;">京能电力</div>
+                        <div style="font-size: 0.85rem; color: var(--text-secondary-pro);">电力趋势龙 · 9天6板</div>
+                    </div>
+                </div>
+                
+                <h3 style="margin-top: 1.5rem;">止损条件</h3>
+                <ul style="color: var(--text-secondary-pro); line-height: 1.8; padding-left: 1.2rem;">
+                    <li>科创50单日跌幅超过3%</li>
+                    <li>半导体板块主力资金单日净流出超50亿</li>
+                    <li>市场成交额萎缩至2.8万亿以下</li>
+                    <li>跌停家数超过50家</li>
+                </ul>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin: 3rem 0;">
+            <a href="index.html" class="review-btn" style="background: #3b82f6;">返回首页</a>
+            <a href="dashboard.html" class="review-btn" style="background: #10b981; margin-left: 1rem;">查看Dashboard</a>
+            <a href="professional_review.html" class="review-btn" style="background: #8b5cf6; margin-left: 1rem;">查看周复盘</a>
+        </div>
+    </div>
+
+    <footer class="review-footer">
+        <p>2026年5月25日A股复盘 | 数据来源：证券时报、东方财富、同花顺、财联社 | 更新时间: 2026年5月25日 21:45</p>
+        <p style="font-size: 0.8rem; margin-top: 0.5rem; color: #6b7280;">
+            风险提示：本复盘仅作分析参考，不构成投资建议。市场有风险，投资需谨慎。复盘数据基于公开信息整理，可能存在滞后或误差。
+        </p>
+    </footer>
+</body>
+</html>
