@@ -1,41 +1,70 @@
-// A股市场数据 - 自动生成 2026-06-01
-// 数据来源：腾讯文档（大盘走势 + 板块轮动）
+// A股市场数据 - 自动生成 2026-06-01 10:46
 const MARKET_DATA = {
-  lastUpdate: '2026-06-01 18:50',
+  lastUpdate: '2026-06-01 10:46',
   daily: [
-    {date:"2025-12-15",szClose:3867.92,szChange:"-0.55%",szVolume:7646,scClose:13112.09,scChange:"-1.10%",scVolume:10088,cyClose:3137.80,cyChange:"-1.77%",cyVolume:4721,kcClose:1318.91,kcChange:"-2.22%",kcVolume:583,bsClose:1431.95,bsChange:"-1.09%",bsVolume:211,totalVolume:1.77,upCount:2314,downCount:2968,limitUp:57,limitDown:8},
-    {date:"2025-12-16",szClose:3824.81,szChange:"-1.11%",szVolume:7333,scClose:12914.67,scChange:"-1.51%",scVolume:9909,cyClose:3071.76,cyChange:"-2.10%",cyVolume:4533,kcClose:1293.38,kcChange:"-1.94%",kcVolume:472,bsClose:1439.65,bsChange:"0.54%",bsVolume:241,totalVolume:1.72,upCount:1091,downCount:4302,limitUp:40,limitDown:15},
-    {date:"2025-12-17",szClose:3870.28,szChange:"1.19%",szVolume:7668,scClose:13224.51,scChange:"2.40%",scVolume:10443,cyClose:3175.91,cyChange:"3.39%",cyVolume:4951,kcClose:1325.33,kcChange:"2.47%",kcVolume:502,bsClose:1439.02,bsChange:"-0.04%",bsVolume:234,totalVolume:1.81,upCount:3626,downCount:1635,limitUp:49,limitDown:19},
-    {date:"2025-12-18",szClose:3876.37,szChange:"0.16%",szVolume:7049,scClose:13053.97,scChange:"-1.29%",scVolume:9506,cyClose:3107.06,cyChange:"-2.17%",cyVolume:4499,kcClose:1305.97,kcChange:"-1.46%",kcVolume:387,bsClose:1431.71,bsChange:"-0.51%",bsVolume:215,totalVolume:1.66,upCount:2845,downCount:2416,limitUp:59,limitDown:4},
-    {date:"2025-12-19",szClose:3890.45,szChange:"0.36%",szVolume:7381,scClose:13140.21,scChange:"0.66%",scVolume:9878,cyClose:3122.24,cyChange:"0.49%",cyVolume:4447,kcClose:1308.59,kcChange:"0.20%",kcVolume:389,bsClose:1445.84,bsChange:"0.99%",bsVolume:230,totalVolume:1.73,limitUp:70,limitDown:1},
-    {date:"2025-12-22",szClose:3917.36,szChange:"0.69%",szVolume:7898,scClose:13332.73,scChange:"1.47%",scVolume:10722,cyClose:3191.98,cyChange:"2.23%",cyVolume:4883,kcClose:1335.25,kcChange:"2.04%",kcVolume:551,bsClose:1449.28,bsChange:"0.24%",bsVolume:205,totalVolume:1.86,upCount:2984,downCount:2265,limitUp:79,limitDown:7},
-    {date:"2025-12-23",szClose:3919.98,szChange:"0.07%",szVolume:8069,scClose:13368.99,scChange:"0.27%",scVolume:10930,cyClose:3205.01,cyChange:"0.41%",cyVolume:4986,kcClose:1340.02,kcChange:"0.36%",kcVolume:528,bsClose:1439.94,bsChange:"-0.64%",bsVolume:217,totalVolume:1.90,upCount:1512,downCount:3856,limitUp:54,limitDown:9},
-    {date:"2025-12-24",szClose:3940.95,szChange:"0.53%",szVolume:7739,scClose:13486.42,scChange:"0.88%",scVolume:11063,cyClose:3229.58,cyChange:"0.77%",cyVolume:5090,kcClose:1352.13,kcChange:"0.90%",kcVolume:511,bsClose:1445.55,bsChange:"0.39%",bsVolume:171,totalVolume:1.88,upCount:4128,downCount:1137,limitUp:75,limitDown:4},
-    {date:"2025-12-25",szClose:3959.62,szChange:"0.47%",szVolume:7850,scClose:13531.41,scChange:"0.33%",scVolume:11395,cyClose:3239.34,cyChange:"0.30%",cyVolume:5327,kcClose:1349.06,kcChange:"-0.23%",kcVolume:448,bsClose:1457.96,bsChange:"0.86%",bsVolume:195,totalVolume:1.92,upCount:3773,downCount:1473,limitUp:78,limitDown:0},
-    {date:"2025-12-26",szClose:3963.68,szChange:"0.10%",szVolume:8936,scClose:13603.89,scChange:"0.54%",scVolume:12665,cyClose:3243.88,cyChange:"0.14%",cyVolume:5787,kcClose:1345.83,kcChange:"-0.24%",kcVolume:452,bsClose:1463.04,bsChange:"0.35%",bsVolume:211,totalVolume:2.16,upCount:1866,downCount:3413,limitUp:81,limitDown:1},
-    {date:"2026-01-05",szClose:4023.42,szChange:"1.38%",szVolume:10673,scClose:13828.63,scChange:"2.24%",scVolume:14790,cyClose:3294.55,cyChange:"2.85%",cyVolume:7021,kcClose:1403.41,kcChange:"4.40%",kcVolume:812,bsClose:1466.42,bsChange:"1.80%",bsVolume:211,totalVolume:2.55,upCount:4185,downCount:1168,limitUp:107,limitDown:8},
-    {date:"2026-01-06",szClose:4083.67,szChange:"1.50%",szVolume:11758,scClose:14022.55,scChange:"1.40%",scVolume:16308,cyClose:3319.29,cyChange:"0.75%",cyVolume:7635,kcClose:1429.30,kcChange:"1.84%",kcVolume:808,bsClose:1493.04,bsChange:"1.82%",bsVolume:260,totalVolume:2.81,upCount:4108,downCount:1222,limitUp:117,limitDown:1},
-    {date:"2026-01-07",szClose:4085.77,szChange:"0.05%",szVolume:11974,scClose:14030.56,scChange:"0.06%",scVolume:16568,cyClose:3329.69,cyChange:"0.31%",cyVolume:7633,kcClose:1443.39,kcChange:"0.99%",kcVolume:871,bsClose:1496.28,bsChange:"0.22%",bsVolume:275,totalVolume:2.85,upCount:2173,downCount:3190,limitUp:80,limitDown:3},
-    {date:"2026-01-08",szClose:4082.98,szChange:"-0.07%",szVolume:11832,scClose:13959.48,scChange:"-0.51%",scVolume:16172,cyClose:3302.31,cyChange:"-0.82%",cyVolume:7557,kcClose:1455.17,kcChange:"0.82%",kcVolume:992,bsClose:1508.38,bsChange:"0.81%",bsVolume:261,totalVolume:2.80,upCount:3731,downCount:1595,limitUp:92,limitDown:3},
-    {date:"2026-01-09",szClose:4120.43,szChange:"0.92%",szVolume:12892,scClose:14120.15,scChange:"1.15%",scVolume:18336,cyClose:3327.81,cyChange:"0.77%",cyVolume:8789,kcClose:1475.97,kcChange:"1.43%",kcVolume:910,bsClose:1524.26,bsChange:"1.05%",bsVolume:298,totalVolume:3.12,upCount:3920,downCount:1349,limitUp:92,limitDown:1}
-  ],
+  {
+    "date": "2025-12-15",
+    "szClose": 3867.92,
+    "szVolume": 7646.05,
+    "scClose": 13112.09,
+    "scVolume": 10088.35,
+    "cyClose": 3137.8,
+    "cyVolume": 4720.79,
+    "kcClose": 1318.91,
+    "kcVolume": 583.46,
+    "bsClose": 1431.95,
+    "bsVolume": 210.93,
+    "totalVolume": 1.77,
+    "limitUp": 57,
+    "limitDown": 8
+  },
+  {
+    "date": "2025-12-16",
+    "szClose": 3824.81,
+    "szVolume": 7332.94,
+    "scClose": 12914.67,
+    "scVolume": 9908.79,
+    "cyClose": 3071.76,
+    "cyVolume": 4533.47,
+    "kcClose": 1293.38,
+    "kcVolume": 471.52,
+    "bsClose": 1439.65,
+    "bsVolume": 241,
+    "totalVolume": 1.72,
+    "limitUp": 40,
+    "limitDown": 15
+  },
+  {
+    "date": "2026-05-29",
+    "szClose": 4068.57,
+    "szVolume": 15321,
+    "scClose": 15575.13,
+    "scVolume": 17870,
+    "cyClose": 4037.95,
+    "cyVolume": 8557,
+    "kcClose": 1751.32,
+    "kcVolume": 1821,
+    "bsClose": 1244.1,
+    "bsVolume": 222,
+    "totalVolume": 3.32,
+    "limitUp": 49,
+    "limitDown": 59
+  }
+],
   sector: [
-    {date:"2026-06-01",szChange:"-0.27%",scChange:"-1.51%",totalVolume:28760,upDownRatio:"1548:777",maxBoard:4,topSector:"国企改革",topSectorCount:27,sentiment:"发酵",leaderStock:"换手龙(合锻智能4板)",hotSectors:"国企改革、人工智能、机器人、数据中心、储能",positionSuggestion:"5成"},
-    {date:"2026-05-28",szChange:"0.12%",scChange:"0.80%",totalVolume:33933,upDownRatio:"1126:1162",maxBoard:4,topSector:"芯片",topSectorCount:34,sentiment:"回暖",leaderStock:"三板成妖",hotSectors:"芯片、新能源汽车、储能、军工、华为概念、数据中心",positionSuggestion:"3成"},
-    {date:"2026-05-27",szChange:"-1.25%",scChange:"-0.88%",totalVolume:36696,upDownRatio:"444:1875",maxBoard:3,topSector:"储能",topSectorCount:16,sentiment:"分歧",leaderStock:"三板成妖"},
-    {date:"2026-05-26",szChange:"-0.17%",scChange:"0.12%",totalVolume:36468,upDownRatio:"636:1671",maxBoard:3,topSector:"新能源汽车",topSectorCount:14,sentiment:"分歧",leaderStock:"三板成妖"},
-    {date:"2026-05-25",szChange:"0.96%",scChange:"1.66%",totalVolume:36147,upDownRatio:"1028:1280",maxBoard:4,topSector:"机器人概念",topSectorCount:33,sentiment:"回暖",leaderStock:"三板成妖"},
-    {date:"2026-05-22",szChange:"0.87%",scChange:"2.30%",totalVolume:32204,upDownRatio:"1597:692",maxBoard:3,topSector:"新能源汽车",topSectorCount:38,sentiment:"回暖",leaderStock:"三板成妖"},
-    {date:"2026-05-21",szChange:"-2.04%",scChange:"-2.07%",totalVolume:40704,upDownRatio:"338:1987",maxBoard:5,topSector:"新能源汽车",topSectorCount:10,sentiment:"分歧",leaderStock:"连板确认(5板)"},
-    {date:"2026-05-20",szChange:"-0.18%",scChange:"0.00%",totalVolume:33460,upDownRatio:"783:1533",maxBoard:5,topSector:"储能",topSectorCount:19,sentiment:"分歧",leaderStock:"连板确认(5板)"},
-    {date:"2026-05-19",szChange:"0.92%",scChange:"0.26%",totalVolume:32127,upDownRatio:"1559:738",maxBoard:5,topSector:"机器人概念",topSectorCount:38,sentiment:"回暖",leaderStock:"连板确认(5板)"},
-    {date:"2026-05-18",szChange:"-0.09%",scChange:"-0.20%",totalVolume:32265,upDownRatio:"1008:1271",maxBoard:5,topSector:"储能",topSectorCount:23,sentiment:"回暖",leaderStock:"连板确认(5板)",positionSuggestion:"3成"},
-    {date:"2026-05-14",szChange:"-1.52%",scChange:"-2.14%",totalVolume:37558,upDownRatio:"470:1844",maxBoard:5,topSector:"光伏概念",topSectorCount:14,sentiment:"分歧",leaderStock:"连板确认(5板)",positionSuggestion:"5成"},
-    {date:"2026-05-13",szChange:"0.67%",scChange:"1.67%",totalVolume:35777,upDownRatio:"1299:975",maxBoard:5,topSector:"新能源汽车",topSectorCount:41,sentiment:"发酵",leaderStock:"连板确认(5板)",positionSuggestion:"5成"},
-    {date:"2026-04-08",szChange:"2.70%",scChange:"4.79%",totalVolume:28095,upDownRatio:"2179:158",maxBoard:4,topSector:"华为概念",topSectorCount:40,sentiment:"发酵",leaderStock:"三板成妖"},
-    {date:"2026-03-24",szChange:"1.78%",scChange:"1.43%",totalVolume:22123,upDownRatio:"2192:145",maxBoard:5,topSector:"储能",topSectorCount:26,sentiment:"回暖",leaderStock:"连板确认(5板)",hotSectors:"数据中心、商业航天、电力"},
-    {date:"2026-02-02",szChange:"-2.48%",scChange:"-2.69%",totalVolume:29987,upDownRatio:"293:2023",maxBoard:3,topSector:"智能电网",topSectorCount:12,sentiment:"分歧",leaderStock:"三板成妖",positionSuggestion:"空仓"},
-    {date:"2026-01-23",szChange:"0.33%",scChange:"0.79%",totalVolume:34403,upDownRatio:"1612:653",maxBoard:18,topSector:"锋龙股份",sentiment:"高潮",leaderStock:"妖股(18板)",hotSectors:"军工、商业航天、光伏"},
-    {date:"2026-01-19",szChange:"0.29%",scChange:"0.09%",totalVolume:30113,upDownRatio:"1540:745",maxBoard:14,topSector:"锋龙股份",sentiment:"高潮",leaderStock:"妖股(14板)"}
-  ]
+  {
+    "date": "2026-06-01",
+    "szChange": "-0.27%",
+    "scChange": "-1.51%",
+    "totalVolume": 28760,
+    "upDownRatio": "1548:777",
+    "maxBoard": 4,
+    "topSector": "国企改革",
+    "topSectorCount": 27,
+    "sentiment": "发酵",
+    "leaderStock": "换手龙(合锻智能4板)",
+    "hotSectors": "国企改革、人工智能、机器人、数据中心、储能",
+    "positionSuggestion": "5成"
+  }
+]
 };
