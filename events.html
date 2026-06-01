@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>大事件 - A股职业交易复盘系统</title>
+<link rel="stylesheet" href="assets/css/modern.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Microsoft YaHei', sans-serif; background: #f9fafb; color: #111827; min-height: 100vh; -webkit-font-smoothing: antialiased; }
+.top-nav { background: linear-gradient(135deg, #2563eb, #1e40af); color: white; position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
+.nav-inner { max-width: 1280px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 0 24px; height: 60px; }
+.nav-brand { display: flex; align-items: center; gap: 12px; }
+.nav-brand .logo { width: 36px; height: 36px; background: rgba(255,255,255,0.2); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 16px; }
+.nav-brand h1 { font-size: 16px; font-weight: 600; }
+.nav-links { display: flex; gap: 4px; }
+.nav-links a { padding: 8px 18px; color: rgba(255,255,255,0.75); text-decoration: none; font-size: 14px; font-weight: 500; border-radius: 8px; transition: all 0.2s; }
+.nav-links a:hover { background: rgba(255,255,255,0.12); color: white; }
+.nav-links a.active { background: rgba(255,255,255,0.2); color: white; font-weight: 600; }
+.container { max-width: 900px; margin: 0 auto; padding: 32px 24px; }
+.page-header { margin-bottom: 24px; }
+.page-header h2 { font-size: 20px; font-weight: 700; color: #111827; margin-bottom: 6px; }
+.page-header p { color: #6b7280; font-size: 14px; }
+
+/* 时间线 */
+.timeline { position: relative; padding-left: 32px; }
+.timeline::before { content: ''; position: absolute; left: 10px; top: 0; bottom: 0; width: 2px; background: #e5e7eb; }
+.timeline-item { position: relative; margin-bottom: 20px; padding: 16px 20px; background: white; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); border: 1px solid #e5e7eb; }
+.timeline-item::before { content: ''; position: absolute; left: -26px; top: 20px; width: 12px; height: 12px; border-radius: 50%; background: #2563eb; border: 2px solid white; box-shadow: 0 0 0 2px #2563eb; }
+.timeline-item.domestic::before { background: #2563eb; box-shadow: 0 0 0 2px #2563eb; }
+.timeline-item.international::before { background: #8b5cf6; box-shadow: 0 0 0 2px #8b5cf6; }
+.timeline-item.industry::before { background: #f59e0b; box-shadow: 0 0 0 2px #f59e0b; }
+.timeline-item .tag { display: inline-block; padding: 2px 10px; border-radius: 999px; font-size: 11px; font-weight: 500; margin-bottom: 8px; }
+.tag-domestic { background: #dbeafe; color: #1e40af; }
+.tag-international { background: #ede9fe; color: #6d28d9; }
+.tag-industry { background: #fef3c7; color: #92400e; }
+.timeline-item h4 { font-size: 14px; font-weight: 600; color: #111827; margin-bottom: 4px; }
+.timeline-item p { font-size: 13px; color: #6b7280; line-height: 1.6; }
+.timeline-item .time { font-size: 11px; color: #9ca3af; margin-top: 6px; }
+
+.empty-state { text-align: center; padding: 60px 20px; color: #9ca3af; }
+.footer { background: #111827; color: white; padding: 24px; margin-top: 32px; text-align: center; font-size: 13px; color: #9ca3af; }
+@media (max-width: 600px) { .nav-links a { padding: 6px 10px; font-size: 12px; } }
+</style>
+</head>
+<body>
+<nav class="top-nav">
+  <div class="nav-inner">
+    <div class="nav-brand"><div class="logo">A</div><h1>A股职业交易复盘系统</h1></div>
+    <div class="nav-links">
+      <a href="index.html">大盘概览</a>
+      <a href="daily.html">日复盘</a>
+      <a href="weekly.html">周复盘</a>
+      <a href="events.html" class="active">大事件</a>
+    </div>
+  </div>
+</nav>
+<div class="container">
+  <div class="page-header">
+    <h2>当日国内外大事件</h2>
+    <p>重大财经新闻 · 政策解读 · 国际市场动态</p>
+  </div>
+  <div class="timeline" id="eventTimeline">
+    <div class="empty-state">
+      <p style="font-size:18px;margin-bottom:8px;">暂无事件数据</p>
+      <p>点击下方按钮添加今日事件，或手动更新 events_data.js</p>
+    </div>
+  </div>
+</div>
+<footer class="footer">© 2026 A股职业交易复盘系统 · 数据仅供参考，不构成投资建议</footer>
+<script>
+// 示例事件数据 - 可替换为从 events_data.js 加载
+const sampleEvents = [
+  { type: 'domestic', tag: '国内', title: '央行开展MLF操作 利率维持不变', desc: '央行今日开展5000亿元中期借贷便利（MLF）操作，中标利率2.50%，与上期持平，操作规模较上月增加500亿元。', time: '09:30' },
+  { type: 'domestic', tag: '国内', title: '5月官方制造业PMI公布 连续3个月扩张', desc: '统计局公布5月制造业采购经理指数（PMI）为50.8%，较上月上升0.2个百分点，连续三个月保持在扩张区间。', time: '09:00' },
+  { type: 'international', tag: '国际', title: '美联储官员暗示年内降息可能延后', desc: '美联储理事沃勒表示，近期通胀数据缺乏进一步进展，需等待更多证据确认通胀可持续回落，市场预计首次降息窗口推迟至9月。', time: '隔夜' },
+  { type: 'international', tag: '国际', title: '美股三大指数涨跌互现 科技股承压', desc: '道指涨0.15%，纳指跌0.68%，标普500跌0.21%。大型科技股多数下跌，特斯拉跌3.5%，英伟达跌2.1%。', time: '隔夜' },
+  { type: 'industry', tag: '产业', title: '国家大基金三期成立 注册资本超3000亿', desc: '国家集成电路产业投资基金三期正式成立，注册资本3440亿元，重点投向半导体设备和材料环节，产业链有望受益。', time: '10:00' },
+  { type: 'industry', tag: '产业', title: '商业航天领域再获政策支持', desc: '工信部发布关于促进商业航天发展的指导意见，提出到2027年形成较为完整的商业航天产业链，多地加速布局。', time: '14:00' }
+];
+
+document.addEventListener('DOMContentLoaded', function() {
+  const container = document.getElementById('eventTimeline');
+  container.innerHTML = sampleEvents.map(e => `
+    <div class="timeline-item ${e.type}">
+      <span class="tag tag-${e.type}">${e.tag}</span>
+      <h4>${e.title}</h4>
+      <p>${e.desc}</p>
+      <div class="time">${e.time}</div>
+    </div>
+  `).join('');
+});
+</script>
+</body>
+</html>
