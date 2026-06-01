@@ -9,7 +9,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        /* Dashboard 专属样式 */
         .dashboard-sticky-nav {
             display: flex;
             gap: 0;
@@ -39,22 +38,12 @@
             background: var(--primary-50);
             border-bottom-color: var(--primary-500);
         }
-
-        .section-anchor {
-            scroll-margin-top: 160px;
-        }
+        .section-anchor { scroll-margin-top: 160px; }
 
         .score-circle-md {
-            width: 56px;
-            height: 56px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.25rem;
-            font-weight: 800;
-            color: white;
-            flex-shrink: 0;
+            width: 56px; height: 56px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.25rem; font-weight: 800; color: white; flex-shrink: 0;
         }
         .score-90-100 { background: linear-gradient(135deg, #8b5cf6, #7c3aed); }
         .score-80-90  { background: linear-gradient(135deg, #3b82f6, #1d4ed8); }
@@ -63,158 +52,91 @@
         .score-0-60   { background: linear-gradient(135deg, #dc2626, #b91c1c); }
 
         .report-item-dashboard {
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-            padding: 1.25rem;
-            background: var(--gray-50);
-            border-radius: var(--radius-lg);
-            border-left: 4px solid var(--primary-400);
-            text-decoration: none;
-            color: var(--gray-900);
-            transition: all 0.2s ease;
+            display: flex; align-items: center; gap: 1.5rem;
+            padding: 1.25rem; background: var(--gray-50);
+            border-radius: var(--radius-lg); border-left: 4px solid var(--primary-400);
+            text-decoration: none; color: var(--gray-900); transition: all 0.2s ease;
         }
         .report-item-dashboard:hover {
-            background: var(--primary-50);
-            border-left-color: var(--primary-600);
-            transform: translateX(4px);
+            background: var(--primary-50); border-left-color: var(--primary-600); transform: translateX(4px);
         }
-        .report-item-dashboard.weekly {
-            border-left-color: var(--success-400);
-        }
-        .report-item-dashboard.weekly:hover {
-            background: var(--success-50);
-            border-left-color: var(--success-600);
-        }
-
+        .report-item-dashboard.weekly { border-left-color: var(--success-400); }
+        .report-item-dashboard.weekly:hover { background: var(--success-50); border-left-color: var(--success-600); }
         .report-body { flex: 1; }
-        .report-title {
-            font-size: 1.0625rem;
-            font-weight: 600;
-            margin-bottom: 0.375rem;
-        }
-        .report-summary {
-            color: var(--gray-500);
-            font-size: 0.875rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .metrics-row {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
+        .report-title { font-size: 1.0625rem; font-weight: 600; margin-bottom: 0.375rem; }
+        .report-summary { color: var(--gray-500); font-size: 0.875rem; margin-bottom: 0.5rem; }
+        .metrics-row { display: flex; gap: 1rem; flex-wrap: wrap; }
         .metric-chip {
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-            font-size: 0.8rem;
-            font-weight: 500;
-            padding: 2px 8px;
+            display: inline-flex; align-items: center; gap: 4px;
+            font-size: 0.8rem; font-weight: 500; padding: 2px 8px;
             border-radius: var(--radius-sm);
         }
         .metric-chip.up { background: var(--danger-50); color: var(--danger-700); }
         .metric-chip.down { background: var(--success-50); color: var(--success-700); }
         .metric-chip.neutral { background: var(--gray-100); color: var(--gray-600); }
         .metric-chip.primary { background: var(--primary-50); color: var(--primary-700); }
-
         .view-btn {
-            padding: 0.5rem 1rem;
-            background: var(--primary-600);
-            color: white;
-            border-radius: var(--radius-md);
-            text-decoration: none;
-            font-size: 0.8125rem;
-            font-weight: 600;
-            white-space: nowrap;
-            transition: all 0.2s ease;
+            padding: 0.5rem 1rem; background: var(--primary-600); color: white;
+            border-radius: var(--radius-md); text-decoration: none;
+            font-size: 0.8125rem; font-weight: 600; white-space: nowrap; transition: all 0.2s ease;
         }
-        .view-btn:hover {
-            background: var(--primary-700);
-            box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3);
-        }
+        .view-btn:hover { background: var(--primary-700); box-shadow: 0 2px 8px rgba(37,99,235,0.3); }
 
         .task-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-            gap: 0.75rem;
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 0.75rem;
         }
         .task-item {
-            background: var(--gray-50);
-            border-radius: var(--radius-lg);
-            padding: 1rem;
-            text-align: center;
-            border: 1px solid var(--gray-200);
-            transition: all 0.2s ease;
+            background: var(--gray-50); border-radius: var(--radius-lg); padding: 1rem;
+            text-align: center; border: 1px solid var(--gray-200); transition: all 0.2s ease;
         }
-        .task-item:hover {
-            border-color: var(--primary-300);
-            box-shadow: var(--shadow-sm);
-        }
-        .task-name {
-            font-weight: 600;
-            font-size: 0.9375rem;
-            color: var(--gray-900);
-        }
-        .task-time {
-            font-size: 0.8125rem;
-            color: var(--gray-500);
-            margin-top: 0.25rem;
-        }
+        .task-item:hover { border-color: var(--primary-300); box-shadow: var(--shadow-sm); }
+        .task-name { font-weight: 600; font-size: 0.9375rem; color: var(--gray-900); }
+        .task-time { font-size: 0.8125rem; color: var(--gray-500); margin-top: 0.25rem; }
         .task-status {
-            display: inline-block;
-            margin-top: 0.5rem;
-            padding: 2px 10px;
-            background: var(--success-100);
-            color: var(--success-700);
-            border-radius: var(--radius-full);
-            font-size: 0.75rem;
-            font-weight: 500;
+            display: inline-block; margin-top: 0.5rem; padding: 2px 10px;
+            background: var(--success-100); color: var(--success-700);
+            border-radius: var(--radius-full); font-size: 0.75rem; font-weight: 500;
         }
-
-        .empty-state {
-            text-align: center;
-            padding: 3rem 1rem;
-            color: var(--gray-400);
-        }
-        .empty-state svg {
-            width: 64px;
-            height: 64px;
-            margin-bottom: 1rem;
-            opacity: 0.4;
-        }
-
+        .empty-state { text-align: center; padding: 3rem 1rem; color: var(--gray-400); }
+        .empty-state svg { width: 64px; height: 64px; margin-bottom: 1rem; opacity: 0.4; }
         .stats-mini-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-            gap: 1rem;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1rem;
         }
-        .stat-mini {
-            background: var(--gray-50);
-            border-radius: var(--radius-lg);
-            padding: 1rem;
-            text-align: center;
+        .stat-mini { background: var(--gray-50); border-radius: var(--radius-lg); padding: 1rem; text-align: center; }
+        .stat-mini .label { font-size: 0.8125rem; color: var(--gray-500); margin-bottom: 0.25rem; }
+        .stat-mini .value { font-size: 1.5rem; font-weight: 700; color: var(--gray-900); }
+
+        /* 市场数据看板样式 */
+        .data-overview-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;
         }
-        .stat-mini .label {
-            font-size: 0.8125rem;
-            color: var(--gray-500);
-            margin-bottom: 0.25rem;
+        .data-card {
+            background: white; border-radius: var(--radius-xl); padding: 1.25rem;
+            box-shadow: var(--shadow-md); border: 1px solid var(--gray-200);
         }
-        .stat-mini .value {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--gray-900);
+        .data-card .label { font-size: 0.8125rem; color: var(--gray-500); margin-bottom: 0.25rem; }
+        .data-card .value { font-size: 1.5rem; font-weight: 700; }
+        .data-card .sub { font-size: 0.8125rem; color: var(--gray-400); margin-top: 0.25rem; }
+        .data-table-wrap { overflow-x: auto; background: white; border-radius: var(--radius-xl); padding: 1rem; box-shadow: var(--shadow-md); }
+        .data-table { width: 100%; border-collapse: collapse; font-size: 0.8125rem; }
+        .data-table th { text-align: left; padding: 0.625rem 0.75rem; background: var(--gray-50); color: var(--gray-600); font-weight: 600; border-bottom: 2px solid var(--gray-200); white-space: nowrap; }
+        .data-table td { padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--gray-100); white-space: nowrap; }
+        .data-table tr:hover td { background: var(--primary-50); }
+        .change-up { color: var(--danger-600); }
+        .change-down { color: var(--success-600); }
+        .sentiment-tag {
+            display: inline-block; padding: 2px 8px; border-radius: var(--radius-full);
+            font-size: 0.75rem; font-weight: 600;
         }
+        .sentiment-tag.gaochao { background: #fef3c7; color: #92400e; }
+        .sentiment-tag.fajiao { background: #dbeafe; color: #1e40af; }
+        .sentiment-tag.huinnuan { background: #dcfce7; color: #166534; }
+        .sentiment-tag.fenqi { background: #f3f4f6; color: #4b5563; }
+        .sentiment-tag.huitiao { background: #fee2e2; color: #991b1b; }
 
         @media (max-width: 768px) {
-            .report-item-dashboard {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            .dashboard-sticky-nav a {
-                font-size: 0.8125rem;
-                padding: 0.625rem 0.5rem;
-            }
+            .report-item-dashboard { flex-direction: column; align-items: flex-start; }
+            .dashboard-sticky-nav a { font-size: 0.8125rem; padding: 0.625rem 0.5rem; }
         }
     </style>
 </head>
@@ -230,23 +152,23 @@
             </div>
             <div class="header-stats">
                 <div>
-                    <div class="date-display">最新评分 <span id="latestScore" style="font-weight:800;">--</span> / 100</div>
-                    <div class="meta-info" id="latestDate">加载中...</div>
+                    <div class="date-display" id="latestDateDisplay">加载中...</div>
+                    <div class="meta-info">数据更新: <span id="updateInfo">--</span></div>
                 </div>
             </div>
         </div>
     </header>
 
-    <!-- 二级导航 -->
     <nav class="dashboard-sticky-nav" id="topNav" style="max-width: 1200px; margin-left: auto; margin-right: auto; width: calc(100% - 3rem);">
-        <a href="#daily-reports" class="active">日复盘</a>
+        <a href="#daily-reports">日复盘</a>
         <a href="#weekly-reports">周复盘</a>
+        <a href="#market-data" class="active">市场数据</a>
         <a href="#quick-stats">快速统计</a>
         <a href="#system-status">系统状态</a>
     </nav>
 
     <div class="modern-container">
-        
+
         <!-- 日复盘报告 -->
         <section id="daily-reports" class="section-anchor" style="margin-bottom: 2.5rem;">
             <div class="section-header">
@@ -263,6 +185,33 @@
                 <span class="report-badge weekly">Weekly Review</span>
             </div>
             <div id="weeklyList"></div>
+        </section>
+
+        <!-- ===== 腾讯文档数据看板 ===== -->
+        <section id="market-data" class="section-anchor" style="margin-bottom: 2.5rem;">
+            <div class="section-header">
+                <h2>市场数据看板</h2>
+                <span class="report-badge daily" id="dataUpdateBadge">腾讯文档</span>
+            </div>
+
+            <!-- 最新行情概览 -->
+            <div id="marketOverview" class="data-overview-grid"></div>
+
+            <!-- 板块情绪 -->
+            <div style="margin-bottom: 1.5rem;">
+                <div class="section-header" style="margin-bottom: 0.75rem;">
+                    <h3 style="font-size: 1.1rem;">板块轮动 · 情绪周期</h3>
+                </div>
+                <div class="data-table-wrap" id="sectorTableWrap"></div>
+            </div>
+
+            <!-- 大盘走势表 -->
+            <div>
+                <div class="section-header" style="margin-bottom: 0.75rem;">
+                    <h3 style="font-size: 1.1rem;">大盘指数 · 历史数据</h3>
+                </div>
+                <div class="data-table-wrap" id="dailyTableWrap"></div>
+            </div>
         </section>
 
         <!-- 快速统计 -->
@@ -292,7 +241,7 @@
             </div>
             <div class="footer-section">
                 <h4>数据源</h4>
-                <p>东方财富、同花顺、证券时报、财联社</p>
+                <p>东方财富、同花顺、腾讯文档</p>
             </div>
             <div class="footer-section">
                 <h4>风险提示</h4>
@@ -304,7 +253,15 @@
         </div>
     </footer>
 
+    <!-- 加载腾讯文档数据 -->
+    <script src="data/market_data.js"></script>
     <script>
+        // 使用 MARKET_DATA 替代 mockData
+        const data = typeof MARKET_DATA !== 'undefined' ? MARKET_DATA : null;
+        const dailyReports = data ? data.daily : [];
+        const sectorData = data ? data.sector : [];
+
+        // 模拟的复盘报告（后续接入实际数据）
         const mockDailyReports = [
             {
                 date: "2026-05-22",
@@ -315,8 +272,7 @@
                     { label: "上证", value: "+0.87%", type: "up" },
                     { label: "涨停", value: "138", type: "up" },
                     { label: "跌停", value: "20", type: "neutral" },
-                    { label: "成交额", value: "29033亿", type: "neutral" },
-                    { label: "连板高度", value: "7→3板", type: "up" }
+                    { label: "成交额", value: "29033亿", type: "neutral" }
                 ],
                 summary: "缩量反弹，PCB/MLCC爆发，高标崩塌"
             }
@@ -332,8 +288,7 @@
                     { label: "周涨跌", value: "-0.54%", type: "down" },
                     { label: "涨停", value: "435", type: "up" },
                     { label: "跌停", value: "125", type: "neutral" },
-                    { label: "日均成交", value: "30238亿", type: "primary" },
-                    { label: "主线切换", value: "电力→PCB", type: "neutral" }
+                    { label: "日均成交", value: "30238亿", type: "primary" }
                 ],
                 summary: "震荡偏弱，电力退潮，PCB/MLCC崛起"
             }
@@ -350,18 +305,15 @@
         function renderReportList(containerId, reports, type) {
             const container = document.getElementById(containerId);
             if (!container) return;
-
             if (reports.length === 0) {
-                container.innerHTML = `<div class="empty-state"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg><p>暂无报告</p></div>`;
+                container.innerHTML = '<div class="empty-state"><p>暂无报告</p></div>';
                 return;
             }
-
             container.innerHTML = reports.map(report => {
                 const scoreClass = getScoreClass(report.score);
-                const metricsHtml = report.metrics.map(m => 
+                const metricsHtml = report.metrics.map(m =>
                     `<span class="metric-chip ${m.type}">${m.label}: ${m.value}</span>`
                 ).join('');
-
                 return `
                     <div style="margin-bottom: 1rem;">
                         <a href="${report.path}" class="report-item-dashboard ${type}">
@@ -378,23 +330,107 @@
             }).join('');
         }
 
-        function updateSystemStatus() {
-            const now = new Date();
-            document.getElementById('updateTime').textContent = now.toLocaleString('zh-CN');
-
-            if (mockDailyReports.length > 0) {
-                const latest = mockDailyReports[0];
-                document.getElementById('latestScore').textContent = latest.score;
-                document.getElementById('latestDate').textContent = latest.date;
+        // ===== 市场数据看板渲染 =====
+        function renderMarketData() {
+            if (!data || dailyReports.length === 0) {
+                document.getElementById('marketOverview').innerHTML = '<div class="empty-state"><p>暂无数据，请确认 data/market_data.js 已加载</p></div>';
+                return;
             }
 
+            const latest = dailyReports[dailyReports.length - 1];
+            const first = dailyReports[0];
+            const latestSector = sectorData.length > 0 ? sectorData[0] : null;
+
+            // 更新头部
+            document.getElementById('latestDateDisplay').textContent = latest.date + ' 数据';
+            document.getElementById('updateInfo').textContent = data.lastUpdate || '--';
+            document.getElementById('updateTime').textContent = data.lastUpdate || new Date().toLocaleString('zh-CN');
+            if (document.getElementById('dataUpdateBadge')) {
+                document.getElementById('dataUpdateBadge').textContent = '共 ' + dailyReports.length + ' 条';
+            }
+
+            // 行情概览卡片
+            const changeClass = latest.szChange && latest.szChange.startsWith('-') ? 'change-down' : 'change-up';
+            document.getElementById('marketOverview').innerHTML = [
+                { label: '上证指数', value: latest.szClose, sub: latest.szChange || '', cls: changeClass },
+                { label: '深证成指', value: latest.scClose, sub: latest.scChange || '', cls: 'change-up' },
+                { label: '创业板指', value: latest.cyClose, sub: latest.cyChange || '', cls: 'change-up' },
+                { label: '科创50', value: latest.kcClose, sub: latest.kcChange || '', cls: 'change-up' },
+                { label: '两市成交', value: (latest.totalVolume || 0).toFixed(2) + '万亿', sub: '涨停' + (latest.limitUp || 0) + ' · 跌停' + (latest.limitDown || 0) },
+                { label: '涨跌家数', value: (latest.upCount || '--') + '/' + (latest.downCount || '--'), sub: latestSector ? '(' + latestSector.upDownRatio + ')' : '' }
+            ].map(c => `
+                <div class="data-card">
+                    <div class="label">${c.label}</div>
+                    <div class="value ${c.cls || ''}">${c.value}</div>
+                    <div class="sub">${c.sub}</div>
+                </div>
+            `).join('');
+
+            // 板块轮动表
+            if (sectorData.length > 0) {
+                document.getElementById('sectorTableWrap').innerHTML = `
+                <table class="data-table">
+                    <thead><tr>
+                        <th>日期</th><th>上证</th><th>深证</th><th>成交(亿)</th><th>涨跌比</th>
+                        <th>最高连板</th><th>涨停板块</th><th>热点板块</th><th>情绪</th><th>仓位</th>
+                    </tr></thead>
+                    <tbody>
+                    ${sectorData.slice(0, 20).map(s => {
+                        const sentClass = s.sentiment === '高潮' ? 'gaochao' : s.sentiment === '发酵' ? 'fajiao' : s.sentiment === '回暖' ? 'huinnuan' : s.sentiment === '分歧' ? 'fenqi' : 'huitiao';
+                        const szUp = s.szChange && s.szChange.startsWith('-');
+                        return `<tr>
+                            <td style="font-weight:600;">${s.date}</td>
+                            <td class="${szUp ? 'change-down' : 'change-up'}">${s.szChange || '--'}</td>
+                            <td>${s.scChange || '--'}</td>
+                            <td>${s.totalVolume || '--'}</td>
+                            <td>${s.upDownRatio || '--'}</td>
+                            <td><span style="font-weight:700;color:var(--primary-600);">${s.maxBoard || '-'}板</span></td>
+                            <td>${s.topSector || '--'}</td>
+                            <td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;">${s.hotSectors || '--'}</td>
+                            <td><span class="sentiment-tag ${sentClass}">${s.sentiment || '--'}</span></td>
+                            <td>${s.positionSuggestion || '--'}</td>
+                        </tr>`;
+                    }).join('')}
+                    </tbody>
+                </table>`;
+            }
+
+            // 大盘走势表（最近10条）
+            const last10 = dailyReports.slice(-10).reverse();
+            document.getElementById('dailyTableWrap').innerHTML = `
+            <table class="data-table">
+                <thead><tr>
+                    <th>日期</th><th>上证收盘</th><th>上证涨跌</th><th>深证收盘</th><th>创业板</th>
+                    <th>科创50</th><th>成交(万亿)</th><th>涨停</th><th>跌停</th>
+                </tr></thead>
+                <tbody>
+                ${last10.map(d => {
+                    const szUp = d.szChange && d.szChange.startsWith('-');
+                    return `<tr>
+                        <td style="font-weight:600;">${d.date}</td>
+                        <td>${d.szClose}</td>
+                        <td class="${szUp ? 'change-down' : 'change-up'}">${d.szChange || '--'}</td>
+                        <td>${d.scClose || '--'}</td>
+                        <td>${d.cyClose || '--'}</td>
+                        <td>${d.kcClose || '--'}</td>
+                        <td>${d.totalVolume || '--'}</td>
+                        <td class="change-up">${d.limitUp || '--'}</td>
+                        <td class="change-down">${d.limitDown || '--'}</td>
+                    </tr>`;
+                }).join('')}
+                </tbody>
+            </table>`;
+        }
+
+        function updateSystemStatus() {
             const tasks = [
                 { name: "周一复盘", time: "16:00" },
                 { name: "周二复盘", time: "16:00" },
                 { name: "周三复盘", time: "16:00" },
                 { name: "周四复盘", time: "16:00" },
                 { name: "周五复盘", time: "16:00" },
-                { name: "周复盘", time: "周日 16:00" }
+                { name: "周复盘", time: "周日 16:00" },
+                { name: "数据同步", time: "15:30" }
             ];
 
             document.getElementById('taskStatus').innerHTML = `
@@ -413,11 +449,10 @@
             `;
 
             document.getElementById('weeklyStats').innerHTML = [
-                { label: "本周涨停数", value: "435" },
-                { label: "本周跌停数", value: "125" },
-                { label: "日均成交额", value: "30238亿" },
-                { label: "综合评分", value: "67" },
-                { label: "主线板块", value: "PCB/MLCC" }
+                { label: "总交易日", value: dailyReports.length },
+                { label: "板块记录", value: sectorData.length },
+                { label: "数据来源", value: "腾讯文档" },
+                { label: "同步方式", value: "自动" }
             ].map(s => `
                 <div class="stat-mini">
                     <div class="label">${s.label}</div>
@@ -429,6 +464,7 @@
         document.addEventListener('DOMContentLoaded', () => {
             renderReportList('dailyList', mockDailyReports, 'daily');
             renderReportList('weeklyList', mockWeeklyReports, 'weekly');
+            renderMarketData();
             updateSystemStatus();
 
             document.querySelectorAll('#topNav a').forEach(link => {
