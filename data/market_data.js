@@ -1,70 +1,60 @@
-// A股市场数据 - 自动生成 2026-06-01 10:46
+// A股市场数据 - 2026-06-01 修正版 | 数据来源: 通达信实时 + 腾讯文档
 const MARKET_DATA = {
-  lastUpdate: '2026-06-01 10:46',
+  lastUpdate: '2026-06-01 20:04',
   daily: [
-  {
-    "date": "2025-12-15",
-    "szClose": 3867.92,
-    "szVolume": 7646.05,
-    "scClose": 13112.09,
-    "scVolume": 10088.35,
-    "cyClose": 3137.8,
-    "cyVolume": 4720.79,
-    "kcClose": 1318.91,
-    "kcVolume": 583.46,
-    "bsClose": 1431.95,
-    "bsVolume": 210.93,
-    "totalVolume": 1.77,
-    "limitUp": 57,
-    "limitDown": 8
-  },
-  {
-    "date": "2025-12-16",
-    "szClose": 3824.81,
-    "szVolume": 7332.94,
-    "scClose": 12914.67,
-    "scVolume": 9908.79,
-    "cyClose": 3071.76,
-    "cyVolume": 4533.47,
-    "kcClose": 1293.38,
-    "kcVolume": 471.52,
-    "bsClose": 1439.65,
-    "bsVolume": 241,
-    "totalVolume": 1.72,
-    "limitUp": 40,
-    "limitDown": 15
-  },
-  {
-    "date": "2026-05-29",
-    "szClose": 4068.57,
-    "szVolume": 15321,
-    "scClose": 15575.13,
-    "scVolume": 17870,
-    "cyClose": 4037.95,
-    "cyVolume": 8557,
-    "kcClose": 1751.32,
-    "kcVolume": 1821,
-    "bsClose": 1244.1,
-    "bsVolume": 222,
-    "totalVolume": 3.32,
-    "limitUp": 49,
-    "limitDown": 59
-  }
-],
+    {
+      "date": "2025-12-15",
+      "szClose": 3867.92, "szChange": "-0.55%", "szVolume": 7646,
+      "scClose": 13112.09, "scChange": "-1.10%", "scVolume": 10088,
+      "cyClose": 3137.80, "cyChange": "-1.77%", "cyVolume": 4721,
+      "kcClose": 1318.91, "kcChange": "-2.22%", "kcVolume": 583,
+      "bsClose": 1431.95, "bsChange": "-1.09%", "bsVolume": 211,
+      "totalVolume": 1.77, "upCount": 2314, "downCount": 2968, "limitUp": 57, "limitDown": 8
+    },
+    {
+      "date": "2026-05-28",
+      "szClose": 4098.16, "szChange": "0.12%", "szVolume": 13613,
+      "scClose": 15861.89, "scChange": "0.80%", "scVolume": 16068,
+      "cyClose": 4125.07, "cyChange": "1.96%", "cyVolume": 7733,
+      "kcClose": 1844.25, "kcChange": "1.59%", "kcVolume": 1771,
+      "bsClose": 1285.70, "bsChange": "2.55%", "bsVolume": 194,
+      "totalVolume": 2.97, "upCount": 3018, "downCount": 2365, "limitUp": 101, "limitDown": 8
+    },
+    {
+      "date": "2026-05-29",
+      "szClose": 4068.57, "szChange": "-0.72%", "szVolume": 15321,
+      "scClose": 15575.13, "scChange": "-1.81%", "scVolume": 17870,
+      "cyClose": 4037.95, "cyChange": "-2.11%", "cyVolume": 8557,
+      "kcClose": 1751.32, "kcChange": "-5.04%", "kcVolume": 1821,
+      "bsClose": 1244.10, "bsChange": "-3.24%", "bsVolume": 222,
+      "totalVolume": 3.32, "upCount": 1570, "downCount": 3923, "limitUp": 49, "limitDown": 59
+    },
+    {
+      "date": "2026-06-01",
+      "szClose": 4057.74, "szChange": "-0.27%", "szVolume": 13200,
+      "scClose": 15340.36, "scChange": "-1.51%", "scVolume": 15580,
+      "cyClose": 3950.94, "cyChange": "-2.15%", "cyVolume": 7346,
+      "kcClose": 1663.69, "kcChange": "-5.00%", "kcVolume": 1499,
+      "bsClose": 1249.73, "bsChange": "+0.45%", "bsVolume": 195,
+      "totalVolume": 2.88, "upCount": 1548, "downCount": 777, "limitUp": 120, "limitDown": 21
+    }
+  ],
   sector: [
-  {
-    "date": "2026-06-01",
-    "szChange": "-0.27%",
-    "scChange": "-1.51%",
-    "totalVolume": 28760,
-    "upDownRatio": "1548:777",
-    "maxBoard": 4,
-    "topSector": "国企改革",
-    "topSectorCount": 27,
-    "sentiment": "发酵",
-    "leaderStock": "换手龙(合锻智能4板)",
-    "hotSectors": "国企改革、人工智能、机器人、数据中心、储能",
-    "positionSuggestion": "5成"
-  }
-]
+    {
+      "date": "2026-05-28",
+      "szChange": "0.12%", "scChange": "0.80%", "totalVolume": 33933,
+      "upDownRatio": "1126:1162", "maxBoard": 4, "topSector": "芯片",
+      "topSectorCount": 34, "sentiment": "回暖", "leaderStock": "三板成妖",
+      "hotsectors": "芯片、新能源汽车、储能、军工、华为概念、数据中心",
+      "positionSuggestion": "3成"
+    },
+    {
+      "date": "2026-06-01",
+      "szChange": "-0.27%", "scChange": "-1.51%", "totalVolume": 28760,
+      "upDownRatio": "1548:777", "maxBoard": 4, "topSector": "国企改革",
+      "topSectorCount": 27, "sentiment": "发酵", "leaderStock": "换手龙(合锻智能4板)",
+      "hotsectors": "国企改革、人工智能、机器人、数据中心、储能",
+      "positionSuggestion": "5成"
+    }
+  ]
 };
