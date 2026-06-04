@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026年5月28日A股复盘 | 深V缩量反弹，玻璃玻纤领涨，情绪修复</title>
+    <link rel="stylesheet" href="assets/css/modern.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* 复盘专属样式 */
+        :root {
+            --bg-pro: #0a0e17;
+            --card-pro: #111827;
+            --panel-pro: #1a2236;
+            --border-pro: #374151;
+            --text-pro: #f9fafb;
+            --text-secondary-pro: #9ca3af;
+            --primary-blue-pro: #3b82f6;
+            --primary-red-pro: #ef4444;
+            --primary-green-pro: #10b981;
+            --primary-yellow-pro: #f59e0b;
+            --primary-purple-pro: #8b5cf6;
+        }
+
+        body {
+            background: var(--bg-pro);
+            color: var(--text-pro);
+            font-family: var(--font-sans);
+            line-height: 1.6;
+        }
+
+        .review-header {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            border-bottom: 1px solid var(--border-pro);
+            padding: 1.5rem 2rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+
+        .header-container-review {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .review-logo h1 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        .review-logo .subtitle {
+            color: var(--text-secondary-pro);
+            font-size: 0.95rem;
+        }
+
+        .review-score .score-value {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary-yellow-pro);
+        }
+
+        .review-score .score-label {
+            color: var(--text-secondary-pro);
+            font-size: 0.9rem;
+        }
+
+        .review-container {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+
+        /* 复盘卡片 */
+        .review-card {
+            background: var(--card-pro);
+            border: 1px solid var(--border-pro);
+            border-radius: var(--radius-xl);
+            padding: 1.5rem;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+            margin-bottom: 2rem;
+        }
+
+        .review-card h2 {
+            color: var(--text-pro);
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1.2rem;
+            padding-bottom: 0.7rem;
+            border-bottom: 2px solid var(--primary-blue-pro);
+        }
+
+        .review-card h3 {
+            color: var(--text-secondary-pro);
+            font-size: 1.05rem;
+            margin-bottom: 0.8rem;
+        }
+
+        /* 复盘表格 */
+        .review-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            background: var(--panel-pro);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+        }
+
+        .review-table th {
+            background: var(--primary-blue-pro);
+            color: white;
+            padding: 0.9rem 1rem;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .review-table td {
+            padding: 0.8rem 1rem;
+            border-bottom: 1px solid var(--border-pro);
+            font-size: 0.9rem;
+        }
+
+        .review-table tr:nth-child(even) {
+            background: rgba(255,255,255,0.03);
+        }
+
+        .review-table tr:hover {
+            background: rgba(59, 130, 246, 0.1);
+        }
+
+        /* 复盘标签 */
+        .review-tag {
+            display: inline-block;
+            padding: 0.2rem 0.6rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .review-tag.red { background: #fee2e2; color: #dc2626; }
+        .review-tag.green { background: #d1fae5; color: #059669; }
+        .review-tag.yellow { background: #fef3c7; color: #d97706; }
+        .review-tag.blue { background: #dbeafe; color: #2563eb; }
+        .review-tag.purple { background: #ede9fe; color: #7c3aed; }
+
+        /* 复盘指标 */
+        .review-indicators {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .review-indicator {
+            background: var(--panel-pro);
+            border-radius: var(--radius-lg);
+            padding: 1rem;
+            text-align: center;
+            border: 1px solid var(--border-pro);
+        }
+
+        .review-indicator .value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.3rem;
+        }
+
+        .review-indicator .label {
+            font-size: 0.85rem;
+            color: var(--text-secondary-pro);
+        }
+
+        /* 复盘高亮 */
+        .review-highlight {
+            background: linear-gradient(135deg, rgba(59,130,246,0.1), rgba(139,92,246,0.1));
+            border-left: 4px solid var(--primary-blue-pro);
+            padding: 1.5rem;
+            border-radius: var(--radius-lg);
+            margin: 1.5rem 0;
+        }
+
+        /* 复盘两栏 */
+        .review-two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        @media (max-width: 1024px) {
+            .review-two-col { grid-template-columns: 1fr; }
+        }
+
+        /* 复盘页脚 */
+        .review-footer {
+            text-align: center;
+            padding: 2rem;
+            margin-top: 4rem;
+            background: var(--card-pro);
+            border-top: 1px solid var(--border-pro);
+            color: var(--text-secondary-pro);
+            font-size: 0.9rem;
+        }
+
+        /* 复盘按钮 */
+        .review-btn {
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            background: var(--primary-blue-pro);
+            color: white;
+            text-decoration: none;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .review-btn:hover {
+            background: #2563eb;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        }
+
+        /* 复盘颜色条 */
+        .review-bar {
+            height: 4px;
+            border-radius: 2px;
+            margin-top: 0.3rem;
+        }
+
+        .review-bar.red { background: var(--primary-red-pro); }
+        .review-bar.green { background: var(--primary-green-pro); }
+        .review-bar.yellow { background: var(--primary-yellow-pro); }
+        .review-bar.blue { background: var(--primary-blue-pro); }
+        .review-bar.purple { background: var(--primary-purple-pro); }
+
+        /* 复盘评分 */
+        .review-score-display {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .review-score-circle {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.2rem;
+            font-weight: 700;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            flex-shrink: 0;
+        }
+
+        .review-score-82 { background: linear-gradient(135deg, #3b82f6, #1d4ed8); }
+        .review-score-78 { background: linear-gradient(135deg, #10b981, #059669); }
+        .review-score-72 { background: linear-gradient(135deg, #f59e0b, #d97706); }
+        .review-score-67 { background: linear-gradient(135deg, #f59e0b, #d97706); }
+
+        @media (max-width: 768px) {
+            .header-container-review {
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
+            }
+            
+            .review-container {
+                padding: 0 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 复盘头部 -->
+    <header class="review-header">
+        <div class="header-container-review">
+            <div class="review-logo">
+                <h1>2026年5月28日A股复盘</h1>
+                <div class="subtitle">深V缩量反弹，玻璃玻纤暴涨领涨，情绪修复但高度受限</div>
+            </div>
+            <div class="review-score">
+                <div class="score-value">综合评分: 72/100</div>
+                <div class="score-label">缩量反弹 · 存量博弈</div>
+            </div>
+        </div>
+    </header>
+
+    <div class="review-container">
+        <!-- 一、核心数据 -->
+        <div class="review-card">
+            <h2>一、核心数据速览</h2>
+            <div class="review-indicators">
+                <div class="review-indicator">
+                    <div class="value" style="color: #3b82f6;">4098.64</div>
+                    <div class="label">上证指数</div>
+                    <div class="review-bar blue"></div>
+                </div>
+                <div class="review-indicator">
+                    <div class="value" style="color: #10b981;">+0.12%</div>
+                    <div class="label">沪指涨幅</div>
+                    <div class="review-bar green"></div>
+                </div>
+                <div class="review-indicator">
+                    <div class="value" style="color: #8b5cf6;">2.99万亿</div>
+                    <div class="label">成交额</div>
+                    <div class="review-bar purple"></div>
+                </div>
+                <div class="review-indicator">
+                    <div class="value" style="color: #ef4444;">126</div>
+                    <div class="label">涨停家数</div>
+                    <div class="review-bar red"></div>
+                </div>
+                <div class="review-indicator">
+                    <div class="value" style="color: #10b981;">12</div>
+                    <div class="label">跌停家数</div>
+                    <div class="review-bar green"></div>
+                </div>
+                <div class="review-indicator">
+                    <div class="value" style="color: #f59e0b;">+1.96%</div>
+                    <div class="label">创业板指涨幅</div>
+                    <div class="review-bar yellow"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 二、指数表现 -->
+        <div class="review-card">
+            <h2>二、指数表现</h2>
+            <table class="review-table">
+                <tr><th>指数</th><th>收盘点位</th><th>涨跌幅</th><th>成交额(亿)</th><th>状态</th></tr>
+                <tr><td>上证指数</td><td>4098.64</td><td class="review-tag green">+0.12%</td><td>—</td><td><span class="review-tag yellow">缩量微涨</span></td></tr>
+                <tr><td>深证成指</td><td>15861.89</td><td class="review-tag green">+0.80%</td><td>—</td><td><span class="review-tag green">领涨</span></td></tr>
+                <tr><td>创业板指</td><td>4125.07</td><td class="review-tag green">+1.96%</td><td>—</td><td><span class="review-tag blue">深V龙头</span></td></tr>
+                <tr><td>科创50</td><td>1844.25</td><td class="review-tag green">+1.59%</td><td>—</td><td><span class="review-tag purple">延续强势</span></td></tr>
+                <tr><td>沪深300</td><td>4914.21</td><td class="review-tag green">+0.12%</td><td>—</td><td><span class="review-tag yellow">持平沪指</span></td></tr>
+            </table>
+            <div class="review-highlight">
+                <strong>核心观察:</strong> 早盘低开震荡下探，创业板指一度跌超2%。11:27突然集体拉升，午后全线逆转翻红——经典的"深V"走势。沪指盘中最低探至4055.82点，60日均线（约4068点）支撑有效。成交额2.99万亿，较前日缩量约2700亿，属于缩量反弹，存量资金高低切换明显。
+            </div>
+        </div>
+
+        <!-- 三、板块表现 -->
+        <div class="review-card">
+            <h2>三、板块表现</h2>
+            <div class="review-two-col">
+                <div>
+                    <h3>领涨板块</h3>
+                    <table class="review-table">
+                        <tr><th>板块</th><th>涨幅</th><th>主力净流入(亿)</th><th>状态</th></tr>
+                        <tr><td>玻璃玻纤</td><td class="review-tag green">+8.47%</td><td>—</td><td><span class="review-tag purple">绝对龙头</span></td></tr>
+                        <tr><td>非金属材料</td><td class="review-tag green">+5.75%</td><td>—</td><td><span class="review-tag blue">强势</span></td></tr>
+                        <tr><td>通信设备</td><td class="review-tag green">+5.18%</td><td>+188</td><td><span class="review-tag blue">趋势加速</span></td></tr>
+                        <tr><td>小金属</td><td class="review-tag green">+3.83%</td><td>—</td><td><span class="review-tag yellow">补涨</span></td></tr>
+                        <tr><td>电子化学品</td><td class="review-tag green">+2.94%</td><td>—</td><td><span class="review-tag blue">联动半导体</span></td></tr>
+                    </table>
+                </div>
+                <div>
+                    <h3>领跌板块</h3>
+                    <table class="review-table">
+                        <tr><th>板块</th><th>跌幅</th><th>主力净流出(亿)</th><th>状态</th></tr>
+                        <tr><td>贵金属</td><td class="review-tag red">-3.44%</td><td>—</td><td><span class="review-tag red">领跌</span></td></tr>
+                        <tr><td>小家电</td><td class="review-tag red">-2.79%</td><td>—</td><td><span class="review-tag red">回调</span></td></tr>
+                        <tr><td>专业连锁</td><td class="review-tag red">-2.59%</td><td>—</td><td><span class="review-tag red">弱势</span></td></tr>
+                        <tr><td>家电零部件</td><td class="review-tag red">-2.45%</td><td>—</td><td><span class="review-tag red">调整</span></td></tr>
+                        <tr><td>电机</td><td class="review-tag red">-2.41%</td><td>—</td><td><span class="review-tag red">走弱</span></td></tr>
+                    </table>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 1.5rem;">重点题材表现</h3>
+            <table class="review-table">
+                <tr><th>题材</th><th>涨幅</th><th>核心个股</th><th>状态</th></tr>
+                <tr><td>CPO概念</td><td class="review-tag green">强势</td><td>联特科技20%涨停、中际旭创+7%创新高</td><td><span class="review-tag purple">主线延续</span></td></tr>
+                <tr><td>PCB概念</td><td class="review-tag green">强势</td><td>奕东电子/本川智能20%涨停、宝鼎科技9天6板</td><td><span class="review-tag purple">午后爆发</span></td></tr>
+                <tr><td>培育钻石</td><td class="review-tag green">爆发</td><td>黄河旋风5天4板</td><td><span class="review-tag yellow">题材</span></td></tr>
+                <tr><td>超级电容</td><td class="review-tag green">爆发</td><td>风华高科5日3板、江海股份2连板</td><td><span class="review-tag blue">机构合力</span></td></tr>
+                <tr><td>半导体</td><td class="review-tag green">强势</td><td>华虹公司一度涨停、中芯国际一度+9%均创新高</td><td><span class="review-tag purple">趋势新高</span></td></tr>
+                <tr><td>电力</td><td class="review-tag green">延续</td><td>华电能源4连板、粤电力A2连板</td><td><span class="review-tag blue">稳健</span></td></tr>
+            </table>
+
+            <div class="review-highlight">
+                <strong>板块特征:</strong> 玻璃玻纤以+8.47%碾压式领涨，为今日最大黑马。通信设备（+5.18%）、非金属材料（+5.75%）紧随其后，科技主线（CPO/PCB/半导体）继续强势。反面，大消费一日游行情全面回调——贵金属领跌、家电链集体走弱、白酒集体调整（金种子酒一度逼近跌停）。券商/保险/银行走低，医药弱势。资金从消费/金融向硬科技回流。
+            </div>
+        </div>
+
+        <!-- 四、情绪周期 -->
+        <div class="review-card">
+            <h2>四、情绪周期定位</h2>
+            <div class="review-score-display">
+                <div class="review-score-circle review-score-72">72</div>
+                <div>
+                    <h3>情绪评分: 72/100</h3>
+                    <p style="color: var(--text-secondary-pro);">缩量深V修复，赚钱效应回升，但连板高度受限，明日面临退潮压力</p>
+                </div>
+            </div>
+            
+            <table class="review-table">
+                <tr><th>情绪指标</th><th>5月25日(芯片主升期)</th><th>5月28日(缩量修复期)</th><th>变化</th></tr>
+                <tr><td>最高标高度</td><td>6天5板(四环生物)</td><td>16天10板(宝鼎科技)</td><td><span class="review-tag yellow">高标仍在</span></td></tr>
+                <tr><td>涨停家数</td><td>128</td><td>126</td><td><span class="review-tag blue">基本持平</span></td></tr>
+                <tr><td>跌停家数</td><td>24</td><td>12</td><td><span class="review-tag green">减半</span></td></tr>
+                <tr><td>成交额</td><td>3.21万亿</td><td>2.99万亿</td><td><span class="review-tag red">缩量8%</span></td></tr>
+                <tr><td>涨跌比</td><td>2181:3225</td><td>3011:2365</td><td><span class="review-tag green">赚钱效应修复</span></td></tr>
+                <tr><td>连板晋级率</td><td>约30%</td><td>约50%</td><td><span class="review-tag green">明显提升</span></td></tr>
+            </table>
+            
+            <div class="review-highlight">
+                <strong>情绪判断:</strong> 情绪从"芯片主升确立期"进入"缩量修复期"。今日3进4全部晋级（华塑控股、香江控股、华电能源），晋级率升至50%，容错率较高。但连板高度仍卡在4板（5板是天花板），2进3仅中京电子成功，内部分化明显。深V走势虽然振奋人心，但缩量2700亿反弹，说明追高意愿不足。情绪评分72（较前日82下降10分），核心原因是缩量+高度受限+明日退潮预期。
+            </div>
+        </div>
+
+        <!-- 五、资金动向 -->
+        <div class="review-card">
+            <h2>五、资金动向分析</h2>
+            <div class="review-two-col">
+                <div>
+                    <h3>主力资金净流入TOP5</h3>
+                    <table class="review-table">
+                        <tr><th>板块</th><th>净流入(亿)</th><th>代表个股</th></tr>
+                        <tr><td>电子</td><td>+232</td><td>工业富联、中芯国际</td></tr>
+                        <tr><td>通信</td><td>+188</td><td>中兴通讯、中际旭创</td></tr>
+                        <tr><td>机械设备</td><td>+124</td><td>—</td></tr>
+                        <tr><td>电力设备</td><td>+80</td><td>华电能源、粤电力A</td></tr>
+                        <tr><td>有色金属</td><td>+80</td><td>云南锗业</td></tr>
+                    </table>
+                </div>
+                <div>
+                    <h3>主力资金净流出TOP5</h3>
+                    <table class="review-table">
+                        <tr><th>板块</th><th>净流出(亿)</th><th>代表个股</th></tr>
+                        <tr><td>非银金融</td><td>-30</td><td>券商/保险</td></tr>
+                        <tr><td>食品饮料</td><td>-22</td><td>白酒</td></tr>
+                        <tr><td>医药生物</td><td>-10</td><td>恒瑞医药</td></tr>
+                        <tr><td>大消费</td><td>—</td><td>一日游回调</td></tr>
+                        <tr><td>贵金属</td><td>—</td><td>赤峰/中金黄金下跌</td></tr>
+                    </table>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 1.5rem;">北向资金与重点个股</h3>
+            <table class="review-table">
+                <tr><th>指标</th><th>数值</th><th>说明</th></tr>
+                <tr><td>北向资金</td><td class="review-tag green">+25.3亿</td><td>连续净流入</td></tr>
+                <tr><td>工业富联</td><td class="review-tag green">+30亿</td><td>主力净流入第一</td></tr>
+                <tr><td>中兴通讯</td><td>涨停 · 成交81.63亿</td><td>深股通净买入3.21亿 · 上塘路净买入4亿</td></tr>
+                <tr><td>云南锗业</td><td class="review-tag green">+20亿</td><td>获主力净流入超20亿</td></tr>
+            </table>
+            
+            <div class="review-highlight">
+                <strong>资金性质:</strong> 电子（+232亿）和通信（+188亿）两大板块虹吸全场资金。大消费、非银金融、医药成为主要资金流出方向——验证"消费一日游行情"的判断。北向资金净流入25.3亿，保持温和流入。整体呈现"科技主线吸金、消费金融失血"的格局，资金偏好高度集中在硬科技方向。
+            </div>
+        </div>
+
+        <!-- 六、连板梯队 -->
+        <div class="review-card">
+            <h2>六、连板梯队分析</h2>
+            <table class="review-table">
+                <tr><th>连板数</th><th>个股</th><th>板块</th><th>状态</th><th>备注</th></tr>
+                <tr><td>16天10板</td><td>宝鼎科技</td><td>PCB</td><td><span class="review-tag purple">趋势总龙头</span></td><td>9天6板创历史新高</td></tr>
+                <tr><td>8天4板</td><td>风华高科</td><td>MLCC/超级电容</td><td><span class="review-tag purple">机构核心</span></td><td>5日3板</td></tr>
+                <tr><td>5天4板</td><td>黄河旋风</td><td>培育钻石</td><td><span class="review-tag blue">题材龙头</span></td><td>概念爆发</td></tr>
+                <tr><td>4连板</td><td>华塑控股</td><td>—</td><td><span class="review-tag blue">高度板</span></td><td>3进4晋级</td></tr>
+                <tr><td>4连板</td><td>香江控股</td><td>—</td><td><span class="review-tag blue">高度板</span></td><td>3进4晋级</td></tr>
+                <tr><td>4连板</td><td>华电能源</td><td>电力</td><td><span class="review-tag blue">高度板</span></td><td>3进4晋级</td></tr>
+                <tr><td>3连板</td><td>中京电子</td><td>AI算力+PCB</td><td><span class="review-tag green">国产替代</span></td><td>2进3唯一晋级</td></tr>
+                <tr><td>2连板</td><td>粤电力A</td><td>电力</td><td><span class="review-tag yellow">跟风</span></td><td>—</td></tr>
+                <tr><td>2连板</td><td>江海股份</td><td>超级电容</td><td><span class="review-tag green">机构合力</span></td><td>—</td></tr>
+                <tr><td>2连板</td><td>合锻智能</td><td>可控核聚变</td><td><span class="review-tag yellow">小众题材</span></td><td>—</td></tr>
+                <tr><td>2连板</td><td>德新科技</td><td>固态电池</td><td><span class="review-tag yellow">小众题材</span></td><td>—</td></tr>
+                <tr><td>2连板</td><td>艾华集团</td><td>—</td><td><span class="review-tag blue">稳健</span></td><td>—</td></tr>
+            </table>
+            
+            <div class="review-highlight">
+                <strong>梯队特征:</strong> 3进4全部晋级（100%晋级率），但2进3仅中京电子成功——内部分化严重。连板高度仍卡在4板，5板成为明确天花板。趋势龙头方面，宝鼎科技16天10板的走势说明机构主导的趋势打法比纯情绪连板更有效率。题材层面，PCB（宝鼎科技、中京电子）、超级电容（风华高科、江海股份）形成完整梯队，培育钻石和可控核聚变则偏向独立逻辑。
+            </div>
+        </div>
+
+        <!-- 七、核心个股 -->
+        <div class="review-card">
+            <h2>七、核心个股表现</h2>
+            <div class="review-two-col">
+                <div>
+                    <h3>领涨龙头</h3>
+                    <table class="review-table">
+                        <tr><th>个股</th><th>涨幅</th><th>成交额(亿)</th><th>状态</th></tr>
+                        <tr><td>联特科技</td><td class="review-tag green">+20.00%</td><td>—</td><td><span class="review-tag purple">20cm涨停</span></td></tr>
+                        <tr><td>奕东电子</td><td class="review-tag green">+20.00%</td><td>—</td><td><span class="review-tag purple">20cm涨停</span></td></tr>
+                        <tr><td>本川智能</td><td class="review-tag green">+20.00%</td><td>—</td><td><span class="review-tag purple">20cm涨停</span></td></tr>
+                        <tr><td>中兴通讯</td><td class="review-tag green">+10.00%</td><td>81.63</td><td><span class="review-tag purple">涨停</span></td></tr>
+                        <tr><td>中际旭创</td><td class="review-tag green">+7.00%</td><td>329.0</td><td><span class="review-tag purple">A股成交第一 · 历史新高</span></td></tr>
+                    </table>
+                </div>
+                <div>
+                    <h3>重点个股</h3>
+                    <table class="review-table">
+                        <tr><th>个股</th><th>涨幅</th><th>成交额(亿)</th><th>状态</th></tr>
+                        <tr><td>华虹公司</td><td class="review-tag green">一度涨停</td><td>—</td><td><span class="review-tag purple">历史新高</span></td></tr>
+                        <tr><td>中芯国际</td><td class="review-tag green">一度+9%</td><td>—</td><td><span class="review-tag purple">历史新高</span></td></tr>
+                        <tr><td>天孚通信</td><td class="review-tag green">上涨</td><td>—</td><td><span class="review-tag purple">历史新高</span></td></tr>
+                        <tr><td>新易盛</td><td class="review-tag green">上涨</td><td>—</td><td><span class="review-tag purple">历史新高</span></td></tr>
+                        <tr><td>云南锗业</td><td class="review-tag green">上涨</td><td>—</td><td><span class="review-tag blue">主力+20亿</span></td></tr>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="review-highlight">
+                <strong>个股特征:</strong> 中际旭创以329亿成交额位居A股第一，涨超7%再创历史新高——CPO方向资金深度聚集。中兴通讯涨停获上塘路净买入4亿，机构游资合力。华虹公司、中芯国际双双创出历史新高（虽盘中回落），半导体龙头趋势不改。联特科技、奕东电子、本川智能三个20cm涨停，说明短线情绪活跃。整体呈现"大票趋势新高 + 小票20cm博弈"并存格局。
+            </div>
+        </div>
+
+        <!-- 八、明日策略 -->
+        <div class="review-card">
+            <h2>八、明日策略与风险提示</h2>
+            <div class="review-score-display">
+                <div class="review-score-circle review-score-72">70</div>
+                <div>
+                    <h3>明日预期评分: 70/100</h3>
+                    <p style="color: var(--text-secondary-pro);">缩量深V次日面临分化，5板天花板考验情绪持续性</p>
+                </div>
+            </div>
+            
+            <div class="review-two-col">
+                <div>
+                    <h3>机会方向</h3>
+                    <ul style="color: var(--text-secondary-pro); line-height: 1.8; padding-left: 1.2rem;">
+                        <li><strong>CPO/光通信:</strong> 中际旭创329亿成交A股第一，天孚/新易盛均创新高，板块共识最强</li>
+                        <li><strong>PCB/元器件:</strong> 宝鼎科技16天10板、奕东电子/本川智能20cm涨停，梯队完整</li>
+                        <li><strong>半导体设备/材料:</strong> 华虹公司、中芯国际创历史新高，趋势延续</li>
+                        <li><strong>超级电容:</strong> 风华高科8天4板、江海股份2连板，机构合力方向</li>
+                        <li><strong>电力:</strong> 华电能源4连板，高股息防御+题材双属性</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>风险提示</h3>
+                    <ul style="color: var(--text-secondary-pro); line-height: 1.8; padding-left: 1.2rem;">
+                        <li><strong>缩量隐患:</strong> 2.99万亿较前日缩量2700亿，反弹基础不牢固</li>
+                        <li><strong>连板高度天花板:</strong> 4板→5板是近期不可逾越的坎，明日3只4板股面临考验</li>
+                        <li><strong>深V次日退潮规律:</strong> V型反转次日往往面临获利回吐</li>
+                        <li><strong>板块轮动过快:</strong> 玻璃玻纤暴涨属突发驱动，追高风险大</li>
+                        <li><strong>大消费一日游:</strong> 消费板块昨日反弹今日全面回调，追涨亏钱效应明显</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="review-highlight">
+                <strong>核心结论:</strong> 今日深V走势验证60日均线（约4068点）支撑有效，但2.99万亿缩量反弹说明市场追高意愿不足。连板高度卡在4板（5板是天花板），明日3只4板股面临生死考验——晋级与否将决定情绪走向。玻璃玻纤暴涨8.47%属突发事件驱动，不构成趋势信号。真正的主线仍在CPO/PCB/半导体方向，机构资金持续深耕。明日关注重点：①成交额能否回到3.1万亿以上；②4板股能否突破5板天花板；③半导体/CPO能否延续趋势新高。仓位控制在5-6成，不追高缩量反弹品种。
+            </div>
+        </div>
+
+        <!-- 九、操作建议 -->
+        <div class="review-card" style="border: 2px solid #3b82f6; background: linear-gradient(135deg, rgba(59,130,246,0.05), rgba(139,92,246,0.05));">
+            <h2 style="color: #3b82f6;">九、具体操作建议</h2>
+            <div style="padding: 1.5rem; color: var(--text-pro); line-height: 1.8;">
+                <h3>仓位管理: 5-6成</h3>
+                <p><strong>进攻仓位(3成):</strong> CPO光通信、PCB/元器件、半导体设备材料</p>
+                <p><strong>防御仓位(2-3成):</strong> 电力（高股息+题材双重属性）</p>
+                
+                <h3 style="margin-top: 1.5rem;">观察池(重点关注)</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin: 1rem 0;">
+                    <div style="background: var(--panel-pro); padding: 1rem; border-radius: var(--radius-md); border-left: 3px solid #3b82f6;">
+                        <div style="font-weight: 600;">中际旭创</div>
+                        <div style="font-size: 0.85rem; color: var(--text-secondary-pro);">CPO龙头 · 329亿成交A股第一</div>
+                    </div>
+                    <div style="background: var(--panel-pro); padding: 1rem; border-radius: var(--radius-md); border-left: 3px solid #3b82f6;">
+                        <div style="font-weight: 600;">中兴通讯</div>
+                        <div style="font-size: 0.85rem; color: var(--text-secondary-pro);">涨停 · 81亿成交 · 游资+机构合力</div>
+                    </div>
+                    <div style="background: var(--panel-pro); padding: 1rem; border-radius: var(--radius-md); border-left: 3px solid #3b82f6;">
+                        <div style="font-weight: 600;">宝鼎科技</div>
+                        <div style="font-size: 0.85rem; color: var(--text-secondary-pro);">PCB趋势总龙头 · 16天10板</div>
+                    </div>
+                    <div style="background: var(--panel-pro); padding: 1rem; border-radius: var(--radius-md); border-left: 3px solid #3b82f6;">
+                        <div style="font-weight: 600;">华电能源</div>
+                        <div style="font-size: 0.85rem; color: var(--text-secondary-pro);">电力4连板 · 明日冲击5板</div>
+                    </div>
+                </div>
+                
+                <h3 style="margin-top: 1.5rem;">止损条件</h3>
+                <ul style="color: var(--text-secondary-pro); line-height: 1.8; padding-left: 1.2rem;">
+                    <li>60日均线（约4068点）被有效跌破</li>
+                    <li>成交额萎缩至2.8万亿以下</li>
+                    <li>连板晋级率降至30%以下</li>
+                    <li>半导体/CPO出现批量跌停</li>
+                </ul>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin: 3rem 0;">
+            <a href="../index.html" class="review-btn" style="background: #3b82f6;">返回首页</a>
+            <a href="../dashboard.html" class="review-btn" style="background: #10b981; margin-left: 1rem;">查看Dashboard</a>
+            <a href="../professional_review.html" class="review-btn" style="background: #8b5cf6; margin-left: 1rem;">查看周复盘</a>
+        </div>
+    </div>
+
+    <footer class="review-footer">
+        <p>2026年5月28日A股复盘 | 数据来源：证券时报、东方财富、同花顺、财联社 | 更新时间: 2026年5月28日 21:30</p>
+        <p style="font-size: 0.8rem; margin-top: 0.5rem; color: #6b7280;">
+            风险提示：本复盘仅作分析参考，不构成投资建议。市场有风险，投资需谨慎。复盘数据基于公开信息整理，可能存在滞后或误差。
+        </p>
+    </footer>
+</body>
+</html>
