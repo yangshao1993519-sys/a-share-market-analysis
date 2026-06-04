@@ -1,263 +1,227 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>A股大盘概览 - 职业交易复盘系统</title>
-<link rel="stylesheet" href="assets/css/modern.css">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
-<script src="data/market_data.js"></script>
-<style>
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Microsoft YaHei', sans-serif; background: #f3f4f6; color: #111827; min-height: 100vh; -webkit-font-smoothing: antialiased; }
-
-.top-nav { background: linear-gradient(135deg, #1e3a8a, #1e40af); color: white; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
-.nav-inner { max-width: 1280px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 0 24px; height: 56px; }
-.nav-brand { display: flex; align-items: center; gap: 10px; }
-.nav-brand .logo { width: 32px; height: 32px; background: rgba(255,255,255,0.2); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; }
-.nav-brand h1 { font-size: 15px; font-weight: 600; }
-.nav-links { display: flex; gap: 2px; }
-.nav-links a { padding: 7px 16px; color: rgba(255,255,255,0.7); text-decoration: none; font-size: 13px; font-weight: 500; border-radius: 6px; transition: all 0.15s; }
-.nav-links a:hover { background: rgba(255,255,255,0.1); color: white; }
-.nav-links a.active { background: rgba(255,255,255,0.18); color: white; font-weight: 600; }
-.nav-date { font-size: 12px; opacity: 0.75; }
-
-.container { max-width: 1280px; margin: 0 auto; padding: 20px 24px; }
-
-/* 卡片样式 */
-.card { background: white; border-radius: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); border: 1px solid #e5e7eb; overflow: hidden; }
-.card-header { padding: 14px 18px 0; display: flex; justify-content: space-between; align-items: center; }
-.card-header h3 { font-size: 13px; font-weight: 600; color: #374151; }
-.card-header .tag { font-size: 11px; padding: 2px 8px; border-radius: 999px; background: #f3f4f6; color: #6b7280; }
-.card-body { padding: 14px 18px 18px; }
-
-/* Section */
-.section-title { font-size: 14px; font-weight: 600; color: #111827; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
-.section-title .bar { width: 3px; height: 14px; background: #2563eb; border-radius: 2px; }
-
-/* 顶部指标栏 */
-.top-metrics { display: grid; grid-template-columns: 1fr 1fr 1fr 240px; gap: 12px; margin-bottom: 16px; }
-.metrics-group { display: flex; gap: 12px; flex-wrap: wrap; }
-.metric-box { background: white; border-radius: 8px; padding: 10px 14px; border: 1px solid #e5e7eb; min-width: 100px; flex: 1; }
-.metric-box .lbl { font-size: 11px; color: #9ca3af; font-weight: 500; margin-bottom: 2px; }
-.metric-box .val { font-size: 18px; font-weight: 700; }
-.metric-box .sub { font-size: 11px; margin-top: 1px; }
-.up { color: #dc2626; } .down { color: #16a34a; }
-
-/* 指数大卡片 */
-.index-big-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-bottom: 14px; }
-.index-big { background: white; border-radius: 10px; padding: 14px 16px; border: 1px solid #e5e7eb; }
-.index-big .label { font-size: 11px; color: #9ca3af; font-weight: 500; margin-bottom: 2px; }
-.index-big .price { font-size: 20px; font-weight: 700; }
-.index-big .chg { font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 4px; }
-.index-big .chg .arrow { font-size: 10px; }
-.index-big:hover { border-color: #93c5fd; box-shadow: 0 2px 8px rgba(37,99,235,0.08); }
-
-/* 成交 + 北向 + 两融条 */
-.flow-bar { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 14px; }
-.flow-item { background: white; border-radius: 8px; padding: 10px 16px; border: 1px solid #e5e7eb; display: flex; justify-content: space-between; align-items: center; }
-.flow-item .lbl { font-size: 12px; color: #6b7280; font-weight: 500; }
-.flow-item .val { font-size: 15px; font-weight: 600; }
-
-/* 双栏图表 */
-.two-col { display: grid; grid-template-columns: 2fr 1fr; gap: 12px; margin-bottom: 14px; }
-.chart-box { background: white; border-radius: 10px; padding: 16px; border: 1px solid #e5e7eb; }
-.chart-box h3 { font-size: 13px; font-weight: 600; color: #374151; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
-.chart-box .badge { font-size: 10px; padding: 2px 7px; border-radius: 999px; background: #eff6ff; color: #2563eb; font-weight: 500; }
-.chart-wrap { height: 280px; position: relative; }
-
-/* 情绪面板 */
-.sentiment-panel { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-.sent-item { background: #f9fafb; border-radius: 6px; padding: 10px 12px; }
-.sent-item .lbl { font-size: 11px; color: #9ca3af; margin-bottom: 2px; }
-.sent-item .val { font-size: 16px; font-weight: 600; }
-.sentiment-tag { display: inline-block; padding: 2px 10px; border-radius: 999px; font-size: 11px; font-weight: 500; }
-.s-gaochao { background: #fef3c7; color: #92400e; } .s-fajiao { background: #dbeafe; color: #1e40af; }
-.s-huinnuan { background: #dcfce7; color: #166534; } .s-fenqi { background: #f3f4f6; color: #4b5563; }
-
-/* 数据表 */
-.data-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px; }
-.table-wrap { overflow-x: auto; }
-.data-tbl { width: 100%; border-collapse: collapse; font-size: 12px; }
-.data-tbl th { padding: 7px 9px; background: #f9fafb; color: #6b7280; font-weight: 600; text-align: left; border-bottom: 2px solid #e5e7eb; white-space: nowrap; font-size: 11px; }
-.data-tbl td { padding: 6px 9px; border-bottom: 1px solid #f3f4f6; white-space: nowrap; }
-.data-tbl tr:hover td { background: #f9fafb; }
-
-.pending { color: #9ca3af; font-size: 12px; padding: 20px 0; text-align: center; }
-.footer { background: #111827; color: white; padding: 24px; margin-top: 20px; text-align: center; font-size: 12px; color: #9ca3af; }
-
-@media (max-width: 900px) {
-  .index-big-grid { grid-template-columns: repeat(3,1fr); }
-  .flow-bar { grid-template-columns: 1fr; }
-  .two-col { grid-template-columns: 1fr; }
-  .data-grid { grid-template-columns: 1fr; }
-  .top-metrics { grid-template-columns: 1fr 1fr; }
-}
-@media (max-width: 600px) {
-  .index-big-grid { grid-template-columns: repeat(2,1fr); }
-  .nav-links { gap: 0; }
-  .nav-links a { padding: 6px 10px; font-size: 12px; }
-  .top-metrics { grid-template-columns: 1fr; }
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A股职业交易复盘系统 - 专业市场分析</title>
+    <meta name="description" content="A股职业交易复盘系统 - 每日/每周市场分析、K线走势、情绪周期、板块轮动">
+    <link rel="stylesheet" href="assets/css/modern.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- 顶部导航 -->
+    <header class="modern-header">
+        <div class="header-container">
+            <div class="logo-section">
+                <div class="logo-icon">A</div>
+                <div class="logo-text">
+                    <h1>A股职业交易复盘系统</h1>
+                    <div class="tagline">Professional Trading Review · 数据驱动交易决策</div>
+                </div>
+            </div>
+            <div class="header-stats">
+                <div>
+                    <div class="date-display">2026年5月</div>
+                    <div class="meta-info">
+                        <span>实时数据</span>
+                        <span>·</span>
+                        <span>专业分析</span>
+                        <span>·</span>
+                        <span>作战计划</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
 
-<nav class="top-nav">
-  <div class="nav-inner">
-    <div class="nav-brand"><div class="logo">A</div><h1>A股职业交易复盘系统</h1></div>
-    <div class="nav-links">
-      <a href="index.html" class="active">大盘概览</a>
-      <a href="daily.html">日复盘</a>
-      <a href="weekly.html">周复盘</a>
-      <a href="events.html">大事件</a>
+    <!-- 主内容区 -->
+    <div class="modern-container">
+        
+        <!-- 统计卡片组 -->
+        <div class="stats-grid">
+            <div class="stat-card daily">
+                <h3>日复盘报告</h3>
+                <div class="stat-value">2</div>
+                <p class="stat-meta">最新: 5月25日 · 共 2 份交易日复盘</p>
+            </div>
+            
+            <div class="stat-card weekly">
+                <h3>周复盘报告</h3>
+                <div class="stat-value">1</div>
+                <p class="stat-meta">第21周 · 5月19日 - 5月23日</p>
+            </div>
+            
+            <div class="stat-card score">
+                <h3>综合评分</h3>
+                <div class="score-display">
+                    <div class="score-circle">
+                        <div class="score-number">72</div>
+                    </div>
+                    <div class="score-info">
+                        <h4>深V缩量反弹</h4>
+                        <p>玻璃玻纤领涨 · CPO/PCB持续活跃</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 日复盘报告列表 -->
+        <div class="reports-section">
+            <div class="section-header">
+                <h2>日复盘报告</h2>
+                <span class="report-badge daily">Daily Review</span>
+            </div>
+            <div class="reports-grid">
+                <a href="daily/2026-05-28.html" class="report-card" style="text-decoration: none;">
+                    <div class="report-header">
+                        <span class="report-date">5月28日 周四</span>
+                        <span class="report-badge daily">日报</span>
+                    </div>
+                    <div class="report-details">
+                        涨停126只 · 成交2.99万亿 · 深V缩量反弹
+                    </div>
+                    <div class="report-metrics">
+                        <span class="metric-tag positive">↑ 创业板指+1.96%</span>
+                        <span class="metric-tag neutral">≈ 成交2.99万亿</span>
+                        <span class="metric-tag positive">🔥 玻璃玻纤+8.47%</span>
+                    </div>
+                </a>
+                <a href="daily/2026-05-25.html" class="report-card" style="text-decoration: none;">
+                    <div class="report-header">
+                        <span class="report-date">5月25日 周一</span>
+                        <span class="report-badge daily">日报</span>
+                    </div>
+                    <div class="report-details">
+                        涨停128只 · 成交3.21万亿 · 芯片产业链爆发
+                    </div>
+                    <div class="report-metrics">
+                        <span class="metric-tag positive">↑ 科创50暴涨5.88%</span>
+                        <span class="metric-tag neutral">≈ 成交3.21万亿</span>
+                        <span class="metric-tag positive">🔥 半导体主升</span>
+                    </div>
+                </a>
+                <a href="daily/2026-05-22.html" class="report-card" style="text-decoration: none;">
+                    <div class="report-header">
+                        <span class="report-date">5月22日 周五</span>
+                        <span class="report-badge daily">日报</span>
+                    </div>
+                    <div class="report-details">
+                        涨停138只 · 成交额29033亿 · PCB/MLCC爆发
+                    </div>
+                    <div class="report-metrics">
+                        <span class="metric-tag positive">↑ 涨停138</span>
+                        <span class="metric-tag neutral">≈ 成交29033亿</span>
+                        <span class="metric-tag positive">🔥 PCB/MLCC</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <!-- 周复盘报告列表 -->
+        <div class="reports-section">
+            <div class="section-header">
+                <h2>周复盘报告</h2>
+                <span class="report-badge weekly">Weekly Review</span>
+            </div>
+            <div class="reports-grid">
+                <a href="weekly/2026-week21.html" class="report-card" style="text-decoration: none;">
+                    <div class="report-header">
+                        <span class="report-date">第21周</span>
+                        <span class="report-badge weekly">周报</span>
+                    </div>
+                    <div class="report-details">
+                        综合评分67 · 电力→PCB切换 · 缩量震荡格局
+                    </div>
+                    <div class="report-metrics">
+                        <span class="metric-tag neutral">综合评分 67</span>
+                        <span class="metric-tag negative">↔ 电力→PCB切换</span>
+                        <span class="metric-tag neutral">缩量震荡</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <!-- 特色面板 -->
+        <div class="featured-panels">
+            <div class="featured-card dashboard">
+                <h3>Dashboard 汇总面板</h3>
+                <p>日复盘 + 周复盘全景整合。图表嵌入、一键导航，所有复盘数据集中浏览。</p>
+                <ul class="feature-list">
+                    <li>K线走势 · 资金流向 · 情绪雷达</li>
+                    <li>板块热度图 · 连板天梯 · 评分趋势</li>
+                    <li>浅色主题 · 全量数据 · 响应式布局</li>
+                </ul>
+                <a href="dashboard.html" class="modern-btn secondary">
+                    <span>打开汇总面板</span>
+                </a>
+            </div>
+            
+            <div class="featured-card professional">
+                <h3>Professional 专业复盘</h3>
+                <p>专业财经复盘界面，深度分析市场结构与交易机会。</p>
+                <ul class="feature-list">
+                    <li>K线走势 · 情绪周期 · 连板梯队</li>
+                    <li>板块轮动 · 资金流向 · 事件时间轴</li>
+                    <li>专业图表 · 指标看板 · 深度洞察</li>
+                </ul>
+                <a href="professional_review.html" class="modern-btn tertiary">
+                    <span>前往专业复盘面板</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- 快捷操作 -->
+        <div class="quick-actions">
+            <h2>快捷操作</h2>
+            <div class="actions-grid">
+                <a href="dashboard.html" class="action-btn">
+                    <div class="action-icon">⊕</div>
+                    <span class="action-label">汇总面板</span>
+                </a>
+                <a href="daily/2026-05-25.html" class="action-btn">
+                    <div class="action-icon">⊙</div>
+                    <span class="action-label">最新日复盘</span>
+                </a>
+                <a href="weekly/2026-week21.html" class="action-btn">
+                    <div class="action-icon">◎</div>
+                    <span class="action-label">本周周复盘</span>
+                </a>
+                <a href="professional_review.html" class="action-btn">
+                    <div class="action-icon">◈</div>
+                    <span class="action-label">专业面板</span>
+                </a>
+            </div>
+        </div>
+
     </div>
-    <div class="nav-date" id="navDate">--</div>
-  </div>
-</nav>
 
-<div class="container">
-
-<!-- ===== 第1行：市场宽度指标 ===== -->
-<div class="top-metrics" id="breadthBar"></div>
-
-<!-- ===== 第2行：5大指数 ===== -->
-<div class="index-big-grid" id="indexGrid"></div>
-
-<!-- ===== 第3行：成交+北向+两融 ===== -->
-<div class="flow-bar" id="flowBar"></div>
-
-<!-- ===== 第4行：图表 + 情绪面板 ===== -->
-<div class="two-col">
-  <div class="chart-box">
-    <h3>上证指数走势 <span class="badge">近 N 个交易日</span></h3>
-    <div class="chart-wrap"><canvas id="mainChart"></canvas></div>
-  </div>
-  <div class="card">
-    <div class="card-header"><h3>市场情绪</h3><span class="tag" id="sentimentDate">--</span></div>
-    <div class="card-body" id="sentimentPanel">
-      <div class="sentiment-panel" id="sentimentGrid"></div>
-      <div style="margin-top:10px;padding-top:10px;border-top:1px solid #f3f4f6;" id="notesBox"></div>
-    </div>
-  </div>
-</div>
-
-<!-- ===== 第5行：腾讯文档数据表 ===== -->
-<div class="section-title"><span class="bar"></span>腾讯文档 · 大盘走势 / 板块轮动</div>
-<div class="data-grid">
-  <div class="card"><div class="card-header"><h3>大盘走势</h3><span class="tag">指数成交明细</span></div><div class="card-body"><div class="table-wrap" id="dailyTable"></div></div></div>
-  <div class="card"><div class="card-header"><h3>板块轮动</h3><span class="tag">情绪周期</span></div><div class="card-body"><div class="table-wrap" id="sectorTable"></div></div></div>
-</div>
-
-<!-- ===== 第6行：板块排行（占位） ===== -->
-<div class="section-title"><span class="bar"></span>板块资金排行</div>
-<div class="data-grid">
-  <div class="card"><div class="card-header"><h3>资金净流入 TOP5</h3></div><div class="card-body" id="inflowBoard"><p class="pending">盘中数据实时更新 · 通达信接口暂不可用</p></div></div>
-  <div class="card"><div class="card-header"><h3>资金净流出 TOP5</h3></div><div class="card-body" id="outflowBoard"><p class="pending">盘中数据实时更新 · 通达信接口暂不可用</p></div></div>
-</div>
-
-</div>
-
-<footer class="footer">© 2026 A股职业交易复盘系统 · 数据来源：腾讯文档 · 数据仅供参考，不构成投资建议 · 更新: <span id="footerUpd">--</span></footer>
-
-<script>
-const data = typeof MARKET_DATA !== 'undefined' ? MARKET_DATA : { daily: [], sector: [], lastUpdate: '--' };
-const daily = data.daily || [];
-const sector = data.sector || [];
-
-function n(v) { return v == null ? '--' : v; }
-function fmt(v) { return v == null ? '--' : Number(v).toLocaleString(); }
-function pc(v) { if (!v) return '--'; const s = String(v); return s; }
-function pctCls(v) { if (!v) return ''; return String(v).startsWith('-') ? 'down' : 'up'; }
-function sCls(s) { return s==='高潮'?'s-gaochao':s==='发酵'?'s-fajiao':s==='回暖'?'s-huinnuan':'s-fenqi'; }
-
-const last = daily.length > 0 ? daily[daily.length - 1] : null;
-const prev = daily.length > 1 ? daily[daily.length - 2] : null;
-const latestS = sector.length > 0 ? sector[0] : null;
-const today = new Date();
-document.getElementById('navDate').textContent = today.getFullYear()+'年'+(today.getMonth()+1)+'月'+today.getDate()+'日';
-document.getElementById('footerUpd').textContent = data.lastUpdate || '--';
-
-// 第1行：市场宽度
-document.getElementById('breadthBar').innerHTML = last ? `
-  <div class="metric-box"><div class="lbl">上涨家数</div><div class="val up">${n(last.upCount)}</div><div class="sub down">下跌 ${n(last.downCount)}</div></div>
-  <div class="metric-box"><div class="lbl">涨停 / 跌停</div><div class="val up">${n(last.limitUp)}</div><div class="sub down">跌停 ${n(last.limitDown)}</div></div>
-  <div class="metric-box"><div class="lbl">赚钱效应</div><div class="val ${pctCls(last.upPct)}">${pc(last.upPct)}%</div><div class="sub">赚钱家数占比</div></div>
-  <div class="metric-box"><div class="lbl">情绪周期</div><div class="val" style="font-size:16px;">${latestS ? '<span class="sentiment-tag '+sCls(latestS.sentiment)+'">'+latestS.sentiment+'</span>' : '--'}</div><div class="sub">${latestS ? '仓位建议: '+n(latestS.positionSuggestion) : '--'}</div></div>
-` : '<div class="pending">暂无数据</div>';
-
-// 第2行：指数
-document.getElementById('indexGrid').innerHTML = last ? [
-  {l:'上证指数',p:last.szClose,c:last.szChange},{l:'深证成指',p:last.scClose,c:last.scChange},
-  {l:'创业板指',p:last.cyClose,c:last.cyChange},{l:'科创50',p:last.kcClose,c:last.kcChange},
-  {l:'北证50',p:last.bsClose,c:last.bsChange}
-].map(i => `<div class="index-big"><div class="label">${i.l}</div><div class="price">${fmt(i.p)}</div><div class="chg ${pctCls(i.c)}"><span class="arrow">${i.c && String(i.c).startsWith('-')?'▼':'▲'}</span>${pc(i.c)}</div></div>`).join('') : '';
-
-// 第3行：成交+北向+两融
-const volDiff = last && prev && last.totalVolume && prev.totalVolume ? last.totalVolume - prev.totalVolume : null;
-const volStr = volDiff !== null ? (volDiff > 0 ? '放量 +' : '缩量 ') + Math.abs(volDiff).toFixed(2)+'万亿' : '--';
-const volUp = volDiff > 0;
-document.getElementById('flowBar').innerHTML = `
-  <div class="flow-item"><span class="lbl">两市成交</span><span class="val">${n(last?.totalVolume)}万亿</span><span class="lbl ${volUp?'up':'down'}">${volStr}</span></div>
-  <div class="flow-item"><span class="lbl">北向资金</span><span class="val pending" style="font-size:13px;">待通达信接入</span><span class="lbl">外资风向标</span></div>
-  <div class="flow-item"><span class="lbl">两融余额</span><span class="val pending" style="font-size:13px;">待通达信接入</span><span class="lbl">杠杆资金</span></div>
-`;
-
-// 第4行左：图表
-if (daily.length > 3) {
-  const ctx = document.getElementById('mainChart').getContext('2d');
-  const labels = daily.map(d => d.date.slice(5));
-  new Chart(ctx, {
-    type: 'mixed',
-    data: {
-      labels,
-      datasets: [
-        { type:'line', label:'上证指数', data:daily.map(d=>d.szClose), borderColor:'#2563eb',
-          backgroundColor:'rgba(37,99,235,0.06)', fill:true, tension:0.3,
-          pointRadius:1.5, pointHoverRadius:5, yAxisID:'y', borderWidth:2 },
-        { type:'bar', label:'成交量(千亿)', data:daily.map(d=>d.szVolume ? d.szVolume/1000 : 0),
-          backgroundColor:'rgba(59,130,246,0.2)', borderColor:'rgba(59,130,246,0.4)',
-          borderRadius:2, yAxisID:'y1', order:2 }
-      ]
-    },
-    options: {
-      responsive:true, maintainAspectRatio:false,
-      interaction:{mode:'index',intersect:false},
-      plugins:{legend:{display:true,position:'top',labels:{usePointStyle:true,boxWidth:8,font:{size:11}}}},
-      scales:{
-        x:{grid:{display:false},ticks:{font:{size:10},maxTicksLimit:10}},
-        y:{position:'left',grid:{color:'rgba(0,0,0,0.04)'},ticks:{font:{size:10}}},
-        y1:{position:'right',grid:{display:false},ticks:{font:{size:10},callback:v=>(v*1000).toFixed(0)+'亿'}}
-      }
-    }
-  });
-} else { document.querySelector('.chart-wrap').innerHTML = '<p class="pending">数据不足</p>'; }
-
-// 第4行右：情绪面板
-if (latestS) {
-  const lastD = daily.length > 0 ? daily[daily.length-1] : null;
-  document.getElementById('sentimentDate').textContent = latestS.date;
-  document.getElementById('sentimentGrid').innerHTML =
-    `<div class="sent-item"><div class="lbl">情绪周期</div><div class="val"><span class="sentiment-tag ${sCls(latestS.sentiment)}">${latestS.sentiment}</span></div></div>
-     <div class="sent-item"><div class="lbl">最高连板</div><div class="val" style="color:#2563eb;">${latestS.maxBoard || '-'} 板</div></div>
-     <div class="sent-item"><div class="lbl">涨停板块</div><div class="val" style="font-size:13px;">${latestS.topSector || '--'}</div><div class="sub">${latestS.topSectorCount ? '涨停 '+latestS.topSectorCount+' 家' : ''}</div></div>
-     <div class="sent-item"><div class="lbl">赚钱效应</div><div class="val" style="font-size:14px;">${latestS.profitEffect || (lastD?.upPct ? lastD.upPct+'%' : '--')}</div><div class="sub">龙头: ${latestS.leaderStock || '--'}</div></div>`;
-  document.getElementById('notesBox').innerHTML = latestS.notes ? `<div class="lbl" style="font-size:11px;color:#6b7280;">盘感笔记</div><div style="font-size:12px;color:#374151;line-height:1.5;">${latestS.notes}</div>` : '';
-}
-
-// 第5行：数据表
-const last15 = daily.slice(-15).reverse();
-document.getElementById('dailyTable').innerHTML = last15.length ? `
-<table class="data-tbl"><thead><tr><th>日期</th><th>上证</th><th>涨跌</th><th>成交(亿)</th><th>深证</th><th>创业板</th><th>涨停</th><th>跌停</th><th>赚钱%</th></tr></thead>
-<tbody>${last15.map(d => `<tr><td style="font-weight:600;">${d.date.slice(5)}</td><td>${n(d.szClose)}</td><td class="${pctCls(d.szChange)}">${pc(d.szChange)}</td><td>${fmt(d.szVolume)}</td><td>${fmt(d.scClose)}</td><td>${fmt(d.cyClose)}</td><td class="up">${n(d.limitUp)}</td><td class="down">${n(d.limitDown)}</td><td>${pc(d.upPct)}</td></tr>`).join('')}</tbody></table>` : '<p class="pending">暂无</p>';
-
-const top20 = sector.slice(0,20);
-document.getElementById('sectorTable').innerHTML = top20.length ? `
-<table class="data-tbl"><thead><tr><th>日期</th><th>涨跌</th><th>成交(亿)</th><th>连板</th><th>领涨板块</th><th>情绪</th><th>仓位</th></tr></thead>
-<tbody>${top20.map(s => `<tr><td style="font-weight:600;">${s.date.slice(5)}</td><td class="${pctCls(s.szChange)}">${pc(s.szChange)}</td><td>${fmt(s.totalVolume)}</td><td style="font-weight:600;color:#2563eb;">${s.maxBoard||'-'}板</td><td>${s.topSector||'--'}</td><td><span class="sentiment-tag ${sCls(s.sentiment)}">${s.sentiment||'--'}</span></td><td>${s.positionSuggestion||'--'}</td></tr>`).join('')}</tbody></table>` : '<p class="pending">暂无</p>';
-</script>
+    <!-- 页脚 -->
+    <footer class="modern-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>A股职业交易复盘系统</h4>
+                <p>Professional Trading Review System · 数据驱动交易决策</p>
+                <p style="margin-top: 0.5rem;">数据来源：东方财富、同花顺、证券时报、财联社</p>
+            </div>
+            <div class="footer-section">
+                <h4>快速导航</h4>
+                <ul class="footer-links">
+                    <li><a href="dashboard.html">汇总面板</a></li>
+                    <li><a href="professional_review.html">专业复盘</a></li>
+                    <li><a href="daily/2026-05-28.html">最新日复盘</a></li>
+                    <li><a href="weekly/2026-week21.html">本周周复盘</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>风险提示</h4>
+                <p>本系统仅作分析参考，不构成投资建议。市场有风险，投资需谨慎。所有数据均来源于公开渠道，仅供参考学习使用。</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 A股职业交易复盘系统 · All Rights Reserved · MIT License</p>
+        </div>
+    </footer>
 </body>
 </html>
