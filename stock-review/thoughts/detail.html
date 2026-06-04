@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>心得详情 - A股复盘</title>
+<link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="navbar-inner">
+    <a href="/" class="nav-logo"><span class="logo-icon">&#9650;</span>A股复盘</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="/">首页</a></li>
+      <li><a href="/daily/">日复盘</a></li>
+      <li><a href="/weekly/">周复盘</a></li>
+      <li><a href="/thoughts/" class="active">交易心得</a></li>
+      <li><a href="/chat/">交流区</a></li>
+    </ul>
+    <div class="nav-user" id="navUser"></div>
+  </div>
+</nav>
+
+<div class="main-container">
+  <a href="/thoughts/" style="display:inline-block;margin-bottom:16px;color:var(--text-secondary);">&larr; 返回列表</a>
+  <div class="article-detail" id="articleDetail">
+    <div class="empty-state"><div class="empty-text">加载中...</div></div>
+  </div>
+</div>
+
+<script src="/js/auth.js"></script>
+<script src="/js/api.js"></script>
+<script src="/js/ui.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  if (!Auth.requireLogin()) return;
+  updateNav();
+  loadDetail();
+});
+
+function updateNav() {
+  const navUser = document.getElementById('navUser');
+  const user = Auth.getUser();
+  let html = '<span class="username">' + escapeHtml(user.username) + '</span>';
+  if (user.role === 'admin') html += '<span class="badge-admin">管理员</span>';
+  html += '<a href="javascript:Auth.logout()" class="btn btn-sm">退出</a>';
+  navUser.innerHTML = html;
+}
+
+async function loadDetail() {
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get('id');
+  if (!id) {
+    document.getElementById('articleDetail').innerHTML = '<div class="empty-state"><div class="empty-text">缺少文章ID</div></div>';
+    return;
+  }
+
+  try {
+    const resp = await api.get('/api/thoughts/detail?id=' + encodeURIComponent(id));
+    const container = document.getElementById('articleDetail');
+
+    if (resp.code !== 0 || !resp.data) {
+      container.innerHTML = '<div class="empty-state"><div class="empty-text">未找到该心得</div></div>';
+      return;
+    }
+
+    document.title = resp.data.title + ' - 交易心得 - A股复盘';
+    container.innerHTML =
+      '<h2>' + escapeHtml(resp.data.title || '无标题') + '</h2>' +
+      '<div class="article-meta">发布于 ' + escapeHtml(resp.data.date || '') + '</div>' +
+      '<div class="article-content">' + escapeHtml(resp.data.content || '暂无内容') + '</div>';
+  } catch (e) {
+    document.getElementById('articleDetail').innerHTML = '<div class="empty-state"><div class="empty-text">加载失败，请稍后重试</div></div>';
+  }
+}
+
+function escapeHtml(str) {
+  if (!str) return '';
+  const div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
+</script>
+</body>
+</html>

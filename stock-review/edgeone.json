@@ -1,0 +1,10 @@
+{
+  "functions": {
+    "routes": [
+      { "pattern": "/api/*", "function": "middleware" }
+    ]
+  },
+  "kv": {
+    "namespace": "STOCK_REVIEW_KV"
+  }
+}

@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>登录 - A股复盘</title>
+<link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+
+<div class="auth-page">
+  <div class="auth-card">
+    <div class="auth-title">A股复盘</div>
+    <div class="auth-subtitle">记录交易，分享心得</div>
+
+    <!-- Tab 切换 -->
+    <div class="auth-tabs">
+      <div class="auth-tab active" data-tab="login">登录</div>
+      <div class="auth-tab" data-tab="register">注册</div>
+      <div class="auth-tab" data-tab="forgot">找回密码</div>
+    </div>
+
+    <!-- 登录表单 -->
+    <form id="formLogin" class="auth-form">
+      <div class="form-group">
+        <label>用户名</label>
+        <input type="text" id="loginUser" placeholder="请输入用户名" required>
+      </div>
+      <div class="form-group">
+        <label>密码</label>
+        <input type="password" id="loginPass" placeholder="请输入密码" required>
+      </div>
+      <div class="form-error" id="loginError"></div>
+      <button type="submit" class="btn btn-primary" style="width:100%;margin-top:8px;">登录</button>
+    </form>
+
+    <!-- 注册表单 -->
+    <form id="formRegister" class="auth-form hidden">
+      <div class="form-group">
+        <label>用户名</label>
+        <input type="text" id="regUser" placeholder="4-20位字母数字或中文" required minlength="4" maxlength="20">
+      </div>
+      <div class="form-group">
+        <label>密码</label>
+        <input type="password" id="regPass" placeholder="至少6位" required minlength="6">
+      </div>
+      <div class="form-group">
+        <label>确认密码</label>
+        <input type="password" id="regPass2" placeholder="再次输入密码" required>
+      </div>
+      <div class="form-group">
+        <label>密保问题</label>
+        <input type="text" id="regQuestion" placeholder="例如：我的第一只股票是？" required>
+      </div>
+      <div class="form-group">
+        <label>密保答案</label>
+        <input type="text" id="regAnswer" placeholder="请输入密保答案" required>
+      </div>
+      <div class="form-error" id="regError"></div>
+      <button type="submit" class="btn btn-primary" style="width:100%;margin-top:8px;">注册</button>
+    </form>
+
+    <!-- 找回密码表单 -->
+    <form id="formForgot" class="auth-form hidden">
+      <div id="forgotStep1">
+        <div class="form-group">
+          <label>用户名</label>
+          <input type="text" id="forgotUser" placeholder="请输入用户名" required>
+        </div>
+        <div class="form-error" id="forgotError"></div>
+        <button type="button" id="btnGetQuestion" class="btn btn-primary" style="width:100%;margin-top:8px;">获取密保问题</button>
+      </div>
+      <div id="forgotStep2" class="hidden">
+        <div class="form-group">
+          <label>密保问题</label>
+          <p style="color:var(--color-accent);padding:8px 0;" id="displayQuestion"></p>
+        </div>
+        <div class="form-group">
+          <label>密保答案</label>
+          <input type="text" id="forgotAnswer" placeholder="请输入密保答案" required>
+        </div>
+        <div class="form-group">
+          <label>新密码</label>
+          <input type="password" id="forgotNewPass" placeholder="至少6位" required minlength="6">
+        </div>
+        <div class="form-error" id="forgotError2"></div>
+        <button type="submit" class="btn btn-primary" style="width:100%;margin-top:8px;">重置密码</button>
+        <button type="button" id="btnBackForgot" class="btn" style="width:100%;margin-top:8px;">返回上一步</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="/js/auth.js"></script>
+<script src="/js/api.js"></script>
+<script src="/js/ui.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  if (Auth.isLoggedIn()) {
+    goRedirect();
+    return;
+  }
+  initTabs();
+  initLogin();
+  initRegister();
+  initForgot();
+});
+
+function goRedirect() {
+  const params = new URLSearchParams(window.location.search);
+  const redirect = params.get('redirect');
+  window.location.href = redirect ? decodeURIComponent(redirect) : '/';
+}
+
+// Tab 切换
+function initTabs() {
+  const tabs = document.querySelectorAll('.auth-tab');
+  const forms = { login: 'formLogin', register: 'formRegister', forgot: 'formForgot' };
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      const target = tab.dataset.tab;
+      Object.values(forms).forEach(id => document.getElementById(id).classList.add('hidden'));
+      document.getElementById(forms[target]).classList.remove('hidden');
+    });
+  });
+}
+
+// 登录
+function initLogin() {
+  document.getElementById('formLogin').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const username = document.getElementById('loginUser').value.trim();
+    const password = document.getElementById('loginPass').value;
+    const errEl = document.getElementById('loginError');
+    errEl.classList.remove('show');
+
+    if (!username || !password) {
+      errEl.textContent = '请填写用户名和密码';
+      errEl.classList.add('show');
+      return;
+    }
+
+    try {
+      const resp = await api.post('/api/auth/login', { username, password });
+      if (resp.code === 0) {
+        Auth.setToken(resp.data.token);
+        showToast('登录成功', 'success');
+        setTimeout(goRedirect, 500);
+      } else {
+        errEl.textContent = resp.msg || '登录失败';
+        errEl.classList.add('show');
+      }
+    } catch (err) {
+      errEl.textContent = '网络错误，请稍后重试';
+      errEl.classList.add('show');
+    }
+  });
+}
+
+// 注册
+function initRegister() {
+  document.getElementById('formRegister').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const username = document.getElementById('regUser').value.trim();
+    const password = document.getElementById('regPass').value;
+    const password2 = document.getElementById('regPass2').value;
+    const question = document.getElementById('regQuestion').value.trim();
+    const answer = document.getElementById('regAnswer').value.trim();
+    const errEl = document.getElementById('regError');
+    errEl.classList.remove('show');
+
+    if (password !== password2) {
+      errEl.textContent = '两次密码不一致';
+      errEl.classList.add('show');
+      return;
+    }
+    if (!question || !answer) {
+      errEl.textContent = '请填写密保问题和答案';
+      errEl.classList.add('show');
+      return;
+    }
+
+    try {
+      const resp = await api.post('/api/auth/register', { username, password, question, answer });
+      if (resp.code === 0) {
+        showToast('注册成功，请登录', 'success');
+        document.querySelector('[data-tab="login"]').click();
+        document.getElementById('loginUser').value = username;
+        document.getElementById('regUser').value = '';
+        document.getElementById('regPass').value = '';
+        document.getElementById('regPass2').value = '';
+        document.getElementById('regQuestion').value = '';
+        document.getElementById('regAnswer').value = '';
+      } else {
+        errEl.textContent = resp.msg || '注册失败';
+        errEl.classList.add('show');
+      }
+    } catch (err) {
+      errEl.textContent = '网络错误，请稍后重试';
+      errEl.classList.add('show');
+    }
+  });
+}
+
+// 找回密码
+function initForgot() {
+  document.getElementById('btnGetQuestion').addEventListener('click', async () => {
+    const username = document.getElementById('forgotUser').value.trim();
+    const errEl = document.getElementById('forgotError');
+    errEl.classList.remove('show');
+
+    if (!username) {
+      errEl.textContent = '请输入用户名';
+      errEl.classList.add('show');
+      return;
+    }
+
+    try {
+      const resp = await api.post('/api/auth/forgot-question', { username });
+      if (resp.code === 0) {
+        document.getElementById('displayQuestion').textContent = resp.data.question;
+        document.getElementById('forgotStep1').classList.add('hidden');
+        document.getElementById('forgotStep2').classList.remove('hidden');
+      } else {
+        errEl.textContent = resp.msg || '用户不存在';
+        errEl.classList.add('show');
+      }
+    } catch (err) {
+      errEl.textContent = '网络错误';
+      errEl.classList.add('show');
+    }
+  });
+
+  document.getElementById('btnBackForgot').addEventListener('click', () => {
+    document.getElementById('forgotStep2').classList.add('hidden');
+    document.getElementById('forgotStep1').classList.remove('hidden');
+  });
+
+  document.getElementById('formForgot').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const username = document.getElementById('forgotUser').value.trim();
+    const answer = document.getElementById('forgotAnswer').value.trim();
+    const newPass = document.getElementById('forgotNewPass').value;
+    const errEl = document.getElementById('forgotError2');
+    errEl.classList.remove('show');
+
+    try {
+      const resp = await api.post('/api/auth/forgot-reset', { username, answer, new_password: newPass });
+      if (resp.code === 0) {
+        showToast('密码重置成功，请登录', 'success');
+        document.querySelector('[data-tab="login"]').click();
+        document.getElementById('loginUser').value = username;
+        document.getElementById('forgotStep2').classList.add('hidden');
+        document.getElementById('forgotStep1').classList.remove('hidden');
+        document.getElementById('forgotUser').value = '';
+        document.getElementById('forgotAnswer').value = '';
+        document.getElementById('forgotNewPass').value = '';
+      } else {
+        errEl.textContent = resp.msg || '重置失败';
+        errEl.classList.add('show');
+      }
+    } catch (err) {
+      errEl.textContent = '网络错误';
+      errEl.classList.add('show');
+    }
+  });
+}
+</script>
+</body>
+</html>
