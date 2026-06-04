@@ -1,6 +1,14 @@
 /**
- * 登录接口 - 返回 JWT (7天有效)
+ * 登录接口 - 支持 KV 和硬编码管理员降级
  */
+const ADMIN = {
+  username: 'admin',
+  password: '240d42052fdf5a9a32cb93fbfe860e3b56b3c7e7d7c0fd16189b6d0e5528ff83', // sha256('admin123')
+  role: 'admin',
+  question: '你的昵称是？',
+  answer: 'admin'
+};
+
 export default async function(context) {
   const { request, env } = context;
 
@@ -18,38 +26,47 @@ export default async function(context) {
     return json({ code: 400, msg: '请输入用户名和密码' });
   }
 
-  const kv = env.STOCK_REVIEW_KV;
-  const userRaw = await kv.get('user:' + username);
-  if (!userRaw) {
+  let user = null;
+
+  // 尝试从 KV 获取
+  try {
+    const kv = env.STOCK_REVIEW_KV;
+    if (kv) {
+      const userRaw = await kv.get('user:' + username);
+      if (userRaw) {
+        user = JSON.parse(userRaw);
+      }
+    }
+  } catch(e) { /* KV not available */ }
+
+  // KV 无数据时使用硬编码管理员
+  if (!user && username === ADMIN.username) {
+    user = ADMIN;
+  }
+
+  if (!user) {
     return json({ code: 400, msg: '用户名或密码错误' });
   }
 
-  const user = JSON.parse(userRaw);
   const pwHash = await sha256(password);
-
   if (pwHash !== user.password) {
     return json({ code: 400, msg: '用户名或密码错误' });
   }
 
-  // 签发 JWT
   const secret = env.JWT_SECRET || 'default-secret-change-me';
   const now = Math.floor(Date.now() / 1000);
   const payload = {
     username: user.username,
     role: user.role,
     iat: now,
-    exp: now + 7 * 24 * 3600 // 7天
+    exp: now + 7 * 24 * 3600
   };
 
   const token = await signJWT(payload, secret);
 
   return json({
     code: 0,
-    data: {
-      token,
-      username: user.username,
-      role: user.role
-    },
+    data: { token, username: user.username, role: user.role },
     msg: '登录成功'
   });
 }
@@ -69,39 +86,20 @@ async function signJWT(payload, secret) {
   const headerB64 = base64UrlEncode(JSON.stringify(header));
   const payloadB64 = base64UrlEncode(JSON.stringify(payload));
   const headerPayload = headerB64 + '.' + payloadB64;
-
-  const key = await crypto.subtle.importKey(
-    'raw',
-    encoder.encode(secret),
-    { name: 'HMAC', hash: 'SHA-256' },
-    false,
-    ['sign']
-  );
-
-  const signature = await crypto.subtle.sign(
-    'HMAC',
-    key,
-    encoder.encode(headerPayload)
-  );
-
+  const key = await crypto.subtle.importKey('raw', encoder.encode(secret), { name: 'HMAC', hash: 'SHA-256' }, false, ['sign']);
+  const signature = await crypto.subtle.sign('HMAC', key, encoder.encode(headerPayload));
   const sigB64 = base64UrlEncodeRaw(new Uint8Array(signature));
   return headerPayload + '.' + sigB64;
 }
 
 function base64UrlEncode(str) {
-  return btoa(unescape(encodeURIComponent(str)))
-    .replace(/\+/g, '-')
-    .replace(/\//g, '_')
-    .replace(/=+$/, '');
+  return btoa(unescape(encodeURIComponent(str))).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
 }
 
 function base64UrlEncodeRaw(bytes) {
   let binary = '';
   bytes.forEach(b => binary += String.fromCharCode(b));
-  return btoa(binary)
-    .replace(/\+/g, '-')
-    .replace(/\//g, '_')
-    .replace(/=+$/, '');
+  return btoa(binary).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
 }
 
 function json(data, status) {

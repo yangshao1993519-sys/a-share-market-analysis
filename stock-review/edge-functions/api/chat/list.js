@@ -1,45 +1,41 @@
 /**
- * 留言列表 - 时间倒序，分页
+ * 留言列表（支持无 KV 降级）
  */
+const DEMO_POSTS = [
+  { id: '1', username: 'admin', content: '欢迎来到Stock Review复盘交流区！这里是大家交流交易心得的地方。', time: '2026-06-03 21:00' },
+  { id: '2', username: 'admin', content: '今日市场三连阳修复，光通信板块爆发。大家怎么看后续走势？', time: '2026-06-03 21:05' }
+];
+
 export default async function(context) {
   const { request, env } = context;
   const url = new URL(request.url);
   const page = parseInt(url.searchParams.get('page') || '1');
-  const pageSize = parseInt(url.searchParams.get('page_size') || '20');
+  const pageSize = 20;
+  let allPosts = [];
 
-  const kv = env.STOCK_REVIEW_KV;
-
-  const allKeys = await kv.list({ prefix: 'chat:' });
-
-  let items = [];
-  if (allKeys && allKeys.keys) {
-    for (const k of allKeys.keys) {
-      const raw = await kv.get(k.name);
-      if (raw) {
-        try {
-          const item = JSON.parse(raw);
-          items.push({
-            id: item.id || k.name.replace('chat:', ''),
-            username: item.username || '匿名',
-            content: item.content || '',
-            time: item.time || ''
-          });
-        } catch (e) {}
+  try {
+    const kv = env.STOCK_REVIEW_KV;
+    if (kv) {
+      const keys = await kv.list({ prefix: 'chat:' });
+      if (keys && keys.keys) {
+        for (const k of keys.keys) {
+          const raw = await kv.get(k.name);
+          if (raw) allPosts.push(JSON.parse(raw));
+        }
       }
     }
+  } catch(e) { /* KV not available */ }
+
+  if (allPosts.length === 0) {
+    allPosts = DEMO_POSTS;
   }
 
-  // 时间倒序（按 id 倒序，因为 id 是时间戳）
-  items.sort((a, b) => String(b.id).localeCompare(String(a.id)));
-
-  const total = items.length;
+  allPosts.sort((a, b) => b.time.localeCompare(a.time));
+  const total = allPosts.length;
   const start = (page - 1) * pageSize;
-  const paged = items.slice(start, start + pageSize);
+  const list = allPosts.slice(start, start + pageSize);
 
-  return json({
-    code: 0,
-    data: { list: paged, total, page, page_size: pageSize }
-  });
+  return json({ code: 0, data: { list, total, page, pageSize, hasMore: start + pageSize < total } });
 }
 
 function json(data, status) {
